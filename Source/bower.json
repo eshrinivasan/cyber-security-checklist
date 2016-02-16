@@ -1,0 +1,29 @@
+{
+  "name": "CyberSecurityApplication",
+  "description": "Cyber Security Application for FINRA",
+  "version": "0.0.1",
+  "homepage": "http://www.finra.org",
+  "dependencies": {
+    "angular": "~1.4.0",
+    "angular-animate": "~1.4.7",
+    "angular-bootstrap": "~0.14.2",
+    "angular-mocks": "~1.4.0",
+    "angular-rt-popup": "~1.0.6",
+    "angular-sanitize": "~1.4.7",
+    "angular-touch": "~1.4.8",
+    "angular-ui": "~0.4.0",
+    "angular-ui-router": "ui-router#~0.2.15",
+    "angulartics": "~0.20.1",
+    "angulartics-google-analytics": "~0.1.1",
+    "html5-boilerplate": "~5.2.0",
+    "quantumui": "~1.0.0",
+    "ui-bootstrap": "~0.14.3"
+  },
+  "devDependencies": {
+    "ui-router-extras": "~0.1.0"
+  },
+  "resolutions": {
+    "angular": "~1.4.0",
+    "angular-animate": "^1.4.8"
+  }
+}

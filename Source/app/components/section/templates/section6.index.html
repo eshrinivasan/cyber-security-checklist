@@ -1,0 +1,53 @@
+<div class="container">
+<div class="row">   
+<div class="col-md-12">
+<div class="box boxeffect7">
+   <div ng-multistepsindicator total="total" class="clearfix multistepcontainer"></div>
+
+  <table class="table table-bordered">   
+    <h2>Section 6 – Protect: Encryption </h2>
+    <thead>
+        <tr>
+            <th>PII or Firm Sensitive Data</th>
+            <th>Location </th>
+            <th>Risk Severity Level</th>
+            <th>Is it Encrypted  in Transit to External Sources (e.g., email  to non-firm addresses) (Y/N)</th>
+            <th>Is it Encrypted when Shared Internally and at Rest within the System? (Y/N)</th>
+            <th>Is it Encrypted when Archived to Backup Media (e.g., tapes)? (Y/N)</th>
+            <th>Has it been Masked when Displayed? (Y/N)</th>
+            <th>Remediate</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><input type="text" class="textbox-underline"/></td>
+            <td><input type="text" class="textbox-underline"/></td>
+            <td><input type="text" class="textbox-underline"/></td>
+            <td><input type="text" class="textbox-underline"/></td>
+            <td><input type="text" class="textbox-underline"/></td>
+            <td><input type="text" class="textbox-underline"/></td>
+            <td><input type="text" class="textbox-underline"/></td>
+            <td><input type="text" class="textbox-underline"/></td>
+        </tr> 
+        <tr>
+    		<td colspan="8">
+    			Have you taken steps to encrypt the data?
+    			<ul>			
+    			<li>Encrypted in transit to external sources – Data can be a shared in many ways including an email to someone external to the firm, over the internet, and between client and a server, between two servers, between two networks etc. </li>
+    			<li>Internal use – Data is stored in many places within an organization, including on file servers, on workstations and on portable media such as thumb drives. Data is also shared internally via email between two employees, for example.</li>
+    			<li>Encrypted at backup – Data is often stored in a non-network or non-system media which can be lost or stolen.</li>
+                <li>Has it been masked when displayed – Data such as social security numbers can be masked whenever displayed to a person accessing that data.
+                </li>
+                <li>Remediate – After identifying where data is encrypted and where it is not, you should consider the risk severity level and its resources, and decide what remediation steps to take, if any, including encrypting all outgoing emails or all emails, encrypting all PII and firm sensitive information at rest or in storage, or masking the data when it is displayed.
+                </li>                     
+    			</ul>
+    		</td>
+        </tr>
+    </tbody>
+	</table>
+    <div ng-pagination></div>
+
+  </div>
+ </div>
+</div>
+</div>

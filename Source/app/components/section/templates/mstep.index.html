@@ -1,0 +1,5 @@
+<nav>
+<ol class="cd-multi-steps text-bottom count">
+	<li ng-repeat="step in total" ng-class="{current: sectionNumber == step, visited: sectionNumber < step}"><span data-step="{{step}}"></span></li>
+</ol>
+</nav>

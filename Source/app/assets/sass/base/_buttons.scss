@@ -1,0 +1,26 @@
+/*
+ * Buttons
+ * --------------------------------------------------
+ * Mobile first
+ */
+
+.btn-color{
+	background:$btn-color;
+	color:$white;
+}
+
+.info-spacing{
+	padding:10px;
+}
+
+.btn-default.active, .btn-default:active{
+	background-color:$btn-yes;
+}
+
+.btn-default.inactive{
+	background-color:$btn-no;
+}
+
+.btn:hover{
+
+}
