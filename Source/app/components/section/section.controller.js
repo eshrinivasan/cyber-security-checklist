@@ -1,29 +1,27 @@
 (function() {
 	angular.module("cyberapp.section")
 			.controller("SectionController", SectionController)
-			.directive('ngMultistepsindicator', ['pagerservice', '$state', function(pagerservice, $state){
+			.directive('ngMultistepsindicator', ['dataservice', '$state', function(dataservice, $state){
 				return{
 					restrict: 'EA',	    
 					templateUrl: 'components/section/templates/mstep.index.html'
 				}
 			}])
-			.directive('ngPagination', ['pagerservice', '$state', function(pagerservice, $state) {
+			.directive('ngPagination', ['dataservice', '$state', function(dataservice, $state) {
 				  return {
 				    restrict: 'EA',
 				    templateUrl: 'components/section/templates/pager.index.html'
 				  }
 			}]);
 
-		SectionController.$inject = ['$scope', '$state' , '$rootScope', 'datafactory', 'pagerservice'];
+		SectionController.$inject = ['$scope', '$state' , '$rootScope', 'datafactory', 'dataservice'];
 
-		function SectionController($scope, $state, $rootScope, datafactory, pagerservice){
+		function SectionController($scope, $state, $rootScope, datafactory, dataservice){
 			var sectionCtrl = this;
-			$scope.currentState = $state.current.name;
-			console.log($scope.currentState);
+			$scope.currentState = $state.current.name;			
 			$scope.sectionNumber = $scope.currentState.match(/\d+$/)[0];//filter out non numberic characters ie "section"
-			$scope.total = pagerservice.getSections();
+			$scope.total = dataservice.getSections();
 			$scope.firm = datafactory.firm;
-
 
 			$scope.prevPage = function(){
 				var currindex = $scope.getIndex();
