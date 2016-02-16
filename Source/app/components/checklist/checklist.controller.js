@@ -19,12 +19,12 @@
 		$scope.firm = datafactory.firm;
 		//console.log($scope.firm);
 
-		$scope.addInfo = function($index, question){
+		$scope.addInfo = function($index){
 			this.SectiontoComplete = $scope.questions[$index].section;			
 			this.showText = true;
 		}
 
-		$scope.removeInfo = function($index, question){			
+		$scope.removeInfo = function($index){			
 			this.showText = false;
 		}
 

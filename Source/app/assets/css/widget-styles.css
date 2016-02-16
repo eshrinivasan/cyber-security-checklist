@@ -234,7 +234,7 @@ Multi steps indicator
     margin: 0; }
 
   .cd-multi-steps li.visited::after {
-    background-color: #96c03d; }
+    background-color: #000; }
 
   .cd-multi-steps li > *, .cd-multi-steps li.current > * {
     position: relative;
@@ -264,7 +264,8 @@ Multi steps indicator
   .no-touch .cd-multi-steps.text-center a:hover {
     background-color: #2c3f4c; }
 
-  .cd-multi-steps.text-center li.current > *, .cd-multi-steps.text-center li.visited > * {
+  .cd-multi-steps.text-center li.current > * {
+    /*, .cd-multi-steps.text-center li.visited > * */
     color: #ffffff;
     background-color: #96c03d; }
 
@@ -301,7 +302,9 @@ Multi steps indicator
     background-color: #b71427; }
 
   .cd-multi-steps.text-top li.visited > *::before,
-  .cd-multi-steps.text-top li.current > *::before, .cd-multi-steps.text-bottom li.visited > *::before,
+  .cd-multi-steps.text-top li.current > *::before, .cd-multi-steps.text-bottom li.visited > *::before {
+    background-color: #000; }
+
   .cd-multi-steps.text-bottom li.current > *::before {
     background-color: #96c03d; }
 
