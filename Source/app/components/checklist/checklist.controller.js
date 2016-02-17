@@ -2,9 +2,9 @@
 	angular.module("cyberapp.checklist")
 			.controller("ChecklistController", ChecklistController);
 
-	ChecklistController.$inject = ['$scope', '$state', 'datafactory', 'pagerservice'];
+	ChecklistController.$inject = ['$scope', '$state', 'datafactory', 'dataservice'];
 
-	function ChecklistController($scope, $state, datafactory, pagerservice){
+	function ChecklistController($scope, $state, datafactory, dataservice){
 		var checklistCtrl = this;
 		$scope.questions = datafactory.questions;
 		$scope.allanswers = [];
@@ -13,18 +13,18 @@
 		$scope.notAnsweredAll = true;
 		$scope.counter = 0;
 		$scope.section;
-		$scope.lastUpdated = "12/31/2015";	
+		$scope.lastUpdated = "02/16/2016";	
 		$scope.last = "12";
 
 		$scope.firm = datafactory.firm;
 		//console.log($scope.firm);
 
-		$scope.addInfo = function($index, question){
+		$scope.addInfo = function($index){
 			this.SectiontoComplete = $scope.questions[$index].section;			
 			this.showText = true;
 		}
 
-		$scope.removeInfo = function($index, question){			
+		$scope.removeInfo = function($index){			
 			this.showText = false;
 		}
 
@@ -47,7 +47,7 @@
 	  		var idx = $scope.sectionArray.toString();
 	  		if($scope.total.indexOf(idx) === -1)//Insert section only if it is not there already
 	  			$scope.total = $scope.total.concat($scope.sectionArray);	  		
-			pagerservice.setSection($scope.total);
+			dataservice.setSection($scope.total);
 			//console.log($scope.total);
 	  	}
 
@@ -74,9 +74,13 @@
 
 	  	$scope.isAnswered = function(){
 	  		//Now the total is populated, lets start with the first section in the total array.
-	  		var sectiontoforward = "section"+$scope.total[0];	
-	  		console.log($scope.total);
-	  		$state.go(sectiontoforward);
+	  		if($scope.total.length){
+	  			var sectiontoforward = "section"+$scope.total[0];		  		
+	  			$state.go(sectiontoforward);	
+	  		}else{
+	  			$scope.answerAlltext = true;
+	  		}
+	  		
 	  	}
 	}
 })()

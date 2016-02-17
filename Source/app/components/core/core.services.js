@@ -1,10 +1,10 @@
 (function() {
     angular.module('cyberapp.core')
-    		.service('pagerservice', pagerservice);
+    		.service('dataservice', dataservice);
 
-    pagerservice.inject = ['$state', '$rootScope'];
+    dataservice.inject = ['$state', '$rootScope'];
 
-    function pagerservice($state, $rootScope){        
+    function dataservice($state, $rootScope){        
     	var service = {
     		getNextSection : getNextSection,
             getSections : getSections,
