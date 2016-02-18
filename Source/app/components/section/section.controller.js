@@ -1,18 +1,6 @@
 (function() {
 	angular.module("cyberapp.section")
-			.controller("SectionController", SectionController)
-			.directive('ngMultistepsindicator', ['dataservice', '$state', function(dataservice, $state){
-				return{
-					restrict: 'EA',	    
-					templateUrl: 'components/section/templates/mstep.index.html'
-				}
-			}])
-			.directive('ngPagination', ['dataservice', '$state', function(dataservice, $state) {
-				  return {
-				    restrict: 'EA',
-				    templateUrl: 'components/section/templates/pager.index.html'
-				  }
-			}]);
+			.controller("SectionController", SectionController);	
 
 		SectionController.$inject = ['$scope', '$state' , '$rootScope', 'datafactory', 'dataservice'];
 
@@ -22,6 +10,13 @@
 			$scope.sectionNumber = $scope.currentState.match(/\d+$/)[0];//filter out non numberic characters ie "section"
 			$scope.total = dataservice.getSections();
 			$scope.firm = datafactory.firm;
+
+			$scope.allsteps = [1,2,3,4,5,6,7,8,9,10,11];
+			$scope.rows = [{
+					"cell1": "first", 
+					"cell2": "second", 
+					"cell3": "third"
+			}]
 
 			$scope.prevPage = function(){
 				var currindex = $scope.getIndex();
@@ -53,6 +48,65 @@
 				var index = $scope.total.indexOf($scope.sectionNumber);
 				return index;
 			}
+
+			$scope.section1 = [{
+				"id":1, 
+				"Name": "Section 1 – Identify and Assess Risks: Inventory",
+				"Groups":[
+				 	 {"cell" : "PII or Firm Sensitive Data"}, 
+				 	 {"cell" : "Location (e.g., Network Drive, System Folder, email)"}, 
+				 	 {"cell" : "Risk Severity Level"}
+				 ],
+				"Rows":[],
+				"FootNotes":[
+				 	{"templateurl" : "components/section/templates/notes/section1.notes.html"}
+				 ]	
+			}]
+
+			$scope.addRows = function(){
+				$scope.rows.push(
+					{
+						"cell1": "", 
+						"cell2": "", 
+						"cell3": ""
+					}
+				);			
+			}
+
+			$scope.saveRows = function(){				
+				$scope.Rows.push($scope.rows);
+				$scope.section1.Rows = $scope.Rows;
+				console.log($scope.section1);
+			}
+			
+		    function flattenArray(array, fn) {		    		    	
+		        var output = [];
+		        for (var i = 0; i < array.length; ++i) {
+		            var result = fn(array[i]);
+		            if (result)
+		                output = output.concat(result);
+		        }
+		        return output;
+		    }
+		    
+		    $scope.lengthCount = function(obj) {
+		    	var k =0;
+    	     	for (var i = 0; i < obj.Groups.length; ++i) {
+			           k++;
+			     }
+			    return k;	
+		    }
+	    
+	        $scope.Groups = flattenArray($scope.section1, function (item) {
+	        	//console.log(item.Groups);
+	            return item.Groups;
+	        });
+
+	         $scope.Rows = flattenArray($scope.section1, function (item) {
+	         	//console.log(item.Rows);
+	            return item.Rows;
+	        });
+
 
 			$scope.section5 = {
 				'field1' : 'These',

@@ -21,13 +21,9 @@
     	var totalsArr = [];
 
         //public getter
-    	function getNextSection(){
-            //console.log('service'+_sectionArr);
+    	function getNextSection(){            
             var nextSection = "section"+_sectionArr.shift();
-    		/*if(getCurrentState == nextSection)
-                return;
-            else*/
-               return nextSection;                  
+    	    return nextSection;                  
     	}
 
         function getSections(){
@@ -60,6 +56,6 @@
 
     	function getCurrentState(){
     		return $scope.state.name;                   
-    	}	
+    	}
     }
 })()

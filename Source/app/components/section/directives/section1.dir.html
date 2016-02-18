@@ -1,0 +1,38 @@
+  <form name="Section1Form">
+  <table class="table table-bordered">  
+    <tr>
+        <td colspan="{{lengthCount(i)}}" ng-repeat="i in section1">
+            {{i.Name}}
+        </td>
+    </tr>    
+    <tr>
+        <td colspan="gr.cell.length" ng-repeat="gr in Groups">
+            {{gr.cell}}
+        </td>   
+    </tr>
+    <tr ng-repeat="rw in rows">
+        <td>
+           <input type="text" class="textbox-underline" ng-model="rw.cell1"/>
+        </td>
+        <td>
+            <input type="text" class="textbox-underline" ng-model="rw.cell2"/>
+        </td>
+        <td>
+            <input type="text" class="textbox-underline" ng-model="rw.cell3"/>
+        </td>
+    </tr>
+<!--     <tr ng-repeat="rw in rows">
+       <td> {{rw.cell1}} </td><td> {{rw.cell2}}</td><td> {{rw.cell3}}</td>
+    </tr> -->
+    <tr>
+        <button ng-click="addRows()">Add Rows</button>
+        <button ng-click="saveRows()">Save</button>
+    </tr>
+    <tr>
+    	<td colspan="{{lengthCount(fn)}}" ng-repeat="fn in section1">
+    		  <div ng-include="fn.FootNotes[0].templateurl"></div>
+    	</td>
+    </tr>
+    
+	</table>
+    </form>

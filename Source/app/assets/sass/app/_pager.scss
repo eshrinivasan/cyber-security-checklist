@@ -45,15 +45,15 @@ Multi steps indicator
     position: absolute;
     content: '';
     height: 4px;
-    background: #b71427;
+    background: $pager-inactive;
     /* reset style */
     margin: 0;
   }
   
   .cd-multi-steps li.visited::after {
-    background-color: #000;
+    background-color:  $pager-visited;
   }
-  
+
   .cd-multi-steps li > *, .cd-multi-steps li.current > * {
     position: relative;
     color: #2c3f4c;
@@ -62,7 +62,7 @@ Multi steps indicator
   .cd-multi-steps.custom-separator li::after {
     /* reset style */
     height: 4px;
-    background: #b71427;
+    background: $pager-active;
   }
 
   .cd-multi-steps.text-center li::after {
@@ -79,14 +79,19 @@ Multi steps indicator
     z-index: 1;
     padding: .6em 1em;
     border-radius: .25em;
-    background-color: #b71427;
+    background-color: $pager-active;
   }
   .no-touch .cd-multi-steps.text-center a:hover {
     background-color: #2c3f4c;
   }
-  .cd-multi-steps.text-center li.current > *{ /*, .cd-multi-steps.text-center li.visited > * */
+
+.cd-multi-steps.text-center li.visited > *{
     color: #ffffff;
-    background-color: #96c03d;
+    background-color: $pager-visited;
+}
+  .cd-multi-steps.text-center li.current > *{ 
+    color: #ffffff;
+    background-color: $pager-active;
   }
   .cd-multi-steps.text-center.custom-icons li.visited a::before {
     /* change the custom icon for the visited item - check icon */
@@ -119,20 +124,20 @@ Multi steps indicator
     height: 12px;
     width: 12px;
     border-radius: 50%;
-    background-color: #b71427;
+    background-color: $pager-inactive;
   }
 
 
  .cd-multi-steps.text-top li.visited > *::before,
   .cd-multi-steps.text-top li.current > *::before, .cd-multi-steps.text-bottom li.visited > *::before{
-    background-color:#000;
+    background-color: $pager-visited;
   }
 
   .cd-multi-steps.text-bottom li.current > *::before {
-    background-color: #96c03d;
+    background-color: $pager-active;
   }
   .no-touch .cd-multi-steps.text-top a:hover, .no-touch .cd-multi-steps.text-bottom a:hover {
-    color: #96c03d;
+    color: $pager-active;
   }
   .no-touch .cd-multi-steps.text-top a:hover::before, .no-touch .cd-multi-steps.text-bottom a:hover::before {
     box-shadow: 0 0 0 3px rgba(150, 192, 61, 0.3);

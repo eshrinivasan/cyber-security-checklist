@@ -13,11 +13,11 @@
 		$scope.notAnsweredAll = true;
 		$scope.counter = 0;
 		$scope.section;
-		$scope.lastUpdated = "02/16/2016";	
+		var date = new Date();
+		$scope.lastUpdated = (date.getMonth() + 1) + '/' + date.getDate() + '/' +  date.getFullYear();	
 		$scope.last = "12";
 
 		$scope.firm = datafactory.firm;
-		//console.log($scope.firm);
 
 		$scope.addInfo = function($index){
 			this.SectiontoComplete = $scope.questions[$index].section;			
