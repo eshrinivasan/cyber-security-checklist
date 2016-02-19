@@ -2,9 +2,26 @@
 <div class="row">   
 <div class="col-md-12">
 <div class="box boxeffect7">
-  <div ng-multistepsindicator total="total" class="clearfix multistepcontainer"></div>
+<div ng-multistepsindicator total="total" class="clearfix multistepcontainer"></div>
 
-  <table class="table table-bordered">
+<grid-screen resource="components/core/data.json">
+<grid-section-header title="Section 2 – Identify and Assess Risks: Minimize Use"></grid-section-header>
+<grid-columns>
+    <grid-column title="PII or Firm Sensitive Data" field="piidata"></grid-column>
+    <grid-column title="Location" field="location"></grid-column>
+    <grid-column title="Risk Severity Level" field="risklevel"></grid-column>
+    <grid-column title="Business Objective Can Be Met Without Data?" field="busobjnodata"></grid-column>
+    <grid-column title="Business Objective can be accomplished without data being output or shared with other internal systems or people? " field="busobjnoshare"></grid-column>
+    <grid-column title="Do you need to Remediate?" field="needremediate"></grid-column>
+    <grid-column title="Remediation Steps" field="remediatesteps"></grid-column>
+    <grid-column title="Remediation Status" field="remediatestatus"></grid-column>
+  </grid-columns>
+<grid with-inline-editor></grid>
+<grid-section-notes template="components/section/templates/notes/section2.notes.html"></grid-section-notes>
+</grid-screen>
+
+
+  <!-- <table class="table table-bordered">
 
     <h2>Section 2 – Identify and Assess Risks: Minimize Use.</h2>
     <thead>
@@ -36,19 +53,11 @@
         </tr>
         <tr>
 		<td colspan="6">
-			Have you taken steps to minimize the use and proliferation of PII or firm sensitive data? 
-			<ul>			
-			<li>Business objective can be met without data – One way to mitigate risk is to remove the PII or firm sensitive data from your systems and networks. You should consider whether you can do your business without storing the PII or firm sensitive information in the system or network location. When removing data from your systems and networks, you should keep in mind any books and records obligations you might have with respect to this data.
-			</li>
-			<li>Sharing data – You should consider how the PII or firm sensitive data is shared, identify people or systems that do not require access to the data, and consider isolating the data.
-			</li>
-			<li>Remediate –If you determine that there is no business purpose to store or share the PII or firms sensitive information, you should remediate by either removing the data from the location or not sharing it.  If you are required to store and share the data, you should consider the risk severity of the data being compromised and consider whether a business practice could be changed to mitigate the risk (e.g., if a business process involves using a customer’s social security number, change the process to use another customer specific identifier rather than the social security number).  
-			</li>
-			</ul>
+		
 		</td>
         </tr>
     </tbody>
-	</table>
+	</table> -->
     <div ng-pagination></div>
 
   </div>

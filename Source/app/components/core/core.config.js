@@ -17,7 +17,12 @@
             dsr: true,
             templateUrl: 'components/checklist/templates/checklist.index.html',
             controller: 'ChecklistController',
-            controllerAs: 'checklistCtrl'
+            controllerAs: 'checklistCtrl',
+            resolve:{
+                'dataserviceData' : function(dataservice){
+                    return dataservice.promise;
+                }
+            }
         };
 
         var print = {

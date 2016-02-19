@@ -2,9 +2,9 @@
 	angular.module("cyberapp.checklist")
 			.controller("ChecklistController", ChecklistController);
 
-	ChecklistController.$inject = ['$scope', '$state', 'datafactory', 'dataservice'];
+	ChecklistController.$inject = ['$scope', '$state', '$rootScope','datafactory', 'dataservice'];
 
-	function ChecklistController($scope, $state, datafactory, dataservice){
+	function ChecklistController($scope, $state, $rootScope, datafactory, dataservice){
 		var checklistCtrl = this;
 		$scope.questions = datafactory.questions;
 		$scope.allanswers = [];
@@ -18,6 +18,8 @@
 		$scope.last = "12";
 
 		$scope.firm = datafactory.firm;
+		$rootScope.sections = dataservice.getJsonData();
+
 
 		$scope.addInfo = function($index){
 			this.SectiontoComplete = $scope.questions[$index].section;			

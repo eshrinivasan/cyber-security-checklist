@@ -41,6 +41,9 @@
 .form-group input[type="text"] {
   width: 60%; }
 
+.form-horizontal input[type="text"] {
+  width: 100%; }
+
 .form-wrapper {
   border: 2px solid #ffe658;
   padding: 20px 0; }

@@ -2,10 +2,10 @@
     angular.module('cyberapp.core')
     		.factory('datafactory', datafactory);
 
-    datafactory.inject = ['$rootScope'];
+    datafactory.inject = ['$rootScope', '$http'];
 
-    function datafactory($rootScope){
-    	var datafactory = {};
+    function datafactory($rootScope, $http){
+      var datafactory = { };
 
     	datafactory.questions = [
 			   {id: 1, text: '1)	Does your firm store, use or transmit personally identifiable information (PII) or firm sensitive information electronically?', section:"1,2,4,6,8,9,10,11", answer:[1,2,4,6,8,9,10,11]},
@@ -22,7 +22,7 @@
         keyrep : ""
       }      
 
-		  return datafactory;
+      return datafactory;
     }
 })();
 

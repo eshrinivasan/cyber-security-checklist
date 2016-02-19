@@ -1,4 +1,4 @@
-  <form name="Section1Form">
+  <form name="Section1Form" class="form-horizontal">
   <table class="table table-bordered">  
     <tr>
         <td colspan="{{lengthCount(i)}}" ng-repeat="i in section1">
@@ -20,13 +20,6 @@
         <td>
             <input type="text" class="textbox-underline" ng-model="rw.cell3"/>
         </td>
-    </tr>
-<!--     <tr ng-repeat="rw in rows">
-       <td> {{rw.cell1}} </td><td> {{rw.cell2}}</td><td> {{rw.cell3}}</td>
-    </tr> -->
-    <tr>
-        <button ng-click="addRows()">Add Rows</button>
-        <button ng-click="saveRows()">Save</button>
     </tr>
     <tr>
     	<td colspan="{{lengthCount(fn)}}" ng-repeat="fn in section1">

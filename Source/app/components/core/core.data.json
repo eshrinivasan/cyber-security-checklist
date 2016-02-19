@@ -1,0 +1,26 @@
+[{
+	"id":1, 
+	"Name": "Section 1 – Identify and Assess Risks: Inventory",
+	"Groups":[
+	 	 {"cell" : "PII or Firm Sensitive Data"}, 
+	 	 {"cell" : "Location (e.g., Network Drive, System Folder, email)"}, 
+	 	 {"cell" : "Risk Severity Level"}
+	 ],
+	"Rows":[],
+	"FootNotes":[
+	 	{"templateurl" : "components/section/templates/notes/section1.notes.html"}
+	 ]	
+},
+{
+	"id":2, 
+	"Name": "Section 2 – Identify and Assess Risks: Inventory",
+	"Groups":[
+	 	 {"cell" : "PII or Firm Sensitive Data"}, 
+	 	 {"cell" : "Location (e.g., Network Drive, System Folder, email)"}, 
+	 	 {"cell" : "Risk Severity Level"}
+	 ],
+	"Rows":[],
+	"FootNotes":[
+	 	{"templateurl" : "components/section/templates/notes/section1.notes.html"}
+	 ]	
+}]

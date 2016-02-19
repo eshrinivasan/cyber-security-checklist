@@ -2,10 +2,19 @@
     angular.module('cyberapp.core')
     		.service('dataservice', dataservice);
 
-    dataservice.inject = ['$state', '$rootScope'];
+    dataservice.inject = ['$state', '$rootScope', ',$http'];
 
-    function dataservice($state, $rootScope){        
+    function dataservice($state, $rootScope, $http){           
+        var datajsonObj = null;
+
+        var promise = $http.get('components/core/core.data.json').success(function(data) {
+             datajsonObj = data;
+        });
+
     	var service = {
+            promise:promise,
+            setJsonData: setJsonData,
+            getJsonData: getJsonData,
     		getNextSection : getNextSection,
             getSections : getSections,
     		setSection : setSection,
@@ -15,8 +24,6 @@
 
     	return service;
 
-        $rootScope.previousState;
-        $rootScope.currentState;
     	var _sectionArr = [];
     	var totalsArr = [];
 
@@ -53,9 +60,21 @@
             
 			return totalsArr;
     	}
+        
 
     	function getCurrentState(){
     		return $scope.state.name;                   
     	}
+
+
+        function setJsonData(data){
+             datajsonObj = data;
+        }
+
+        function getJsonData(){
+            return datajsonObj;
+        }
+
+       
     }
 })()
