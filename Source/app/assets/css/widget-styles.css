@@ -41,7 +41,8 @@
 .form-group input[type="text"] {
   width: 60%; }
 
-.form-horizontal input[type="text"] {
+.form-horizontal input[type="text"],
+.form-horizontal select {
   width: 100%; }
 
 .form-wrapper {
@@ -159,6 +160,11 @@ ul {
  * --------------------------------------------------
  * Mobile first
  */
+.printview {
+  border: 1px solid black; }
+  .printview table.table-bordered {
+    border: 1px solid #dddddd; }
+
 table.table-bordered {
   border: 2px solid #ffe658; }
 

@@ -5,16 +5,12 @@
     dataservice.inject = ['$state', '$rootScope', ',$http'];
 
     function dataservice($state, $rootScope, $http){           
-        var datajsonObj = null;
-
-        var promise = $http.get('components/core/core.data.json').success(function(data) {
-             datajsonObj = data;
-        });
 
     	var service = {
-            promise:promise,
             setJsonData: setJsonData,
             getJsonData: getJsonData,
+            setCollectionData: setCollectionData,
+            getCollectionData: getCollectionData,
     		getNextSection : getNextSection,
             getSections : getSections,
     		setSection : setSection,
@@ -26,6 +22,9 @@
 
     	var _sectionArr = [];
     	var totalsArr = [];
+        var storedJsonValues = {}; 
+        var datajsonObj = {};
+
 
         //public getter
     	function getNextSection(){            
@@ -75,6 +74,15 @@
             return datajsonObj;
         }
 
+        function setCollectionData(data){
+            storedJsonValues = data;
+            console.log('within service');
+            console.log(storedJsonValues);
+        }
+
+        function getCollectionData(){
+            return storedJsonValues;
+        }
        
     }
 })()

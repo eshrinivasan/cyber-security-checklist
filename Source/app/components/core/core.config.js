@@ -17,17 +17,12 @@
             dsr: true,
             templateUrl: 'components/checklist/templates/checklist.index.html',
             controller: 'ChecklistController',
-            controllerAs: 'checklistCtrl',
-            resolve:{
-                'dataserviceData' : function(dataservice){
-                    return dataservice.promise;
-                }
-            }
+            controllerAs: 'checklistCtrl'
         };
 
         var print = {
             name: 'print',
-            url: '/print',
+            url: '/section/12',
             sticky: true,
             dsr: true,
             templateUrl: 'components/print/templates/print.index.html',

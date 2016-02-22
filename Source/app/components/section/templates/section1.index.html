@@ -2,10 +2,21 @@
 <div class="row">   
 <div class="col-md-12">
 <div class="box boxeffect7">
-  	<div ng-multistepsindicator class="clearfix multistepcontainer"></div>  
-    <div user-controls></div>
-    <div sectionone-dir></div>
-    <div ng-pagination total="total"></div>   
+  	<div ng-multistepsindicator total="total" class="clearfix multistepcontainer"></div>
+	<grid-form class="form-horizontal" ng-form="gridForm">
+	    <grid-screen resource="components/core/data/data.section1.json">
+	    <grid-section-header title="Section 1 – Identify and Assess Risks: Inventory"></grid-section-header>
+	    <grid-columns>
+	        <grid-column title="PII or Firm Sensitive Data" field="piidata" type="text"></grid-column>
+	        <grid-column title="Location (e.g., Network Drive, System Folder, email)" field="location" type="text"></grid-column>
+	        <grid-column title="Risk Severity Level" field="risklevel" type="select"></grid-column>
+	      </grid-columns>
+	    <grid with-inline-editor></grid>
+	    <grid-section-notes template="components/section/templates/notes/section1.notes.html"></grid-section-notes>
+	    </grid-screen>
+	    <div ng-pagination></div>
+	</grid-form>
+
   </div>
  </div>
 </div>

@@ -1,3 +1,3 @@
 (function() {
-	angular.module("cyberapp.print", ['ui.router']);
+	angular.module("cyberapp.print", ['ui.router', 'ngStorage']);
 })()

@@ -1,0 +1,16 @@
+{
+	"data": [
+		{
+			"managevendor" : "",
+			"piito3rdparty": "",
+			"risklevel": "",
+			"3partyaccess" : "",
+			"firmaccess" : "",
+			"sepofctrls": "",
+			"needsremediate": "",
+			"remediatesteps":"",
+			"remediatestatus":""
+		}
+	]
+}
+

@@ -135,6 +135,7 @@ module.exports = function (grunt) {
                             'app/bower_components/angular-animate/angular-animate.min.js',
                             'app/bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js',
                             'app/bower_components/angular-touch/angular-touch.min.js',
+                            'app/bower_components/ngstorage/ngStorage.min.js',
                             'app/bower_components/angular-sanitize/angular-sanitize.min.js',
                             'app/bower_components/angulartics/dist/angulartics.min.js',
                             'app/bower_components/angulartics-google-analytics/dist/angulartics-google-analytics.min.js',
@@ -184,6 +185,7 @@ module.exports = function (grunt) {
                             'app/bower_components/ui-router-extras/release/ct-ui-router-extras.min.js',
                             'app/bower_components/angular-animate/angular-animate.min.js',
                             'app/bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js',
+                            'app/bower_components/ngstorage/ngStorage.min.js',
                             'app/bower_components/angular-touch/angular-touch.min.js',
                             'app/bower_components/angular-sanitize/angular-sanitize.min.js',
                             'app/bower_components/angulartics/dist/angulartics.min.js',
@@ -309,8 +311,8 @@ module.exports = function (grunt) {
 
     grunt.registerTask('watch', [      
         'compass:dev',
-          'concat_css:dev',
-           'cssmin:dev'
+        'concat_css:dev',
+        'cssmin:dev'
     ]);
 
     grunt.registerTask('default', [

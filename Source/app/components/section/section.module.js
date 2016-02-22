@@ -1,3 +1,3 @@
 (function() {
-	angular.module("cyberapp.section", ['ui.router']);
+	angular.module("cyberapp.section", ['ui.router', 'ngStorage']);
 })()
