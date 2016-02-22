@@ -93,8 +93,8 @@ angular.module("cyberapp.section")
         replace: true,
         controller: function($scope, $state, $attrs) {
             //$scope.globalval = $sessionStorage[1];             
-            console.log("within grid print directive");
-            $scope.globalrows = dataservice.getCollectionData();
+            console.log("within grid print directive");          
+            $scope.globalrows = dataservice.getCollectionData(--sec);          
 
         },
         link: function(scope, element, attributes){

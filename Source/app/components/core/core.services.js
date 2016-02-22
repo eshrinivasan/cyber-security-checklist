@@ -22,9 +22,8 @@
 
     	var _sectionArr = [];
     	var totalsArr = [];
-        var storedJsonValues = {}; 
         var datajsonObj = {};
-
+        var storedJsonValues = [];
 
         //public getter
     	function getNextSection(){            
@@ -75,13 +74,14 @@
         }
 
         function setCollectionData(data){
-            storedJsonValues = data;
-            console.log('within service');
-            console.log(storedJsonValues);
+            storedJsonValues = storedJsonValues || [];
+            storedJsonValues.push(data);
+            //console.log(storedJsonValues);
         }
 
-        function getCollectionData(){
-            return storedJsonValues;
+        function getCollectionData(sec){
+            console.log(storedJsonValues[sec]);
+            return storedJsonValues[sec];
         }
        
     }
