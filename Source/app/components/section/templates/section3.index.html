@@ -3,23 +3,15 @@
 <div class="col-md-12">
 <div class="box boxeffect7">
    <div ng-multistepsindicator total="total" class="clearfix multistepcontainer"></div>
-
-   <grid-screen resource="components/core/data/data.section3a.json">
     <grid-section-header title="Section 3 – Identify and Assess Risks: Third Party Access"></grid-section-header>
-    <grid-columns>
-        <grid-column title="Name of Third Party Organization" field="nameof3party" type="text"></grid-column>
-        <grid-column title="PII or firm sensitive data transmitted to third party organization" field="piito3rdparty" type="text"></grid-column>
-        <grid-column title="Risk Severity Level" field="risklevel" type="select"></grid-column>
-        <grid-column title="Is it necessary for the third party organization to access the data transmitted?" field="3partyaccess" type="button"></grid-column>
-        <grid-column title="Have you accessed the third party organization to ensure that it has effective security practices? " field="firmaccess" type="button"></grid-column>
-        <grid-column title="Are there controls in place to isolate this third party connection from your citical assets? " field="sepofctrls" type="button"></grid-column>
-        <grid-column title="Do you need to Remediate?" field="needsremediate" type="button"></grid-column>
-        <grid-column title="Remediation Steps" field="remediatesteps" type="text"></grid-column>
-        <grid-column title="Remediation Status" field="remediatestatus" type="dropdown"></grid-column>
-      </grid-columns>
-    <grid with-inline-editor></grid>
-    <grid-section-notes template="components/section/templates/notes/section3.notes.html"></grid-section-notes>
-    </grid-screen>
+ 	<div ui-grid="section3a" class="sectiongrid" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-resize-columns>
+    </div>
+     <button ng-click="addNewItem(section3)">Add Row</button>   
+     <grid-section-notes template="components/section/templates/notes/section3.notes.html"></grid-section-notes>
+
+    <grid-section-header title="Manage Vendors and Customer Access"></grid-section-header>
+    <div ui-grid="section3b" class="sectiongrid" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-resize-columns></div>
+
     <div ng-pagination></div>
   </div>
  </div>

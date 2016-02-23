@@ -1,0 +1,32 @@
+[
+    {
+        "activity": "Do you maintain a list of cybersecurity incidents?",
+        "yes_no" : ""
+    },
+    {
+        "activity": "Have you created a dashboard to track creative patch coverage, anti-virus coverage, and the number of employees who have taken training and other proactive defensive measures?",
+        "yes_no" : ""
+    },{
+        "activity":"Do you review customer complaints and potential cyber-related activity?",
+        "yes_no" : ""
+    },
+    {
+        "activity": "Do you share metrics with your CEO and COO?",
+        "yes_no" : ""
+    },
+    {
+        "activity": "Do you prioritize allocation of cybersecurity resources?",
+        "yes_no" : ""
+    },
+    {
+        "activity": " Do you communicate with senior executices on cybersecurity outstanding risks?",
+        "yes_no" : ""
+    }
+]
+
+  
+    
+    
+    
+   
+   

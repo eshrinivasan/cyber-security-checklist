@@ -141,24 +141,7 @@
             controller: 'SectionController',
             controllerAs: 'sectionCtrl'
         }
-        /* 
-        var progressindicator = {
-            name: 'progressindicator',
-            url: '/progressindicator',
-            templateUrl: 'components/progressindicator/templates/progressindicator.index.html',
-            controller: 'ProgressIndicatorController',
-            controllerAs: 'progressindicatorCtrl'
-
-        };
-        
-        var info = {
-            name: 'info',
-            parent: 'main',
-            url: '/info',
-            templateUrl: 'components/message/templates/about-message.html',
-            controller: 'MessageController',
-            controllerAs: 'messageCtl'
-        };
+        /*
         var error = {
             name: 'error',
             parent: 'main',
@@ -186,9 +169,7 @@
             .state(section10)
             .state(section11)
             .state(section12)
-           /*.state(progressindicator)
-            .state(info)
-            .state(error)*/
+           /*.state(error)*/
     }
 
     function runApp($rootScope, $state, $stateParams) {

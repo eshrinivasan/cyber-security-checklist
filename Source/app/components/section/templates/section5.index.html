@@ -2,62 +2,13 @@
 <div class="row">   
 <div class="col-md-12">
 <div class="box boxeffect7">
-  <div ng-multistepsindicator total="total" class="clearfix multistepcontainer"></div>
-
-  <table class="table table-bordered">   
-    <h2>Section 5 – Protect: Systems Assets  </h2>
-    <thead>
-        <tr>
-            <th>Systems</th>
-            <th>Risk to Firm if  System is Inoperable   </th>
-            <th>Password Protection</th>
-            <th>Malware/ Anti-virus/Firewalls</th>
-            <th>Regularly Scheduled Backups </th>            
-            <th>Remediate</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><input type="text" ng-model="section5.field1" class="textbox-underline"/></td>
-            <td><input type="text" ng-model="section5.field2" class="textbox-underline"/></td>
-            <td><input type="text" ng-model="section5.field3" class="textbox-underline"/></td>
-            <td><input type="text" ng-model="section5.field4" class="textbox-underline"/></td>
-            <td><input type="text" ng-model="section5.field5" class="textbox-underline"/></td>
-            <td><input type="text" ng-model="section5.field6" class="textbox-underline"/></td>
-        </tr>
-        <tr>
-            <td><input type="text" ng-model="section5.field21"class="textbox-underline"/></td>
-            <td><input type="text" ng-model="section5.field22" class="textbox-underline"/></td>
-            <td><input type="text" ng-model="section5.field23" class="textbox-underline"/></td>
-            <td><input type="text" ng-model="section5.field24" class="textbox-underline"/></td>
-            <td><input type="text" ng-model="section5.field25" class="textbox-underline"/></td>
-            <td><input type="text" ng-model="section5.field26" class="textbox-underline"/></td>
-        </tr>
-    </tbody>
-    </table>
-      <table class="table">   
-      <thead></thead>
-      <tbody>        
-        <tr>
-    		<td colspan="6">
-    			List assets that are important to your operations (e.g., trading or order management systems):
-    			<ul>			
-        			<li>Systems – List systems where assets reside. </li>
-        			<li>Risk to firm if system is inoperable –Assess risk of how important a loss of the asset would be to your firm’s operations. </li>
-        			<li>Password protection – Is access to the asset password protected? </li>
-                    <li>Malware/anti-virus protection – Do you install malware or anti-virus software? Or have firewalls?
-                    </li>
-                    <li>Regularly scheduled backups– Do you have regularly scheduled backups to restore critical data or systems should they be lost in a cyber-incident?
-                    </li>                
-                    <li>Remediate – You should conduct a risk assessment of the strength of the protections considered with the assigned risk of the system being inaccessible, together with its resources and consider whether protections should be enhanced (e.g., include stronger password requirements, installing malware, anti-virus protections or firewalls, or regularly schedule backups). See Recovery section in this checklist for other considerations. 
-                    </li>            
-    			</ul>
-    		</td>
-        </tr>        
-    </tbody>
-    </table> 
+    <div ng-multistepsindicator total="total" class="clearfix multistepcontainer"></div>
+    <grid-section-header title="Section 5 – Protect: Systems Assets "></grid-section-header>   
+    <div ui-grid="section5" class="sectiongrid" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-resize-columns> 
+    </div>
+    <button ng-click="addNewItem(section5)">Add Row</button>   
+    <grid-section-notes template="components/section/templates/notes/section5.notes.html"></grid-section-notes>
     <div ng-pagination></div>
-
   </div>
  </div>
 </div>

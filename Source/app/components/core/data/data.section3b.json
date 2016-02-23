@@ -1,16 +1,11 @@
-{
-	"data": [
-		{
-			"managevendor" : "",
-			"piito3rdparty": "",
-			"risklevel": "",
-			"3partyaccess" : "",
-			"firmaccess" : "",
-			"sepofctrls": "",
-			"needsremediate": "",
-			"remediatesteps":"",
-			"remediatestatus":""
-		}
-	]
-}
+[
+	{
+		"activityaddress" : "Activity/Contract Should Address",
+		"":"",
+		"needsremediate": "",
+		"remediatesteps":"",
+		"remediatestatus":""
+	}
+]
+
 

@@ -1,0 +1,70 @@
+[
+	{
+		"controls": "Do you have a regularly secheduled backups to restore critical data or systems should they be lost in a cyber-incident?",
+		"asset": "Backups",
+		"yes_no": "",
+		"risklevel":"",
+		"needtoremediate": "",
+        "remediatesteps":"",
+        "remediatestatus":""
+	},
+	{
+		"controls": "Is it possible for you to rebuild systems from scratch should it be necessary?",
+		"asset": "Rebuild from Scratch",
+		"yes_no": "",
+		"risklevel":"",
+		"needtoremediate": "",
+        "remediatesteps":"",
+        "remediatestatus":""	
+	},
+	{
+		"controls": "Do you have a plan to replace compromised files with clean versions?",
+		"asset": "Compromised Files",
+			"yes_no": "",
+		"risklevel":"",
+		"needtoremediate": "",
+        "remediatesteps":"",
+        "remediatestatus":""	
+	},
+	{
+		"controls": "Do you have a plan to install patches, change passwords and tighten network security should a cyber-event take place?",
+		"asset": "Patches and Passwords",
+			"yes_no": "",
+		"risklevel":"",
+		"needtoremediate": "",
+        "remediatesteps":"",
+        "remediatestatus":""	
+	},
+	{
+		"controls": "Have you considered that once a resouce is successfully attacked, it is often attacked again, or other resources within the organization are attacked in a similar manner and that heightened system logging and network monitoring should be implemented?",
+		"asset": "Heightened System Monitoring",
+			"yes_no": "",
+		"risklevel":"",
+		"needtoremediate": "",
+        "remediatesteps":"",
+        "remediatestatus":""	
+	}
+]
+
+
+
+      
+        
+        
+        
+        
+       
+       
+        
+        
+         
+
+        
+
+        
+
+        
+         
+        
+        
+        

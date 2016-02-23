@@ -3,67 +3,12 @@
 <div class="col-md-12">
 <div class="box boxeffect7">
  <div ng-multistepsindicator total="total" class="clearfix multistepcontainer"></div>
-
-  <table class="table table-bordered">   
-    <h2>Section 9 – Detect: Intrusion  </h2>
-    <thead>
-        <tr>
-            <th>Detection System</th>
-            <th>Yes/No </th>
-            <th>Remediate</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>Has the firm implemented IDS?</td>
-            <td><input type="text" class="textbox-underline"/></td>
-            <td><input type="text" class="textbox-underline"/></td>
-        </tr>
-        <tr>
-            <td>Does the IDS have intrusion protection system capabilities?</td>
-            <td><input type="text" class="textbox-underline"/></td>
-            <td><input type="text" class="textbox-underline"/></td>
-        </tr>        
-        <tr>
-    		<td colspan="3">
-    		You should consider having an Intrusion Detection System (IDS) which detects when there is an attempt to compromise the confidentiality, integrity or availability of your systems. Intrusion detection products are tools that can assist in protecting a company from intrusion by expanding the options available to manage the risk from threats and vulnerabilities. Intrusion detection capabilities can help a company secure its information. The tool could be used to detect an intruder, identify and stop the intruder, support investigations to find out how the intruder got in, and stop exploitation by future intruders. If the answer is No, you should conduct a risk assessment on whether to invest in an IDS, and whether the IDS should have intrusion protection system capabilities. For some background on IDS refer to https://www.sans.org/security-resources/idfaq/what_is_id.php. A very simple but effective method for the firm to detect vulnerabilities is to inform staff to contact someone when they think they see a threat (e.g., a phishing email).  This could be in the form of a hotline or email to the person who manages the firm’s technology assets.
-    		</td>
-        </tr>
-        <tr><td colspan="3">Are the following controls implemented? If No, assess the risk of not having the controls and decide whether to remediate.</td></tr>
-        <tr>
-            <td ><strong>Controls</strong></td>
-            <td ><strong>Yes/No</strong></td>
-            <td ><strong>Remediate</strong></td>
-        </tr>
-        <tr>
-            <td>Do you receive threat information from any sources (e.g., FS-ISAC)?</td>
-            <td><input type="text" class="textbox-underline"/></td>
-            <td><input type="text" class="textbox-underline"/></td>
-        </tr>
-        <tr>
-            <td>Do you have processes in place to triage and act on threat information received?</td>
-            <td><input type="text" class="textbox-underline"/></td>
-            <td><input type="text" class="textbox-underline"/></td>
-        </tr>
-        <tr>
-            <td>Do you utilize tools to regularly scan/monitor your systems for vulnerabilities, secure configuration, and current patch levels? </td>
-            <td><input type="text" class="textbox-underline"/></td>
-            <td><input type="text" class="textbox-underline"/></td>
-        </tr>
-        <tr>
-            <td>Do you monitor the results of these scans and address discrepancies in a timely manner?</td>
-            <td><input type="text" class="textbox-underline"/></td>
-            <td><input type="text" class="textbox-underline"/></td>
-        </tr>
-        <tr>
-            <td>Have you defined metrics for tracking the condition of your cybersecurity controls and reporting that condition to your senior executives in a manner they find actionable?</td>
-            <td><input type="text" class="textbox-underline"/></td>
-            <td><input type="text" class="textbox-underline"/></td>
-        </tr>
-    </tbody>
-	</table>
+    <grid-section-header title="Section 9 – Detect: Intrusion"></grid-section-header> 
+    <div ui-grid="section9a" class="sectiongrid" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-resize-columns></div> 
+    <grid-section-notes template="components/section/templates/notes/section9.notes.html"></grid-section-notes>
+    <h4>Are the following controls implemented? If No, assess the risk of not having the controls and decide whether to remediate.</h4>
+    <div ui-grid="section9b" class="sectiongrid" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-resize-columns></div>   
     <div ng-pagination></div>
-
   </div>
  </div>
 </div>

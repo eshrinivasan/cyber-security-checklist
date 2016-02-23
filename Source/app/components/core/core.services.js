@@ -80,8 +80,10 @@
         }
 
         function getCollectionData(sec){
-            console.log(storedJsonValues[sec]);
+            if(arguments.length)
             return storedJsonValues[sec];
+            else
+            return storedJsonValues;
         }
        
     }

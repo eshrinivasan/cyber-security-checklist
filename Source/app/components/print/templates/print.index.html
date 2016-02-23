@@ -1,43 +1,129 @@
 <div class="container">
   <div class="row"> 
-  	
-  	<!--Print for section 1-->
-	  <div class="box printview">   
-	  	<grid-form class="form-horizontal" ng-form="gridForm">
-		    <grid-screen resource="components/core/data/data.section1.json">
-		    <grid-section-header title="Section 1 – Identify and Assess Risks: Inventory"></grid-section-header>
-		    <grid-columns>
-		        <grid-column title="PII or Firm Sensitive Data" field="piidata" type="text"></grid-column>
-		        <grid-column title="Location (e.g., Network Drive, System Folder, email)" field="location" type="text"></grid-column>
-		        <grid-column title="Risk Severity Level" field="risklevel" type="select"></grid-column>
-		      </grid-columns>
-		    <grid-print section="1"></grid-print>
-		    <grid-section-notes template="components/section/templates/notes/section1.notes.html"></grid-section-notes>
-		    </grid-screen>
-		</grid-form>
-	 </div><!--End-->
 
+	<div ng-if="section1 != undefined">		
+	  	<!--Print for section 1-->  	
+			<div class="box printview">   
+			  	<grid-section-header title="Section 1 – Identify and Assess Risks: Inventory"></grid-section-header>
+			 	<div ui-grid="section1" class="sectiongrid"></div>
+		 		<grid-section-notes template="components/section/templates/notes/section1.notes.html"></grid-section-notes>
+			 </div>
+		 <!--End-->
+	</div>
+
+	<div ng-if="section2 != undefined">
 	<!--Print for section 2-->
-	 <div class="box printview">  
-		<grid-form class="form-horizontal" ng-form="gridForm">
-	    <grid-screen resource="components/core/data/data.section2.json">
-	    <grid-section-header title="Section 2 – Identify and Assess Risks: Minimize Use"></grid-section-header>
-	    <grid-columns>
-	        <grid-column title="PII or Firm Sensitive Data" field="piidata" type="text"></grid-column>
-	        <grid-column title="Location" field="location" type="text"></grid-column>
-	        <grid-column title="Risk Severity Level" field="risklevel" type="select"></grid-column>
-	        <grid-column title="Business Objective Can Be Met Without Data?" field="busobjnodata" type="button"></grid-column>
-	        <grid-column title="Business Objective can be accomplished without data being output or shared with other internal systems or people? " field="busobjnoshare" type="button"></grid-column>
-	        <grid-column title="Do you need to Remediate?" field="needremediate" type="button"></grid-column>
-	        <grid-column title="Remediation Steps" field="remediatesteps" type="text"></grid-column>
-	        <grid-column title="Remediation Status" field="remediatestatus" type="dropdown"></grid-column>
-	      </grid-columns>
-	    <grid-print section="2"></grid-print>
-	    <grid-section-notes template="components/section/templates/notes/section2.notes.html"></grid-section-notes>
-	    </grid-screen>
-		</grid-form>
-	</div><!--End-->
+		<div class="box printview">  
+			<grid-section-header title="Section 2 – Identify and Assess Risks: Minimize Use"></grid-section-header>
+		 	<div ui-grid="section2" class="sectiongrid"></div>
+			<grid-section-notes template="components/section/templates/notes/section2.notes.html"></grid-section-notes>
+		</div>
+	<!--End-->
+	</div>
 
+	<div ng-if="section3 != undefined">
+	<!--Print for section 3-->
+		<div class="box printview">  
+			<grid-section-header title="Section 3 – Identify and Assess Risks: Third Party Access"></grid-section-header>
+		 	<div ui-grid="section3a" class="sectiongrid"></div>  
+		    <grid-section-notes template="components/section/templates/notes/section3.notes.html"></grid-section-notes>
+		    <grid-section-header title="Manage Vendors and Customer Access"></grid-section-header>
+		    <div ui-grid="section3b" class="sectiongrid"></div>
+		</div>
+	<!--End-->
+	</div>
+
+	<div ng-if="section4 != undefined">
+	<!--Print for section 4-->
+			<div class="box printview">  
+				<grid-section-header title="Section 4 – Protect: Information Assets"></grid-section-header>
+				<div ui-grid="section4a" class="sectiongrid"></div>  
+				<grid-section-notes template="components/section/templates/notes/section4.notes.html"></grid-section-notes>
+				<div ui-grid="section4b" class="sectiongrid"></div> 
+			</div><!--End-->
+	</div>
+
+	<div ng-if="section5 != undefined">
+	<!--Print for section 5-->
+			<div class="box printview">  
+				<grid-section-header title="Section 5 – Protect: Systems Assets "></grid-section-header>   
+			    <div ui-grid="section5" class="sectiongrid"> 
+			    </div>  
+			    <grid-section-notes template="components/section/templates/notes/section5.notes.html"></grid-section-notes>
+			</div>
+    <!--End-->
+	</div>
+
+	<div ng-if="section6 != undefined">
+	<!--Print for section 6-->
+			<div class="box printview"> 
+				<grid-section-header title="Section 6 – Protect: Encryption"></grid-section-header>  
+		   		<div ui-grid="section6" class="sectiongrid"></div>
+		    	<grid-section-notes template="components/section/templates/notes/section6.notes.html"></grid-section-notes>
+		    </div>
+    <!--End-->
+	</div>
+
+	<div ng-if="section7 != undefined">
+	<!--Print for section 7-->
+		<div class="box printview"> 
+		     <grid-section-header title="Section 7 – Protect: Employee Devices"></grid-section-header>  
+		      <div ui-grid="section7a" class="sectiongrid"></div>
+		      <grid-section-notes template="components/section/templates/notes/section7a.notes.html"></grid-section-notes>
+		      <div ui-grid="section7b" class="sectiongrid"></div>
+		      <grid-section-notes template="components/section/templates/notes/section7b.notes.html"></grid-section-notes>
+		      <div ui-grid="section7c" class="sectiongrid"></div>
+		      <div><h4>Staff training</h4></div>
+		      <div ui-grid="section7d" class="sectiongrid" ></div>
+	 	</div>
+    <!--End-->
+	</div>
+
+	<div ng-if="section8 != undefined">
+	<!--Print for section 8-->
+		<div class="box printview"> 
+		    <grid-section-header title="Section 8 – Detect: Penetration Testing "></grid-section-header> 
+		 	 <div ui-grid="section8" class="sectiongrid"></div> 
+		  	<grid-section-notes template="components/section/templates/notes/section8.notes.html"></grid-section-notes>	  	
+	  	</div>
+    <!--End-->
+    </div>
+
+	<div ng-if="section9 != undefined">
+	<!--Print for section 9-->
+		<div class="box printview">
+		    <grid-section-header title="Section 9 – Detect: Intrusion"></grid-section-header> 
+		    <div ui-grid="section9a" class="sectiongrid"></div> 
+		    <grid-section-notes template="components/section/templates/notes/section9.notes.html"></grid-section-notes>
+		    <h4>Are the following controls implemented? If No, assess the risk of not having the controls and decide whether to remediate.</h4>
+		    <div ui-grid="section9b" class="sectiongrid"></div>
+	  	</div>
+    <!--End-->
+    </div>
+
+	<div ng-if="section10 != undefined">
+	<!--Print for section 10-->
+		<div class="box printview"> 
+		    <grid-section-header title="Section 10 – Response Plan"></grid-section-header> 
+		    <div ui-grid="section10a" class="sectiongrid"></div> 
+		    <grid-section-notes template="components/section/templates/notes/section10.notes.html"></grid-section-notes>
+		    <h4>Stakeholders</h4>
+		    <div ui-grid="section10b" class="sectiongrid"></div> 
+		    <h4>Metrics</h4>
+		    <div ui-grid="section10c" class="sectiongrid"></div>
+	  	</div>
+    <!--End-->
+	</div>
+
+	<div ng-if="section11 != undefined">
+    <!--Print for section 11-->
+		<div class="box printview"> 
+		    <grid-section-header title="Section 11 – Recovery "></grid-section-header>
+		    <grid-section-notes template="components/section/templates/notes/section11.notes.html"></grid-section-notes>
+		    <div ui-grid="section11" class="sectiongrid"></div>  
+	  	</div>
+    <!--End-->
+	</div>
 
  </div>
 </div>

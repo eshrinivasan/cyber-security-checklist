@@ -1,0 +1,48 @@
+[
+	{
+		"idscontrols": "Do you receive threat information from any sources (e.g., FS-ISAC)?",
+		"yes_no": "",
+		"needtoremediate": "",
+        "remediatesteps":"",
+        "remediatestatus":""
+	},
+	{
+		"idscontrols": "Do you have processes in place to triage and act on threat information received?",
+		"yes_no": "",
+		"needtoremediate": "",
+        "remediatesteps":"",
+        "remediatestatus":""	
+	},
+	{
+		"idscontrols": "Do you utilize tools to regularly scan/monitor your systems for vulnerabilities, secure configuration, and current patch levels? ",
+		"yes_no": "",
+		"needtoremediate": "",
+        "remediatesteps":"",
+        "remediatestatus":""	
+	},
+	{
+		"idscontrols": "Do you monitor the results of these scans and address discrepancies in a timely manner?",
+		"yes_no": "",
+		"needtoremediate": "",
+        "remediatesteps":"",
+        "remediatestatus":""	
+	},
+	{
+		"idscontrols": "Have you defined metrics for tracking the condition of your cybersecurity controls and reporting that condition to your senior executives in a manner they find actionable?",
+		"yes_no": "",
+		"needtoremediate": "",
+        "remediatesteps":"",
+        "remediatestatus":""	
+	}
+]
+
+
+        
+
+        
+
+        
+         
+        
+        
+        

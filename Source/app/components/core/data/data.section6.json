@@ -1,0 +1,14 @@
+[
+   {
+        "piidata": "",
+        "location": "",
+        "risklevel" : "",
+        "dataencrypedtoext": "",
+        "dataencrypedtoint": "",
+        "dataencrypedtobkup" : "",
+        "datamasked": "",
+        "needtoremediate": "",
+        "remediatesteps":"",
+        "remediatestatus":""
+    }
+]

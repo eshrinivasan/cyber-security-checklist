@@ -1,0 +1,13 @@
+[
+   {
+        "PII or Firm Sensitive Data": "",
+        "Location": "",
+        "Risk Severity Level": "",      
+        "Password Protection": "",
+        "Malware Protection": "",
+        "Other Protection": "",
+        "Do you need to Remediate?": "",
+        "Remediation Steps":"",
+        "Remediation Status":""
+    }
+]

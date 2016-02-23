@@ -3,25 +3,12 @@
 <div class="col-md-12">
 <div class="box boxeffect7">
 <div ng-multistepsindicator total="total" class="clearfix multistepcontainer"></div>
-<grid-form class="form-horizontal" ng-form="gridForm">
-    <grid-screen resource="components/core/data/data.section2.json">
-    <grid-section-header title="Section 2 – Identify and Assess Risks: Minimize Use"></grid-section-header>
-    <grid-columns>
-        <grid-column title="PII or Firm Sensitive Data" field="piidata" type="text"></grid-column>
-        <grid-column title="Location" field="location" type="text"></grid-column>
-        <grid-column title="Risk Severity Level" field="risklevel" type="select"></grid-column>
-        <grid-column title="Business Objective Can Be Met Without Data?" field="busobjnodata" type="button"></grid-column>
-        <grid-column title="Business Objective can be accomplished without data being output or shared with other internal systems or people? " field="busobjnoshare" type="button"></grid-column>
-        <grid-column title="Do you need to Remediate?" field="needremediate" type="button"></grid-column>
-        <grid-column title="Remediation Steps" field="remediatesteps" type="text"></grid-column>
-        <grid-column title="Remediation Status" field="remediatestatus" type="dropdown"></grid-column>
-      </grid-columns>
-    <grid></grid>
-    <grid-section-notes template="components/section/templates/notes/section2.notes.html"></grid-section-notes>
-    </grid-screen>
-    <div ng-pagination></div>
-</grid-form>
-
+<grid-section-header title="Section 2 – Identify and Assess Risks: Minimize Use"></grid-section-header>
+ 	<div ui-grid="section2" 
+ 	 	class="sectiongrid" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-resize-columns>
+    </div>
+<grid-section-notes template="components/section/templates/notes/section2.notes.html"></grid-section-notes>
+<div ng-pagination></div>
 </div>
 </div>
 </div>

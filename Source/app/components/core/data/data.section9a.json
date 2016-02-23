@@ -1,0 +1,17 @@
+[
+	{
+		"detectsystem": "Has the firm implemented an IDS?",
+		"yes_no": "",
+		"needtoremediate": "",
+        "remediatesteps":"",
+        "remediatestatus":""
+	},
+	{
+		"detectsystem": "Does the IDS have intrusion protection capabilities?",
+		"": "",
+		"needtoremediate": "",
+        "remediatesteps":"",
+        "remediatestatus":""	
+	}
+]
+

@@ -1,0 +1,12 @@
+[
+   {
+        "systems": "",
+        "risklevel": "",
+        "passwordprotection": "",
+        "malwareprotection": "",
+        "scheduledbackups": "",
+        "needtoremediate": "",
+        "remediatesteps":"",
+        "remediatestatus":""
+    }
+]

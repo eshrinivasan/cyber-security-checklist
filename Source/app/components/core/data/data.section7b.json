@@ -1,0 +1,13 @@
+[
+   {
+        "devicetype": "",
+        "nameemployee": "",
+        "deviceowner" : "",
+        "accesstopii": "",
+        "risklevel": "",
+        "protected" : "",       
+        "needtoremediate": "",
+        "remediatesteps":"",
+        "remediatestatus":""
+    }
+]

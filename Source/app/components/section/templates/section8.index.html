@@ -3,36 +3,10 @@
 <div class="col-md-12">
 <div class="box boxeffect7">
   <div ng-multistepsindicator total="total" class="clearfix multistepcontainer"></div>
-
-  <table class="table table-bordered">   
-    <h2>Section 8 – Detect: Penetration Testing </h2>
-    <thead>
-        <tr>
-            <th>Technology Asset Tested</th>
-            <th>Problems/Vulnerabilities Identified  </th>           
-            <th>Remediate</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td><input type="text" class="textbox-underline"/></td>
-            <td><input type="text" class="textbox-underline"/></td>
-            <td><input type="text" class="textbox-underline"/></td>
-        </tr>
-        <tr>
-            <td><input type="text" class="textbox-underline"/></td>
-            <td><input type="text" class="textbox-underline"/></td>
-            <td><input type="text" class="textbox-underline"/></td>
-        </tr>        
-        <tr>
-    		<td colspan="7">
-    		Consider conducting a third party penetration of your infrastructure or using existing staff to conduct a penetration test. Determine the scope of the systems you want tested taking into account risk and your resources. For example, will penetration testing be limited to identifying vulnerabilities or will the penetration attempt to obtain sensitive information from the firm? Will the test include outside threats, mainly the internet or will it also include internal (employee/vendor) tests? Should the test be done as a surprise without letting employees or users of your system know, or should you inform them? After conducting the test, firms should identify vulnerabilities and conduct a risk assessment of whether to remediate. 
-    		</td>
-        </tr>
-    </tbody>
-	</table>
-    <div ng-pagination></div>
-
+  <grid-section-header title="Section 8 – Detect: Penetration Testing "></grid-section-header> 
+  <div ui-grid="section8" class="sectiongrid" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-resize-columns></div> 
+  <grid-section-notes template="components/section/templates/notes/section8.notes.html"></grid-section-notes>
+  <div ng-pagination></div>
   </div>
  </div>
 </div>

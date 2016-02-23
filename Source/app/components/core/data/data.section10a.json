@@ -1,0 +1,105 @@
+[
+	{
+		"incident": "Loss of customer PII or firm sensitive information",
+		"responseplan": "",
+		"risklevel":"",
+		"needtoremediate": "",
+        "remediatesteps":"",
+        "remediatestatus":""
+	},
+	{
+		"incident": "Data corruption",
+		"responseplan": "",
+		"risklevel":"",
+		"needtoremediate": "",
+        "remediatesteps":"",
+        "remediatestatus":""	
+	},
+	{
+		"incident": "Denial of Service (DoS) attack",
+		"responseplan": "",
+		"risklevel":"",
+		"needtoremediate": "",
+        "remediatesteps":"",
+        "remediatestatus":""	
+	},
+	{
+		"incident": "Network intrusion",
+		"responseplan": "",
+		"risklevel":"",
+		"needtoremediate": "",
+        "remediatesteps":"",
+        "remediatestatus":""	
+	},
+	{
+		"incident": "Customer account intrusion",
+		"responseplan": "",
+		"risklevel":"",
+		"needtoremediate": "",
+        "remediatesteps":"",
+        "remediatestatus":""	
+	},
+	{
+		"incident": "Malware infection",
+		"responseplan": "",
+		"risklevel":"",
+		"needtoremediate": "",
+        "remediatesteps":"",
+        "remediatestatus":""	
+	},
+	{
+		"incident": "Lost Device",
+		"responseplan": "",
+		"risklevel":"",
+		"needtoremediate": "",
+        "remediatesteps":"",
+        "remediatestatus":""	
+	},
+	{
+		"incident": "Stolen Device",
+		"responseplan": "",
+		"risklevel":"",
+		"needtoremediate": "",
+        "remediatesteps":"",
+        "remediatestatus":""	
+	},
+	{
+		"incident": "Third Party Vendor Compromise ",
+		"responseplan": "",
+		"risklevel":"",
+		"needtoremediate": "",
+        "remediatesteps":"",
+        "remediatestatus":""	
+	},
+	{
+		"incident": "Identifying relevant stakeholders who require notice of the breach.",
+		"responseplan": "",
+		"risklevel":"",
+		"needtoremediate": "",
+        "remediatesteps":"",
+        "remediatestatus":""	
+	}
+]
+
+
+
+      
+        
+        
+        
+        
+       
+       
+        
+        
+         
+
+        
+
+        
+
+        
+         
+        
+        
+        

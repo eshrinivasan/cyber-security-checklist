@@ -1,0 +1,44 @@
+[
+   {
+        "controls": "Device only allows authorized persons to download software?",
+         "": "",  
+        "needtoremediate": "",
+        "remediatesteps":"",
+        "remediatestatus":""
+    },
+     {
+        "controls": "Can data be deleted remotely if device is lost?",
+         "": "", 
+        "needtoremediate": "",
+        "remediatesteps":"",
+        "remediatestatus":""
+    },
+     {
+        "controls": "Ex-Employees/Contractors and ex-vendors/customers access terminated immediately?",
+         "": "", 
+         "needtoremediate": "",
+        "remediatesteps":"",
+        "remediatestatus":""
+    },
+     {
+        "controls": "Monitor employees and vendors systems access?",
+         "": "",       
+        "needtoremediate": "",
+        "remediatesteps":"",
+        "remediatestatus":""
+    },
+     {
+        "controls": "Do you encrypt all portable media",
+         "": "",       
+        "needtoremediate": "",
+        "remediatesteps":"",
+        "remediatestatus":""
+    },
+     {
+        "controls": "Limit administrative privileges (see link on page 62)",
+         "": "",       
+        "needtoremediate": "",
+        "remediatesteps":"",
+        "remediatestatus":""
+    }
+]
