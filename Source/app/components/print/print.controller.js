@@ -6,24 +6,42 @@
 
 	function PrintController($scope, $state, $sessionStorage, dataservice){
 		var printCtrl = this;
-
 		var total = dataservice.getSections();
 		var sectoretrieve;
 
+		//for each section in total array, get the corresponding sections for eg: section3 contains section3a, section3b
 		function retrieveSections(item){
 			sectoretrieve = dataservice.getSectionAssocArray("section"+item);
 			return sectoretrieve;
 		}
 
 		var sectionstoretrieve = total.map(retrieveSections);
-		console.log(sectionstoretrieve[0]);
 
+		//some arrays contains multiple sections - converting them into a single array
+		function getflatarray(sectionstoretrieve){
+			var flatarray = [];
+			var storedSession = sectionstoretrieve;
+		
+			for(var i=0; i < storedSession.length; i++){
+				if(storedSession[i].length > 1){					
+					for(var j = 0; j < storedSession[i].length; j++){	
+						var subarray = storedSession[i];
+						flatarray.push( subarray.slice(j, j+1));	
+					}										
+				}else{
+					flatarray.push(storedSession[i]);
+				}
+			}
+			
+			return flatarray;
+		}
 
+		var newflatarray = getflatarray(sectionstoretrieve);
+		
 		//loop through all sections answered from the session storage variable and assign it to scope.section vars
-		angular.forEach(sectionstoretrieve[0], function(value, key) {
-
-			$scope[value] = $sessionStorage[value];
-			console.log($sessionStorage[value])
-		});
+		for(var i = 0; i < newflatarray.length; i++){ 
+			var value = newflatarray[i];
+			$scope[value] = $sessionStorage[value];		
+		}
 	}
 })()

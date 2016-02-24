@@ -55,14 +55,11 @@ angular.module("cyberapp.section")
                 var sectosavearr = dataservice.getSectionAssocArray($scope.currentState);
                 if(sectosavearr.length > 1){
                     angular.forEach(sectosavearr, function(key, value){
-                        $sessionStorage[currindex] = $scope[key]; //storing in session   
-
+                        $sessionStorage[key] = $scope[key]; //storing in session
                     });
                 }else{
-                    $sessionStorage[currindex] = $scope[$scope.currentState]; //storing in session    
+                    $sessionStorage[$scope.currentState] = $scope[$scope.currentState]; //storing in session    
                 }
-
-                console.log($sessionStorage);
 
                 if(typeof $scope.total !== "undefined" && nextindex < $scope.total.length){
                     var nextSection = $scope.total[nextindex];

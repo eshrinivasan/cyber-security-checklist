@@ -58,14 +58,14 @@
             var sectionMap = {
                 'section1': "section1",
                 'section2': "section2",
-                'section3' : "section3a, section3b",
-                "section4" : "section4a, section4b",
+                'section3' : "section3a,section3b",
+                "section4" : "section4a,section4b",
                 "section5" : "section5",
                 "section6" : "section6",
-                "section7" : "section7a, section7b, section7c, section7d",
+                "section7" : "section7a,section7b,section7c,section7d",
                 "section8" : "section8",
-                "section9" : "section9a, section9b",
-                "section10" : "section10a, section10b, section10c",
+                "section9" : "section9a,section9b",
+                "section10" : "section10a,section10b,section10c",
                 "section11" : "section11"
             }
             return sectionMap[key].split(',');
