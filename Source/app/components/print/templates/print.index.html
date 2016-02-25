@@ -1,9 +1,12 @@
+
 <div class="container">
   <div class="row"> 
   	<div class="pull-right">
-	<button id="printPageButton" ng-click="printDiv('printPage')">Print Page</button>
+	 <button class="btn btn-default btn-color" ng-print print-element-id="printSection"><i class="fa fa-print"></i>Print</button>
 	</div>
-	<div id="printPage">
+
+
+	<div id="printSection">
 	<div ng-if="section1 != undefined">		
 	  	<!--Print for section 1-->  	
 			<div class="box printview">   
