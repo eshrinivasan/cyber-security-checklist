@@ -39,7 +39,7 @@ module.exports = function (grunt) {
 
         // Clean out temporary directories and files.
         clean: {
-            dev: ["temp/**/*"],
+            dev: ["temp/**/*", "<%= global.app %><%= global.js %>/min/*.min.js", "<%= global.app %><%= global.css %>/min/*.min.css"],
             dist: ["build/**/*"]
         },
 
@@ -101,9 +101,9 @@ module.exports = function (grunt) {
                 },
                 files: [{
                     expand: true,
-                    flatten: true,
+                    flatten:true,
                     cwd: '<%= global.app %><%= global.components %>',
-                    dest: '<%= global.app %><%= global.js %>/min',
+                    dest: '<%= global.temp %><%= global.js %>/min',
                     src: ['**/*.js', '!**/*.min.js'],
                     rename: function (dest, src) {
                         var folder = src.substring(0, src.lastIndexOf('/'));
@@ -111,7 +111,21 @@ module.exports = function (grunt) {
                         filename = filename.substring(0, filename.lastIndexOf('.'));
                         return dest + '/' + folder + filename + '.min.js';
                     }
-                }]
+                },
+                {
+                    expand: true,
+                    flatten:true,
+                    cwd: '<%= global.app %>',
+                    dest: '<%= global.temp %><%= global.js %>/min',
+                    src: ['*.js', '!*.min.js'],
+                    rename: function (dest, src) {
+                        var folder = src.substring(0, src.lastIndexOf('/'));
+                        var filename = src.substring(src.lastIndexOf('/'), src.length);
+                        filename = filename.substring(0, filename.lastIndexOf('.'));
+                        return dest + '/' + folder + filename + '.min.js';
+                    }
+                }
+                ]
             },
             dist: {
                 options: {
@@ -120,9 +134,9 @@ module.exports = function (grunt) {
                 },
                 files: [{
                     expand: true,
-                    flatten: true,
+                    flatten:true,
                     cwd: '<%= global.app %><%= global.components %>',
-                    dest: '<%= global.app %><%= global.js %>/min',
+                    dest: '<%= global.temp %><%= global.js %>/min',
                     src: ['**/*.js', '!**/*.min.js'],
                     rename: function (dest, src) {
                         var folder = src.substring(0, src.lastIndexOf('/'));
@@ -130,7 +144,21 @@ module.exports = function (grunt) {
                         filename = filename.substring(0, filename.lastIndexOf('.'));
                         return dest + '/' + folder + filename + '.min.js';
                     }
-                }]
+                },
+                {
+                    expand: true,
+                    flatten:true,
+                    cwd: '<%= global.app %>',
+                    dest: '<%= global.temp %><%= global.js %>/min',
+                    src: ['*.js', '!*.min.js'],
+                    rename: function (dest, src) {
+                        var folder = src.substring(0, src.lastIndexOf('/'));
+                        var filename = src.substring(src.lastIndexOf('/'), src.length);
+                        filename = filename.substring(0, filename.lastIndexOf('.'));
+                        return dest + '/' + folder + filename + '.min.js';
+                    }
+                }
+                ]
             }
         },
 
@@ -186,15 +214,17 @@ module.exports = function (grunt) {
 
                     /* This section is used to add js files from the /assets/js folder to a single concatenated file. */
                     {
-                        src: ['<%= global.app %><%= global.js %>**/**.js'],
+                        src: ['<%= global.temp %><%= global.js %>/*.min.js'],
                         dest: '<%= global.app %><%= global.js %>/min/app.min.js'
                     }
-
-                    /* This section is used to add js files from the /assets/libs folder to a single concatenated file. */
+                    /* This section is used to add js files from the /assets/libs folder to a single concatenated file.
+                     *  Use when there are more than one file from this directory.
+                     * */
                     // {
-                    //     src: ['<%= global.app %><%= global.libs %>/xdomain/xdomain.min.js'],
-                    //     dest: '<%= global.app %><%= global.libs %>/min/external.libs.min.js'
+                    //     src: ['<%= global.app %><%= global.libs %>/ngprint/ngprint.min.js'],
+                    //     dest: '<%= global.build %><%= global.libs %>/ngprint/ngprint.min.js'
                     // }
+
 
                 ]
             },
@@ -224,13 +254,15 @@ module.exports = function (grunt) {
                     {
                         src: ['<%= global.app %><%= global.js %>**/**.js'],
                         dest: '<%= global.build %><%= global.js %>/min/app.min.js'
-                    }
+                    },
 
-                    /* This section is used to add js files from the /assets/libs folder to a single concatenated file. */
-                    // {
-                    //     src: ['<%= global.app %><%= global.libs %>/xdomain/xdomain.min.js'],
-                    //     dest: '<%= global.build %><%= global.libs %>/min/external.libs.min.js'
-                    // }
+                    /* This section is used to add js files from the /assets/libs folder to a single concatenated file.
+                    *  Use when there are more than one file from this directory.
+                    * */
+                   // {
+                   //     src: ['<%= global.app %><%= global.libs %>/ngprint/ngprint.min.js'],
+                   //     dest: '<%= global.build %><%= global.libs %>/ngprint/ngprint.min.js'
+                   // }
 
                 ]
             }
@@ -262,9 +294,15 @@ module.exports = function (grunt) {
                     },
                     {
                         expand: true,
+                        cwd: '<%= global.app %><%= global.libs %>/',
+                        src: ['ngprint/**/*.min.js', 'xdomain/**/*.min.js'],
+                        dest: '<%= global.build %><%= global.libs %>', filter: 'isFile'
+                    },
+                    {
+                        expand: true,
                         cwd:'<%= global.app %><%= global.components %>',
                         dest: '<%= global.build %><%= global.components %>',
-                        src: ["*.html", "**/*.html, *.json", "**/*.json"]
+                        src: ["*.html", "**/*.html", "*.json", "**/*.json"]
                     },
                     {
                         expand: true,
@@ -274,14 +312,15 @@ module.exports = function (grunt) {
                     },
                     {
                         expand: true,
-                        dest: '<%= global.build %>/',
+                        cwd:'<%= global.app %>/',
+                        dest: '<%= global.build %>',
                         src: ["ie9/**/*.*"]
                     },
                     {
-                        expand: false,
-                        cwd:'<%= global.app %>',
-                        dest: '<%= global.build %>',
-                        src: ["index.html"]
+                        expand: true,
+                        cwd:'<%= global.app %>/',
+                        dest: '<%= global.build %>/',
+                        src: ["index.html", "app.module.js"]
                     }
 
                 ]
@@ -314,7 +353,15 @@ module.exports = function (grunt) {
         'uglify:dev'
     ]);
 
-
+    grunt.registerTask('dev', [
+        'clean:dev',
+        'compass:dev',
+        'cssmin:dev',
+        'uglify:dev',
+        'concat:dev',
+        'concat_css:dev',
+        'copy:dev'
+    ]);
     grunt.registerTask('build', [
         'clean:dist',
         'compass:dist',
