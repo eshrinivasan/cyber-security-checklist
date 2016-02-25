@@ -30,10 +30,15 @@ module.exports = function (grunt) {
             },
             compass: {
                 files: '**/*.sass',
-                tasks: ['watch:dev'],
+                tasks: ['clean:dev','compass:dev', 'cssmin:dev', 'concat_css:dev'],
                 options: {
                     cwd: '<%= global.app %><%= global.sass %>'
                 }
+            },
+            js : {
+                files: ['<%= global.components %>/**/*.js', '<%= global.bower %>/**/*.js'],
+                tasks: ['clean:dev', 'uglify:dev', 'concat:dev', 'copy:dev']
+
             }
         },
 
