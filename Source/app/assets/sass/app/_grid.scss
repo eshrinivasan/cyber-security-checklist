@@ -1,25 +1,90 @@
 .sectiongrid {
     width: 100%;
-    min-height: 400px;
+    min-height: 280px;
 
-	    .ui-grid-header-cell .ui-grid-cell-contents {
-		     min-height: 110px;
-		     white-space: normal;
-		     -ms-text-overflow: clip;
-		     -o-text-overflow: clip;
-		     text-overflow: clip;
-		     overflow: visible;
+    .ui-grid-header-cell .ui-grid-cell-contents {
+	     min-height: 110px;
+	     white-space: normal!important;
+	     -ms-text-overflow: clip;
+	     -o-text-overflow: clip;
+	     text-overflow: clip;
+	     overflow: visible;
 	}
 
-	
+	 .ui-grid-cell-contents {
+	 	white-space: normal !important;
+	 }	
 
 	.ui-grid-column-menu-button{
 		display:none;
 	}
 
-	.ui-grid-row,
-	.ui-grid-cell, .ui-grid-cell .ui-grid-vertical-bar{
-		height:65px;
+	.ui-grid-cell{
+		padding:5px;
+
+		input, select{
+			border:1px solid;
+			height:40px;
+		}
 	}
 
+	.ui-grid-row:last-child .ui-grid-cell{
+		border-bottom-width:1px !important;
+	}
+
+	.ui-grid-cell-focus{
+		background-color:transparent;
+	}
+
+	&.gridsection1{
+		height:280px;
+	}
+
+	&.gridsection2,
+	&.gridsection4a,
+	&.gridsection4b,
+	&.gridsection6,
+	&.gridsection7a,
+	&.gridsection7b,
+	&.gridsection8,
+	&.gridsection10b{
+		height:180px;
+	}
+	
+	&.gridsection7c{
+		min-height:750px;
+		height:750px;
+	}
+
+	&.gridsection10a{
+		min-height:900px;
+		height:900px;
+	}
+
+	&.gridsection3a{
+		min-height:350px;
+		height:350px;
+	}
+
+	&.gridsection10c{
+		min-height:500px;
+		height:500px;
+	}
+	
+	&.gridsection9b,
+	&.gridsection11{
+		min-height:600px;
+		height:600px;
+	}
+}
+
+.notesaroundGrid{
+	padding: 10px 0;
+}
+
+.highlighted-area{
+	padding:5px;
+	margin:5px 0;
+	background:$highlighted-area;
+	border:1px solid $pager-inactive;
 }

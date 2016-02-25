@@ -3,14 +3,17 @@
 <div class="col-md-12">
 <div class="box boxeffect7">
   <div ng-multistepsindicator total="total" class="clearfix multistepcontainer"></div>
+
       <grid-section-header title="Section 7 – Protect: Employee Devices"></grid-section-header>  
-      <div ui-grid="section7a" class="sectiongrid" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-resize-columns></div>
+      <div ui-grid="section7a" class="sectiongrid gridsection7a" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-resize-columns></div>
+      <div class="alignRight clearfix"><button ng-click="addNewItem(section7a)">Add Row</button></div> 
       <grid-section-notes template="components/section/templates/notes/section7a.notes.html"></grid-section-notes>
-      <div ui-grid="section7b" class="sectiongrid" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-resize-columns></div>
+      <div ui-grid="section7b" class="sectiongrid gridsection7b" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-resize-columns></div>
       <grid-section-notes template="components/section/templates/notes/section7b.notes.html"></grid-section-notes>
-      <div ui-grid="section7c" class="sectiongrid" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-resize-columns></div>
+      <div ui-grid="section7c" class="sectiongrid gridsection7c" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-resize-columns></div>
       <div><h4>Staff training</h4></div>
-      <div ui-grid="section7d" class="sectiongrid" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-resize-columns></div>     
+      <div ui-grid="section7d" class="sectiongrid gridsection7d" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-resize-columns></div>     
+      
   <div ng-pagination></div>
   </div>
  </div>

@@ -22,11 +22,7 @@
 			$scope.device_owner = [{option: 'Firm'}, {option: 'Individual'}];
 			$scope.levels = [{option: 'High'},{option: 'Medium'},{option: 'Low'}];
 			$scope.remediationsteps = [{option: 'Not Started'},{option: 'In Process'},{option: 'Complete'},{option: 'Not Needed'}];
-
-
-         	$scope.jsonstore = dataservice.getJsonStore();
-         	//console.log($scope.jsonstore);
-
+         	$scope.jsonstore = dataservice.getJsonStore();       
 			//Loop through section json objects that represent the row data to be supplied to ui-grid
      		angular.forEach($scope.jsonstore, function(value, key) {
      			$http.get(value).success(function(response){     				
@@ -39,6 +35,7 @@
 				enableCellEditOnFocus: true, 
 				enableCellEdit:true, 
 				enableSorting: false,
+				rowHeight:55,
 				columnDefs:[{
 						field: 'piidata',
 						displayName:'PII or Firm Sensitive Data'
@@ -63,57 +60,84 @@
 
 			};
 
+			$scope.piidata = function (){
+				return $sessionStorage.section1.data[0].piidata;
+			}
+
+			$scope.location = function (){
+				return $sessionStorage.section1.data[0].location;
+			}
+
+
+			$scope.risklevel = function (){
+				return $sessionStorage.section1.data[0].risklevel;
+			}
+
+			$scope.nameemployee = function(){
+				return $scope.section7a.data[0].nameemployee;
+			}
+
+			$scope.devicetype = function(){
+				return $scope.section7a.data[0].devicetype;
+			}
+
+			$scope.deviceowner = function(){
+				return $scope.section7a.data[0].deviceowner;
+			}
+
 			$scope.section2 = { 
 				enableCellEditOnFocus: true, 
 				enableCellEdit:true, 
 				enableSorting: false,
-				columnDefs:[{
+				rowHeight:55,
+				columnDefs:[
+					{
 							field: 'piidata',
-							displayName:'PII or Firm Sensitive Data'
+							displayName:'PII or Firm Sensitive Data',
+							cellTemplate : '<div>{{grid.appScope.piidata()}}</div>'
 					},
 					{	
 							field: 'location',
-							displayName:'Location'
+							displayName:'Location',
+							cellTemplate : '<div>{{grid.appScope.location()}}</div>'
 					},
 					{
 							field:'risklevel',
 							displayName: 'Risk Severity Level',
-							editType: 'dropdown',
-							enableCellEdit:true,
-							editableCellTemplate: 'ui-grid/dropdownEditor',
-					        editDropdownOptionsArray: $scope.levels,
-					        editDropdownIdLabel: 'option',
-					        editDropdownValueLabel: 'option'
+							cellTemplate : '<div>{{grid.appScope.risklevel()}}</div>'
 					},
 					{	
 							field: 'busobjwodata',
-							displayName: 'Business Objective can be met without data?',
+							displayName: 'Data required?',
 							editType: 'dropdown',
 							enableCellEdit:true,
 							editableCellTemplate: 'ui-grid/dropdownEditor',
 					        editDropdownOptionsArray: $scope.yes_no,
 					        editDropdownIdLabel: 'option',
-					        editDropdownValueLabel: 'option'
+					        editDropdownValueLabel: 'option',
+					        headerTooltip: 'Can your business objective be met without storing the PII or firm sensitive information?'
 					},
 					{	
 							field: 'busobjwodatashared',
-							displayName: 'Business Objective can be met without data being output or shared internally? ',
+							displayName: 'Data Required to be output or shared?',
 							editType: 'dropdown',
 							enableCellEdit:true,
 							editableCellTemplate: 'ui-grid/dropdownEditor',
 					        editDropdownOptionsArray: $scope.yes_no,
 					        editDropdownIdLabel: 'option',
-					        editDropdownValueLabel: 'option'
+					        editDropdownValueLabel: 'option',
+					        headerTooltip: 'Can your business objective be met without outputting or sharing the data –identify people or systems that do not require access to the data, and consider isolating the data.'
 					},
 					{	
 							field: 'needtoremediate',
-							displayName: 'Do you need to Remediate?',
+							displayName: 'Remediate',
 							editType: 'dropdown',
 							enableCellEdit:true,
 							editableCellTemplate: 'ui-grid/dropdownEditor',
 					        editDropdownOptionsArray: $scope.yes_no,
 					        editDropdownIdLabel: 'option',
-					        editDropdownValueLabel: 'option'
+					        editDropdownValueLabel: 'option',
+					        headerTooltip: 'If data is not required to be stored or shared, you should consider removing or isolating the data.'
 					},
 					{	
 							field: 'remediatesteps',
@@ -132,6 +156,7 @@
 				],
 		      	onRegisterApi: function(gridApi) {
 			       		 grid = gridApi.grid;
+			       		 console.log(grid);
 			      }
 
 			};
@@ -141,6 +166,7 @@
 				enableCellEditOnFocus: true, 
 				enableCellEdit:true, 
 				enableSorting: false,
+				rowHeight:55,
 				columnDefs:[{
 							field: 'nameof3rdparty',
 							displayName:'Name of Third Party Organization'
@@ -225,6 +251,7 @@
 				enableCellEditOnFocus: true, 
 				enableCellEdit:true, 
 				enableSorting: false,
+				rowHeight:92,
 				columnDefs:[{
 					 	field: 'activityaddress',
 						displayName: '',
@@ -275,23 +302,21 @@
 				enableCellEditOnFocus: true, 
 				enableCellEdit:true, 
 				enableSorting: false,
+				rowHeight:55,
 				columnDefs:[{
 							field: 'piidata',
-							displayName:'PII or Firm Sensitive Data'
+							displayName:'PII or Firm Sensitive Data',
+							cellTemplate : '<div>{{grid.appScope.piidata()}}</div>'
 					},
 					{	
 							field: 'location',
-							displayName: 'Location'
+							displayName: 'Location',
+							cellTemplate : '<div>{{grid.appScope.location()}}</div>'
 					},
 					{	
 							field: 'risklevel',
-							displayName: 'Risk Severity Level',	
-							editType: 'dropdown',
-							enableCellEdit:true,
-							editableCellTemplate: 'ui-grid/dropdownEditor',
-					        editDropdownOptionsArray: $scope.levels,
-					        editDropdownIdLabel: 'option',
-					        editDropdownValueLabel: 'option'
+							displayName: 'Risk Severity Level',								
+							cellTemplate : '<div>{{grid.appScope.risklevel()}}</div>'
 					},
 					{	
 							field: 'passwordprotection',
@@ -352,6 +377,7 @@
 				enableCellEditOnFocus: true, 
 				enableCellEdit:true, 
 				enableSorting: false,
+				rowHeight:55,
 				columnDefs:[{
 					 	field: 'passwordpolicy',
 						displayName: '',
@@ -403,6 +429,7 @@
 				enableCellEditOnFocus: true, 
 				enableCellEdit:true, 
 				enableSorting: false,
+				rowHeight:55,
 				columnDefs:[{
 							field: 'systems',
 							displayName:'Systems'
@@ -482,17 +509,21 @@
 				enableCellEditOnFocus: true, 
 				enableCellEdit:true, 
 				enableSorting: false,
+				rowHeight:55,
 				columnDefs:[{
 						field: 'piidata',
-						displayName:'PII or Firm Sensitive Data'
+						displayName:'PII or Firm Sensitive Data',
+						cellTemplate : '<div>{{grid.appScope.piidata()}}</div>'
 					},
 					{
 						field: 'location',
-						displayName:'Location'
+						displayName:'Location',
+						cellTemplate : '<div>{{grid.appScope.location()}}</div>'
 					},
 				    {
 						field: 'risklevel',
-						displayName:'Risk Severity Level'
+						displayName:'Risk Severity Level',						
+						cellTemplate : '<div>{{grid.appScope.risklevel()}}</div>'
 					},
 					{
 						field: 'dataencrypedtoext',
@@ -565,6 +596,7 @@
 				enableCellEditOnFocus: true, 
 				enableCellEdit:true, 
 				enableSorting: false,
+				rowHeight:55,
 				columnDefs:[
 					{
 						field:'nameemployee',
@@ -585,18 +617,22 @@
 				enableCellEditOnFocus: true, 
 				enableCellEdit:true, 
 				enableSorting: false,
+				rowHeight:55,
 				columnDefs:[					
 					{
 						field:'devicetype',
-						displayName: 'Device Type' 
+						displayName: 'Device Type' ,
+						cellTemplate : '<div>{{grid.appScope.devicetype()}}</div>'
 					},
 					{
 						field:'nameemployee',
-						displayName: 'Employee' 
+						displayName: 'Employee',
+						cellTemplate : '<div>{{grid.appScope.nameemployee()}}</div>'
 					},
 					{
 						field:'deviceowner',
-						displayName: 'Device Owner'
+						displayName: 'Device Owner',
+						cellTemplate : '<div>{{grid.appScope.deviceowner()}}</div>'
 					},
 					{
 						field: 'accesstopii',
@@ -654,6 +690,7 @@
 				enableCellEditOnFocus: true, 
 				enableCellEdit:true, 
 				enableSorting: false,
+				rowHeight:92,
 				columnDefs:[{
 					 	field: 'controls',
 						displayName: 'Controls',
@@ -703,6 +740,7 @@
 				enableCellEditOnFocus: true, 
 				enableCellEdit:true, 
 				enableSorting: false,
+				rowHeight:55,
 				columnDefs:[{
 					 	field: 'stafftraining',
 						displayName: '',
@@ -729,6 +767,7 @@
 				enableCellEditOnFocus: true, 
 				enableCellEdit:true, 
 				enableSorting: false,
+				rowHeight:55,
 				columnDefs:[
 					{
 						field: 'techasset',
@@ -789,6 +828,7 @@
 				enableCellEditOnFocus: true, 
 				enableCellEdit:true, 
 				enableSorting: false,
+				rowHeight:92,
 				columnDefs:[
 					{
 						field: 'detectsystem',
@@ -845,6 +885,7 @@
 				enableCellEditOnFocus: true, 
 				enableCellEdit:true, 
 				enableSorting: false,
+				rowHeight:92,
 				columnDefs:[
 					{
 						field: 'idscontrols',
@@ -891,6 +932,7 @@
 				enableCellEditOnFocus: true, 
 				enableCellEdit:true, 
 				enableSorting: false,
+				rowHeight:92,
 				columnDefs:[
 					{
 						field: 'incident',
@@ -947,6 +989,7 @@
 				enableCellEditOnFocus: true, 
 				enableCellEdit:true, 
 				enableSorting: false,
+				rowHeight:55,
 				columnDefs:[
 					{
 						field: 'incident',
@@ -1009,6 +1052,7 @@
 				enableCellEditOnFocus: true, 
 				enableCellEdit:true, 
 				enableSorting: false,
+				rowHeight:55,
 				columnDefs:[{
 					 	field: 'activity',
 						displayName: 'Activity/Governance',
@@ -1035,6 +1079,7 @@
 				enableCellEditOnFocus: true, 
 				enableCellEdit:true, 
 				enableSorting: false,
+				rowHeight:92,
 				columnDefs:[
 					{
 						field: 'controls',
@@ -1096,15 +1141,5 @@
 		    $scope.addNewItem = function(section){
 		    	section.data.push({});
 		    };
-			
-			
-			$scope.printDiv = function(divName) {
-			  var printContents = document.getElementById(divName).innerHTML;
-			  var popupWin = window.open('', '_blank', 'width=500,height=500');
-			  popupWin.document.open();
-			  popupWin.document.write('<html><head><link rel="stylesheet" type="text/css" href="assets/css/min/compiled-styles.min.css" /><link rel="stylesheet" type="text/css" href="assets/css/min/widget-styles.min.css" /></head><body onload="window.print()">' + printContents + '</body></html>');
-			  popupWin.document.close();
-			}
-
 		}
 })()

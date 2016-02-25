@@ -72,33 +72,6 @@ module.exports = function (grunt) {
                 ]
             }
         },
-        // Automatically inject Bower components into the app
-        wiredep: {
-              app: {
-                src: ['<%= global.app %>/index.html'],
-                ignorePath:  /\.\.\//
-              },
-              test: {
-                devDependencies: true,
-                src: '<%= karma.unit.configFile %>',
-                ignorePath:  /\.\.\//,
-                fileTypes:{
-                  js: {
-                    block: /(([\s\t]*)\/{2}\s*?bower:\s*?(\S*))(\n|\r|.)*?(\/{2}\s*endbower)/gi,
-                      detect: {
-                        js: /'(.*\.js)'/gi
-                      },
-                      replace: {
-                        js: '\'{{filePath}}\','
-                      }
-                    }
-                  }
-              },
-              sass: {
-                src: ['<%= global.app %>/assets/sass/{,*/}*.{scss,sass}'],
-                ignorePath: /(\.\.\/){1,2}bower_components\//
-              }
-        },
         compass: {
             options: {
                 config: 'config.rb',
@@ -138,7 +111,7 @@ module.exports = function (grunt) {
                             'app/bower_components/ngstorage/ngStorage.min.js',
                             'app/bower_components/angular-sanitize/angular-sanitize.min.js',
                             'app/bower_components/angulartics/dist/angulartics.min.js',
-                            'app/bower_components/angulartics-google-analytics/dist/angulartics-google-analytics.min.js',
+                            'app/bower_components/angulartics-google-analytics/dist/angulartics-google-analytics.min.js'
                             
                         ],
 
@@ -167,7 +140,8 @@ module.exports = function (grunt) {
                     },
                     {
                         src: ['app/components/section/section.module.js',
-                            'app/components/section/section.controller.js'],
+                            'app/components/section/section.controller.js',
+                            'app/components/section/section.common.directives.js'],
                         dest: 'app/assets/js/cyberapp.section.js'
                     }
                 ]
@@ -202,7 +176,8 @@ module.exports = function (grunt) {
                 files: [{
                             'app/assets/css/min/compiled-styles.min.css': [
                             'app/assets/libs/animate/animate.min.css',
-                            'app/assets/libs/bootstrap-3.3.6-dist/css/bootstrap.min.css',                       
+                            'app/assets/libs/bootstrap-3.3.6-dist/css/bootstrap.min.css', 
+                            'app/bower_components/angular-ui-grid/ui-grid.css'                    
                         ]
                 }]
             },
@@ -211,6 +186,7 @@ module.exports = function (grunt) {
                             'app/assets/css/min/compiled-styles.min.css': [
                             'app/assets/libs/animate/animate.min.css',
                             'app/assets/libs/bootstrap-3.3.6-dist/css/bootstrap.min.css',
+                            'app/bower_components/angular-ui-grid/ui-grid.css'
                        ]
                 }]
             }
@@ -244,14 +220,6 @@ module.exports = function (grunt) {
                     ext: '.min.css'
                 }]
             }
-        },
-
-      // Test settings
-        karma: {
-          unit: {
-            configFile: 'test/karma.conf.js',
-            singleRun: true
-          }
         },
         uglify: {
             dev: {
@@ -326,7 +294,6 @@ module.exports = function (grunt) {
 
     grunt.registerTask('build', [
         'clean:dist',
-        'wiredep',
         'compass:dist',
         'concat:dist',
         'concat_css:dist',

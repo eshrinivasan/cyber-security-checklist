@@ -69,3 +69,20 @@ label.control-label{
 	  }
 }
 
+.alignRight{
+	padding:10px 0;
+	
+	button{
+		float:right;	
+	}
+
+	 &:before,
+	  &:after {
+	    content: " ";
+	    display: table;
+	  }
+	  &:after {
+	    clear: both;
+	  }	
+}
+
