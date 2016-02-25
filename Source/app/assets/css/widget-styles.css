@@ -170,11 +170,6 @@ ul {
  * --------------------------------------------------
  * Mobile first
  */
-.printview {
-  border: 1px solid black; }
-  .printview table.table-bordered {
-    border: 1px solid #dddddd; }
-
 table.table-bordered {
   border: 2px solid #ffe658; }
 
@@ -279,7 +274,7 @@ Custom icons hover effects - breadcrumb and multi-steps
 Multi steps indicator 
 
 -------------------------------- */
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 300px) {
   .cd-multi-steps {
     /* reset style */
     background-color: transparent;
@@ -420,7 +415,7 @@ Add a counter to the multi-steps indicator
 .cd-multi-steps.count li > *::before {
   content: attr(data-step) " - "; }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 300px) {
   .cd-multi-steps.text-top.count li > *::before,
   .cd-multi-steps.text-bottom.count li > *::before {
     /* this is the spot indicator */
@@ -451,3 +446,12 @@ Add a counter to the multi-steps indicator
 .multistepcontainer {
   margin: 10px auto;
   padding-bottom: 20px; }
+
+.printview {
+  border: 1px solid black; }
+  .printview table.table-bordered {
+    border: 1px solid #dddddd; }
+
+@media print {
+  .ui-grid-viewport {
+    overflow: auto !important; } }

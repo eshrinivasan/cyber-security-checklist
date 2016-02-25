@@ -2,9 +2,9 @@
 	angular.module("cyberapp.section")
 			.controller("SectionController", SectionController);
 
-		SectionController.$inject = ['$scope', '$state' , '$rootScope', 'datafactory', 'dataservice', '$sessionStorage', '$http'];
+		SectionController.$inject = ['$scope', '$state' , '$rootScope', 'datafactory', 'dataservice', '$sessionStorage', '$http', 'uiGridConstants'];
 
-		function SectionController($scope, $state, $rootScope, datafactory, dataservice, $sessionStorage, $http){
+		function SectionController($scope, $state, $rootScope, datafactory, dataservice, $sessionStorage, $http, uiGridConstants){
 			var sectionCtrl = this;
 			$scope.currentState = $state.current.name;			
 			$scope.sectionNumber = $scope.currentState.match(/\d+$/)[0];//filter out non numberic characters ie "section"
@@ -22,14 +22,15 @@
 			$scope.device_owner = [{option: 'Firm'}, {option: 'Individual'}];
 			$scope.levels = [{option: 'High'},{option: 'Medium'},{option: 'Low'}];
 			$scope.remediationsteps = [{option: 'Not Started'},{option: 'In Process'},{option: 'Complete'},{option: 'Not Needed'}];
-         	$scope.jsonstore = dataservice.getJsonStore();       
+         	$scope.jsonstore = dataservice.getJsonStore();  
+
 			//Loop through section json objects that represent the row data to be supplied to ui-grid
      		angular.forEach($scope.jsonstore, function(value, key) {
      			$http.get(value).success(function(response){     				
 					$scope[key].data = response;
      			})			
 			});     
-
+     		
 
 			$scope.section1 = { 
 				enableCellEditOnFocus: true, 
