@@ -98,12 +98,7 @@ module.exports = function (grunt) {
                 files:  [
                     {
                         src: ['app/bower_components/angular/angular.min.js',
-                            'app/bower_components/jquery-mousewheel/jquery.mousewheel.min.js',
-                            'app/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js',
-                            'app/bower_components/ng-scrollbars/dist/scrollbars.min.js',
                             'app/bower_components/angular-ui-router/release/angular-ui-router.min.js',
-                            'app/bower_components/angular-ui/build/angular-ui.min.js',
-                            'app/bower_components/angular-ui/build/angular-ui-ieshiv.min.js',
                             'app/bower_components/ui-router-extras/release/ct-ui-router-extras.min.js',
                             'app/bower_components/angular-animate/angular-animate.min.js',
                             'app/bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js',
@@ -118,8 +113,8 @@ module.exports = function (grunt) {
                         dest: 'app/assets/js/min/angular-plugins.min.js'
                     },
                     {
-                        src: ['app/app.module.js'],
-                        dest: 'app/assets/js/app.module.js'
+                        src: ['<%= global.js %>**/**.js'],
+                        dest: '<%= global.js %>/min/app.min.js'
                     },
                     {
                         src: ['app/components/core/core.module.js',
