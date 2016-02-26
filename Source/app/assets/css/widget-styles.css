@@ -175,6 +175,9 @@ ul {
   .printview table.table-bordered {
     border: 1px solid #dddddd; }
 
+@media print {
+  .ui-grid-viewport {
+    overflow: auto !important; } }
 table.table-bordered {
   border: 2px solid #ffe658; }
 

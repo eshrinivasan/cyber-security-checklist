@@ -219,7 +219,7 @@ module.exports = function (grunt) {
 
                     /* This section is used to add js files from the /assets/js folder to a single concatenated file. */
                     {
-                        src: ['<%= global.temp %><%= global.js %>/min/*.js'],
+                        src: ['<%= global.temp %><%= global.js %>/min/*.min.js'],
                         dest: '<%= global.app %><%= global.js %>/min/app.min.js'
                     }
                     /* This section is used to add js files from the /assets/libs folder to a single concatenated file.

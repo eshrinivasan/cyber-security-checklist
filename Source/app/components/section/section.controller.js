@@ -1141,6 +1141,12 @@
 
 		    $scope.addNewItem = function(section){
 		    	section.data.push({});
+		    	reSize(section.data.length);
+		    };
+
+	      	var reSize = function (rows) {		
+		    	var newHeight =(rows*30)+60;
+		    	angular.element(document.getElementsByClassName('ui-grid')[0]).css('height', newHeight + 'px');
 		    };
 		}
 })()
