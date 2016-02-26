@@ -170,6 +170,11 @@ ul {
  * --------------------------------------------------
  * Mobile first
  */
+.printview {
+  border: 1px solid black; }
+  .printview table.table-bordered {
+    border: 1px solid #dddddd; }
+
 table.table-bordered {
   border: 2px solid #ffe658; }
 
@@ -446,12 +451,3 @@ Add a counter to the multi-steps indicator
 .multistepcontainer {
   margin: 10px auto;
   padding-bottom: 20px; }
-
-.printview {
-  border: 1px solid black; }
-  .printview table.table-bordered {
-    border: 1px solid #dddddd; }
-
-@media print {
-  .ui-grid-viewport {
-    overflow: auto !important; } }
