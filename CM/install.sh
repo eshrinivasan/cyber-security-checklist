@@ -6,10 +6,10 @@ CopyToS3BuildBucket () {
 		bucketFolder=$1
 		echo "Copying to S3 build bucket with $HTTP_PROXY"
 		#if s3 bucket does not exist, copy the build to bucket.
-        aws s3 ls s3://${bucketFolder}/ |grep cyber-security-checklist
+        aws s3 ls s3://${bucketFolder}/ |grep cybersecuritychecklist
         if [ "$?" = "1" ]; then
 				echo "Copying to S3 bucket folder with build $buildLabel"
-                aws s3 cp --sse  --recursive ./cyber-security-checklist/ s3://${bucketFolder}/cyber-security-checklist/
+                aws s3 cp --sse  --recursive ./cybersecuritychecklist/ s3://${bucketFolder}/cybersecuritychecklist/
                 if [ "$?" != "0" ]; then
                         echo "aws s3 command failed, exiting..."
                         exit 1
