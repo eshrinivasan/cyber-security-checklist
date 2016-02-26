@@ -37,6 +37,8 @@
 				enableCellEdit:true, 
 				enableSorting: false,
 				rowHeight:55,
+				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
+        		enableVerticalScrollbar   : uiGridConstants.scrollbars.NEVER,
 				columnDefs:[{
 						field: 'piidata',
 						displayName:'PII or Firm Sensitive Data'
@@ -91,6 +93,8 @@
 				enableCellEdit:true, 
 				enableSorting: false,
 				rowHeight:55,
+				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
+        		enableVerticalScrollbar   : uiGridConstants.scrollbars.NEVER,
 				columnDefs:[
 					{
 							field: 'piidata',
@@ -168,6 +172,8 @@
 				enableCellEdit:true, 
 				enableSorting: false,
 				rowHeight:55,
+				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
+        		enableVerticalScrollbar   : uiGridConstants.scrollbars.NEVER,
 				columnDefs:[{
 							field: 'nameof3rdparty',
 							displayName:'Name of Third Party Organization'
@@ -253,6 +259,8 @@
 				enableCellEdit:true, 
 				enableSorting: false,
 				rowHeight:92,
+				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
+        		enableVerticalScrollbar   : uiGridConstants.scrollbars.NEVER,
 				columnDefs:[{
 					 	field: 'activityaddress',
 						displayName: '',
@@ -304,6 +312,8 @@
 				enableCellEdit:true, 
 				enableSorting: false,
 				rowHeight:55,
+				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
+        		enableVerticalScrollbar   : uiGridConstants.scrollbars.NEVER,
 				columnDefs:[{
 							field: 'piidata',
 							displayName:'PII or Firm Sensitive Data',
@@ -379,6 +389,8 @@
 				enableCellEdit:true, 
 				enableSorting: false,
 				rowHeight:55,
+				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
+        		enableVerticalScrollbar   : uiGridConstants.scrollbars.NEVER,
 				columnDefs:[{
 					 	field: 'passwordpolicy',
 						displayName: '',
@@ -431,6 +443,8 @@
 				enableCellEdit:true, 
 				enableSorting: false,
 				rowHeight:55,
+				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
+        		enableVerticalScrollbar   : uiGridConstants.scrollbars.NEVER,
 				columnDefs:[{
 							field: 'systems',
 							displayName:'Systems'
@@ -511,6 +525,8 @@
 				enableCellEdit:true, 
 				enableSorting: false,
 				rowHeight:55,
+				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
+        		enableVerticalScrollbar   : uiGridConstants.scrollbars.NEVER,
 				columnDefs:[{
 						field: 'piidata',
 						displayName:'PII or Firm Sensitive Data',
@@ -598,6 +614,8 @@
 				enableCellEdit:true, 
 				enableSorting: false,
 				rowHeight:55,
+				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
+        		enableVerticalScrollbar   : uiGridConstants.scrollbars.NEVER,
 				columnDefs:[
 					{
 						field:'nameemployee',
@@ -619,6 +637,8 @@
 				enableCellEdit:true, 
 				enableSorting: false,
 				rowHeight:55,
+				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
+        		enableVerticalScrollbar   : uiGridConstants.scrollbars.NEVER,
 				columnDefs:[					
 					{
 						field:'devicetype',
@@ -692,6 +712,8 @@
 				enableCellEdit:true, 
 				enableSorting: false,
 				rowHeight:92,
+				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
+        		enableVerticalScrollbar   : uiGridConstants.scrollbars.NEVER,
 				columnDefs:[{
 					 	field: 'controls',
 						displayName: 'Controls',
@@ -741,6 +763,8 @@
 				enableCellEditOnFocus: true, 
 				enableCellEdit:true, 
 				enableSorting: false,
+				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
+        		enableVerticalScrollbar   : uiGridConstants.scrollbars.NEVER,
 				rowHeight:55,
 				columnDefs:[{
 					 	field: 'stafftraining',
@@ -768,6 +792,8 @@
 				enableCellEditOnFocus: true, 
 				enableCellEdit:true, 
 				enableSorting: false,
+				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
+        		enableVerticalScrollbar   : uiGridConstants.scrollbars.NEVER,
 				rowHeight:55,
 				columnDefs:[
 					{
@@ -829,6 +855,8 @@
 				enableCellEditOnFocus: true, 
 				enableCellEdit:true, 
 				enableSorting: false,
+				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
+        		enableVerticalScrollbar   : uiGridConstants.scrollbars.NEVER,
 				rowHeight:92,
 				columnDefs:[
 					{
@@ -886,6 +914,8 @@
 				enableCellEditOnFocus: true, 
 				enableCellEdit:true, 
 				enableSorting: false,
+				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
+        		enableVerticalScrollbar   : uiGridConstants.scrollbars.NEVER,
 				rowHeight:92,
 				columnDefs:[
 					{
@@ -933,6 +963,8 @@
 				enableCellEditOnFocus: true, 
 				enableCellEdit:true, 
 				enableSorting: false,
+				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
+        		enableVerticalScrollbar   : uiGridConstants.scrollbars.NEVER,
 				rowHeight:92,
 				columnDefs:[
 					{
@@ -990,6 +1022,8 @@
 				enableCellEditOnFocus: true, 
 				enableCellEdit:true, 
 				enableSorting: false,
+				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
+        		enableVerticalScrollbar   : uiGridConstants.scrollbars.NEVER,
 				rowHeight:55,
 				columnDefs:[
 					{
@@ -1053,6 +1087,8 @@
 				enableCellEditOnFocus: true, 
 				enableCellEdit:true, 
 				enableSorting: false,
+				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
+        		enableVerticalScrollbar   : uiGridConstants.scrollbars.NEVER,
 				rowHeight:55,
 				columnDefs:[{
 					 	field: 'activity',
@@ -1080,12 +1116,15 @@
 				enableCellEditOnFocus: true, 
 				enableCellEdit:true, 
 				enableSorting: false,
+				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
+        		enableVerticalScrollbar   : uiGridConstants.scrollbars.NEVER,
 				rowHeight:92,
 				columnDefs:[
 					{
 						field: 'controls',
 						displayName:'Controls',
-						enableCellEdit:false
+						enableCellEdit:false,
+						width:350
 					},					
 					{
 						field: 'asset',

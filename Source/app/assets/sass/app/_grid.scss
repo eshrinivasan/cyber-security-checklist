@@ -1,6 +1,7 @@
 .sectiongrid {
     width: 100%;
-    min-height: 280px;
+    min-height: 200px;
+    height:200px;
 
     .ui-grid-header-cell .ui-grid-cell-contents {
 	     min-height: 110px;
@@ -36,46 +37,67 @@
 		background-color:transparent;
 	}
 
-	&.gridsection1{
-		height:280px;
-	}
-
-	&.gridsection2,
-	&.gridsection4a,
-	&.gridsection4b,
-	&.gridsection6,
-	&.gridsection7a,
+	//single row tables
+	&.gridsection1,
+	&.gridsection2,	
+	&.gridsection4a,	
 	&.gridsection7b,
 	&.gridsection8,
 	&.gridsection10b{
+		min-height: 165px;
+		height:165px;
+	}
+		
+	&.gridsection6{
 		height:180px;
 	}
 	
-	&.gridsection7c{
-		min-height:750px;
-		height:750px;
-	}
 
-	&.gridsection10a{
-		min-height:900px;
-		height:900px;
-	}
-
-	&.gridsection3a{
+	//Should have auto dynamic heights
+	&.gridsection3a,
+	&.gridsection5,
+	&.gridsection7a,	
+	&.gridsection7d{
 		min-height:350px;
 		height:350px;
 	}
 
+	&.gridsection7c{
+		min-height:670px;
+		height:670px;
+	}
+
+	&.gridsection9a{
+		min-height:300px;
+		height:300px;
+	}
+
+	&.gridsection10a{
+		min-height:1050px;
+		height:1050px;
+	}
+
+	&.gridsection3b{
+		min-height:1400px;
+		height:1400px;
+	}
+	
+	&.gridsection4b{
+		min-height:450px;
+		height:450px;
+	}
+	
 	&.gridsection10c{
 		min-height:500px;
 		height:500px;
 	}
-	
+
 	&.gridsection9b,
 	&.gridsection11{
-		min-height:600px;
-		height:600px;
+		min-height:580px;
+		height:580px;
 	}
+
 }
 
 .notesaroundGrid{

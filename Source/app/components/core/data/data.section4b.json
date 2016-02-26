@@ -1,11 +1,47 @@
 [
 	{
-		"passwordpolicy" : "Password policy",
+		"passwordpolicy" : "Password strength policy",
+		"":"",
+		"needsremediate": "",
+		"remediatesteps":"",
+		"remediatestatus":""
+	},
+	{
+		"passwordpolicy" : "Frequency of password change policy",
+		"":"",
+		"needsremediate": "",
+		"remediatesteps":"",
+		"remediatestatus":""
+	},
+	{
+		"passwordpolicy" : "Multi-factor authentication",
+		"":"",
+		"needsremediate": "",
+		"remediatesteps":"",
+		"remediatestatus":""
+	},
+	{
+		"passwordpolicy" : "Training employees on password hygiene",
+		"":"",
+		"needsremediate": "",
+		"remediatesteps":"",
+		"remediatestatus":""
+	},
+	{
+		"passwordpolicy" : "Anti-virus regularly updated policy",
+		"":"",
+		"needsremediate": "",
+		"remediatesteps":"",
+		"remediatestatus":""
+	},
+	{
+		"passwordpolicy" : "Malware regularly updated policy",
 		"":"",
 		"needsremediate": "",
 		"remediatesteps":"",
 		"remediatestatus":""
 	}
+
 ]
 
 
