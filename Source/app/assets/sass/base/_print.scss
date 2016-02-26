@@ -5,3 +5,9 @@
 		border:1px solid $app-border-color;
 	}
 }
+
+@media print {
+  .ui-grid-viewport {
+    overflow: auto !important; 
+    } 
+}
