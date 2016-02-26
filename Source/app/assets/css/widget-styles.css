@@ -197,7 +197,8 @@ footer {
 
 .sectiongrid {
   width: 100%;
-  min-height: 280px; }
+  min-height: 200px;
+  height: 200px; }
   .sectiongrid .ui-grid-header-cell .ui-grid-cell-contents {
     min-height: 110px;
     white-space: normal !important;
@@ -218,25 +219,35 @@ footer {
     border-bottom-width: 1px !important; }
   .sectiongrid .ui-grid-cell-focus {
     background-color: transparent; }
-  .sectiongrid.gridsection1 {
-    height: 280px; }
-  .sectiongrid.gridsection2, .sectiongrid.gridsection4a, .sectiongrid.gridsection4b, .sectiongrid.gridsection6, .sectiongrid.gridsection7a, .sectiongrid.gridsection7b, .sectiongrid.gridsection8, .sectiongrid.gridsection10b {
+  .sectiongrid.gridsection1, .sectiongrid.gridsection2, .sectiongrid.gridsection4a, .sectiongrid.gridsection7b, .sectiongrid.gridsection8, .sectiongrid.gridsection10b {
+    min-height: 165px;
+    height: 165px; }
+  .sectiongrid.gridsection6 {
     height: 180px; }
-  .sectiongrid.gridsection7c {
-    min-height: 750px;
-    height: 750px; }
-  .sectiongrid.gridsection10a {
-    min-height: 900px;
-    height: 900px; }
-  .sectiongrid.gridsection3a {
+  .sectiongrid.gridsection3a, .sectiongrid.gridsection5, .sectiongrid.gridsection7a, .sectiongrid.gridsection7d {
     min-height: 350px;
     height: 350px; }
+  .sectiongrid.gridsection7c {
+    min-height: 670px;
+    height: 670px; }
+  .sectiongrid.gridsection9a {
+    min-height: 300px;
+    height: 300px; }
+  .sectiongrid.gridsection10a {
+    min-height: 1050px;
+    height: 1050px; }
+  .sectiongrid.gridsection3b {
+    min-height: 1400px;
+    height: 1400px; }
+  .sectiongrid.gridsection4b {
+    min-height: 450px;
+    height: 450px; }
   .sectiongrid.gridsection10c {
     min-height: 500px;
     height: 500px; }
   .sectiongrid.gridsection9b, .sectiongrid.gridsection11 {
-    min-height: 600px;
-    height: 600px; }
+    min-height: 580px;
+    height: 580px; }
 
 .notesaroundGrid {
   padding: 10px 0; }

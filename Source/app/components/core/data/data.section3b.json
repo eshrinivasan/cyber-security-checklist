@@ -5,7 +5,102 @@
 		"needsremediate": "",
 		"remediatesteps":"",
 		"remediatestatus":""
+	},
+	{
+		"activityaddress" : "Pre-contract due diligence on vendor",
+		"":"",
+		"needsremediate": "",
+		"remediatesteps":"",
+		"remediatestatus":""
+	},
+		{
+		"activityaddress" : "Ongoing due diligence of existing vendors",
+		"":"",
+		"needsremediate": "",
+		"remediatesteps":"",
+		"remediatestatus":""
+	},
+	{
+		"activityaddress" : "Assure vendor only has access to parts of system it needs",
+		"":"",
+		"needsremediate": "",
+		"remediatesteps":"",
+		"remediatestatus":""
+	},
+	{
+		"activityaddress" : "Ex-vendors’/customers’ access terminated immediately?",
+		"":"",
+		"needsremediate": "",
+		"remediatesteps":"",
+		"remediatestatus":""
+	},
+	{
+		"activityaddress" : "Customer’s access is limited to customer’s data",
+		"":"",
+		"needsremediate": "",
+		"remediatesteps":"",
+		"remediatestatus":""
+	},
+	{
+		"activityaddress" : "Non-disclosure agreements/confidentiality agreements",
+		"":"",
+		"needsremediate": "",
+		"remediatesteps":"",
+		"remediatestatus":""
+	},
+		{
+		"activityaddress" : "Data storage, retention, delivery, encryption",
+		"":"",
+		"needsremediate": "",
+		"remediatesteps":"",
+		"remediatestatus":""
+	},
+		{
+		"activityaddress" : "Breach notification responsibilities",
+		"":"",
+		"needsremediate": "",
+		"remediatesteps":"",
+		"remediatestatus":""
+	},
+		{
+		"activityaddress" : "Right-to-audit clauses",
+		"":"",
+		"needsremediate": "",
+		"remediatesteps":"",
+		"remediatestatus":""
+	},
+		{
+		"activityaddress" : "Vendor employee access limitations, identity and access management, and separation of duties",
+		"":"",
+		"needsremediate": "",
+		"remediatesteps":"",
+		"remediatestatus":""
+	},
+		{
+		"activityaddress" : "Use of subcontractors",
+		"":"",
+		"needsremediate": "",
+		"remediatesteps":"",
+		"remediatestatus":""
+	},
+		{
+		"activityaddress" : "Vendor obligations upon contract termination",
+		"":"",
+		"needsremediate": "",
+		"remediatesteps":"",
+		"remediatestatus":""
+	},
+
+	{
+		"activityaddress" : "Security processes initiated by the vendor(E.g., acquire copy of SSAE 16 Report)",
+		"":"",
+		"needsremediate": "",
+		"remediatesteps":"",
+		"remediatestatus":""
 	}
+
+	
+	
 ]
 
 
