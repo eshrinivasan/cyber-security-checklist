@@ -1,11 +1,10 @@
-
 <div class="container">
-  <div class="row"> 
-  	<div class="pull-right">
-	 <button class="btn btn-default btn-color" ng-print print-element-id="printSection"><i class="fa fa-print"></i>Print</button>
-	</div>
-
-
+  <div class="row">
+  	<div class="alignRight">
+	 	<button class="btn btn-default btn-color" ng-print print-element-id="printSection"><i class="fa fa-print"></i>Print</button>
+	</div>		
+	<div class="highlighted-area"><b>Firm Name:</b> {{firmname}}</div>
+	
 	<div id="printSection">
 	<div ng-if="section1 != undefined">		
 	  	<!--Print for section 1-->  	
@@ -131,6 +130,7 @@
     <!--End-->
 	</div>
 	</div>
-	
+
+
  </div>
 </div>

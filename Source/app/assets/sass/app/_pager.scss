@@ -23,7 +23,7 @@ Custom icons hover effects - breadcrumb and multi-steps
 Multi steps indicator 
 
 -------------------------------- */
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 300px) {
   .cd-multi-steps {
     /* reset style */
     background-color: transparent;
@@ -180,7 +180,7 @@ Add a counter to the multi-steps indicator
   content: attr(data-step) " - ";
 }
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 300px) {
   .cd-multi-steps.text-top.count li > *::before,
   .cd-multi-steps.text-bottom.count li > *::before {
     /* this is the spot indicator */
