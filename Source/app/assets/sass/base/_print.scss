@@ -1,4 +1,7 @@
-.printview{
-	border:1px solid $black;
+
+@media print {
+  .page-break{
+	page-break-after: always;
+  }
 }
 
