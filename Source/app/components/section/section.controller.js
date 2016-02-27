@@ -31,6 +31,12 @@
      			})			
 			});     
      		
+			$scope.getTableHeight = function(section) {
+			       var headerHeight = 110; // your header height
+			       return {
+			          height: (section.data.length * section.rowHeight + headerHeight) + "px"
+			       };
+			 };
 
 			$scope.section1 = { 
 				enableCellEditOnFocus: true, 

@@ -5,7 +5,7 @@
 	<div ng-multistepsindicator total="total" class="clearfix multistepcontainer"></div>
  	<grid-section-header title="Section 1 – Identify and Assess Risks: Inventory"></grid-section-header>
  	 <div ui-grid="section1" 
- 	 	class="sectiongrid gridsection1"  ng-style="{height: (gridOptions.data.length*gridOptions.rowHeight)+32+'px'}"  ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-resize-columns>
+ 	 	class="sectiongrid gridsection1" ng-style="getTableHeight(section1)" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-resize-columns ui-grid-auto-resize>
     </div>
     <div class="alignRight clearfix"><button ng-click="addNewItem(section1)">Add Row</button>   </div>
  	<grid-section-notes template="components/section/templates/notes/section1.notes.html"></grid-section-notes>

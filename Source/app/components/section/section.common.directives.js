@@ -77,27 +77,17 @@ angular.module("cyberapp.section")
                 var currindex = $scope.getIndex();
                 var nextindex = ++currindex;
 
-                 var sectosavearr = dataservice.getSectionAssocArray($scope.currentState);
-
-                  function getIndividualElem(){
-                    var arr = [];
-                    for(var i =0; i< arguments.length; i++){
-                        arr.push(arguments[i].slice(i, i+1));
-                    }
-                    return arr;
-                }
+                var sectosavearr = dataservice.getSectionAssocArray($scope.currentState);
 
                 if(sectosavearr.length > 1){
-                    var keyStore = getIndividualElem.apply(null, sectosavearr);                    
-                    console.log(keyStore);
-                    angular.forEach(keyStore, function(key, value){
+                    angular.forEach(sectosavearr, function(key, value){
                         $sessionStorage[key] = $scope[key]; //storing in session
                     });
                 }else{
                     $sessionStorage[$scope.currentState] = $scope[$scope.currentState]; //storing in session    
                 }
 
-                console.log($sessionStorage[$scope.currentState]);
+                
                 if(typeof $scope.total !== "undefined" && nextindex < $scope.total.length){
                     var nextSection = $scope.total[nextindex];
                     var nextPage = "section"+nextSection;                                                               

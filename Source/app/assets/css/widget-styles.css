@@ -222,9 +222,12 @@ footer {
     height: 165px; }
   .sectiongrid.gridsection6 {
     height: 180px; }
-  .sectiongrid.gridsection3a, .sectiongrid.gridsection5, .sectiongrid.gridsection7a, .sectiongrid.gridsection7d {
-    min-height: 350px;
-    height: 350px; }
+  .sectiongrid.gridsection3a {
+    min-height: 320px;
+    height: 320px; }
+  .sectiongrid.gridsection1, .sectiongrid.gridsection5, .sectiongrid.gridsection7a, .sectiongrid.gridsection7d {
+    min-height: 165px;
+    height: 165px; }
   .sectiongrid.gridsection7c {
     min-height: 670px;
     height: 670px; }

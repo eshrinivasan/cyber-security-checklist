@@ -50,7 +50,9 @@ angular.module("cyberapp.print")
 		//loop through all sections answered from the session storage variable and assign it to scope.section vars
 		for(var i = 0; i < newflatarray.length; i++){ 
 			var value = newflatarray[i];
+			console.log(value);
 			$scope[value] = $sessionStorage[value];		
+
 		}
 	}
 })()
