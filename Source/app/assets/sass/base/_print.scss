@@ -1,4 +1,12 @@
 
+#printSection{
+	border:1px solid #000;
+
+	@media print{
+		border: none;
+	}
+}
+
 @media print {
   .page-break{
 	page-break-after: always;

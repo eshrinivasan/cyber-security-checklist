@@ -15,6 +15,7 @@
 
 .btn-default.active, .btn-default:active{
 	background-color:$btn-yes;
+	border:3px solid ghostwhite;
 }
 
 .btn-default.inactive{
@@ -23,4 +24,9 @@
 
 .btn:hover{
 
+}
+
+.btn-default:active {
+  box-shadow: 0 1px 0 #00823F;
+    bottom:-4px;
 }

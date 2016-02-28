@@ -31,10 +31,10 @@
     		           <label>{{question.text}}</label>
     		 			    <div class="col-xs-12">
     		            	<div class="col-xs-4 col-md-2">
-    			               <button type="button" class="btn btn-default btn-lg btn-color" ng-class="{'active': question.ActiveYes}" ng-click="addInfo($index);toggleActivateYes(question)">Yes</button>
+    			               <button type="button" class="btn btn-default btn-lg btn-color" ng-class="question.ActiveYes? 'active' : '' " ng-click="addInfo($index);toggleActivateYes(question)">Yes</button>
     			        	  </div>
                       <div class="col-xs-4 col-md-2">
-    			               <button type="button" class="btn btn-default btn-lg btn-color" ng-class="{'active': question.ActiveNo}" ng-click="removeInfo($index);toggleActivateNo(question)">No</button>			           
+    			               <button type="button" class="btn btn-default btn-lg btn-color" ng-class="question.ActiveNo? 'active' : ''" ng-click="removeInfo($index);toggleActivateNo(question)">No</button>			           
     			        	  </div>
       			        	<div class="col-xs-12 col-md-6">
         			        	<span  ng-show="showText"><span class="glyphicon glyphicon-info-sign highlight-text" aria-hidden="true"></span><span class="highlight-text">Complete section {{SectiontoComplete}}</span>
@@ -43,7 +43,7 @@
     		        	</div>
     	       	</div>        	
         			<div class="form-group  align-label"><div class="col-xs-12  align-label"><label class="hidden-xs col-md-4"></label><div class="col-xs-12 col-md-4"><button type="button" class="btn btn-default btn-lg btn-color col-xs-12" ng-click="isAnswered()" ng-class="{'disabled' : notAnsweredAll}">Start</button></div></div>
-              <div class="col-xs-12" ng-show="answerAlltext"><span class="glyphicon glyphicon-info-sign highlight-text" aria-hidden="true"></span><span class="highlight-text">Please answer all the above questions to proceed!</span></div>
+              <div class="col-xs-12" ng-show="answerAlltext"><span class="glyphicon glyphicon-info-sign highlight-text" aria-hidden="true"></span><span class="highlight-text">Please answer all the above questions(atleast Yes to one question) to proceed!</span></div>
               </div>	
             </form>
        </div>

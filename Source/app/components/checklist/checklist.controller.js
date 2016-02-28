@@ -75,10 +75,15 @@
 	  	}
 
 	  	$scope.isAnswered = function(){
-	  		//Now the total is populated, lets start with the first section in the total array.
-	  		if($scope.total.length){
-	  			var sectiontoforward = "section"+$scope.total[0];		  		
-	  			$state.go(sectiontoforward);	
+	  		//Now the allanswers array has 5 answers, lets start with the first section in the total array.
+	  		if($scope.allanswers.length == 5 && $scope.notAnsweredAll == false){
+	  			if($scope.total[0] != undefined){
+	  				var sectiontoforward = "section"+$scope.total[0];		  		
+	  				$state.go(sectiontoforward);	
+	  			}else{
+	  				$scope.answerAlltext = true;
+	  			}
+	  			
 	  		}else{
 	  			$scope.answerAlltext = true;
 	  		}

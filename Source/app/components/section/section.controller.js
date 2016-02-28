@@ -31,12 +31,43 @@
      			})			
 			});     
      		
+     		$scope.addNewItem = function(section){
+		    	section.data.push({});
+		    };
+
+
 			$scope.getTableHeight = function(section) {
 			       var headerHeight = 110; // your header height
 			       return {
 			          height: (section.data.length * section.rowHeight + headerHeight) + "px"
 			       };
 			 };
+
+			$scope.piidata = function (){
+				return $sessionStorage.section1.data[0].piidata;
+			}
+
+			$scope.location = function (){
+				return $sessionStorage.section1.data[0].location;
+			}
+
+
+			$scope.risklevel = function (){
+				return $sessionStorage.section1.data[0].risklevel;
+			}
+
+			$scope.nameemployee = function(){
+				return $scope.section7a.data[0].nameemployee;
+			}
+
+			$scope.devicetype = function(){
+				return $scope.section7a.data[0].devicetype;
+			}
+
+			$scope.deviceowner = function(){
+				return $scope.section7a.data[0].deviceowner;
+			}
+
 
 			$scope.section1 = { 
 				enableCellEditOnFocus: true, 
@@ -69,30 +100,14 @@
 
 			};
 
-			$scope.piidata = function (){
-				return $sessionStorage.section1.data[0].piidata;
-			}
+			 function DisplayObject(name, tooltip) {
+			    // this refers to the new instance
+			    this.name = name;
+			    this.tooltip = tooltip;
+			  }
 
-			$scope.location = function (){
-				return $sessionStorage.section1.data[0].location;
-			}
-
-
-			$scope.risklevel = function (){
-				return $sessionStorage.section1.data[0].risklevel;
-			}
-
-			$scope.nameemployee = function(){
-				return $scope.section7a.data[0].nameemployee;
-			}
-
-			$scope.devicetype = function(){
-				return $scope.section7a.data[0].devicetype;
-			}
-
-			$scope.deviceowner = function(){
-				return $scope.section7a.data[0].deviceowner;
-			}
+			var longHdrCellTxtTpl = '<div class="grid-tooltip" tooltip="{{ col.displayName.tooltip}}" tooltip-placement="top" tooltip-append-to-body="true">'
+  +'<div class="ui-grid-cell-contents">{{ col.displayName.name }}</div></div>';
 
 			$scope.section2 = { 
 				enableCellEditOnFocus: true, 
@@ -119,36 +134,37 @@
 					},
 					{	
 							field: 'busobjwodata',
-							displayName: 'Data required?',
+							displayName:  new DisplayObject('Data Required?', 'Can your business objective be met without storing the PII or firm sensitive information?'),
 							editType: 'dropdown',
 							enableCellEdit:true,
 							editableCellTemplate: 'ui-grid/dropdownEditor',
 					        editDropdownOptionsArray: $scope.yes_no,
 					        editDropdownIdLabel: 'option',
 					        editDropdownValueLabel: 'option',
-					        headerTooltip: 'Can your business objective be met without storing the PII or firm sensitive information?'
+					        headerCellTemplate: longHdrCellTxtTpl
+					        
 					},
 					{	
 							field: 'busobjwodatashared',
-							displayName: 'Data Required to be output or shared?',
+							displayName: new DisplayObject('Data Required to be output or shared?', 'Can your business objective be met without outputting or sharing the data –identify people or systems that do not require access to the data, and consider isolating the data.'),
 							editType: 'dropdown',
 							enableCellEdit:true,
 							editableCellTemplate: 'ui-grid/dropdownEditor',
 					        editDropdownOptionsArray: $scope.yes_no,
 					        editDropdownIdLabel: 'option',
 					        editDropdownValueLabel: 'option',
-					        headerTooltip: 'Can your business objective be met without outputting or sharing the data –identify people or systems that do not require access to the data, and consider isolating the data.'
+					        headerCellTemplate: longHdrCellTxtTpl
 					},
 					{	
 							field: 'needtoremediate',
-							displayName: 'Remediate',
+							displayName: new DisplayObject('Remediate', 'If data is not required to be stored or shared, you should consider removing or isolating the data.'),
 							editType: 'dropdown',
 							enableCellEdit:true,
 							editableCellTemplate: 'ui-grid/dropdownEditor',
 					        editDropdownOptionsArray: $scope.yes_no,
 					        editDropdownIdLabel: 'option',
 					        editDropdownValueLabel: 'option',
-					        headerTooltip: 'If data is not required to be stored or shared, you should consider removing or isolating the data.'
+					       	headerCellTemplate: longHdrCellTxtTpl
 					},
 					{	
 							field: 'remediatesteps',
@@ -167,7 +183,7 @@
 				],
 		      	onRegisterApi: function(gridApi) {
 			       		 grid = gridApi.grid;
-			       		 console.log(grid);
+			       		 //console.log(grid);
 			      }
 
 			};
@@ -186,57 +202,62 @@
 					},
 					{	
 							field: 'piidatatransmit',
-							displayName:'PII or Firm Sensitive Data Transmitted to Third Party Organization '
+							displayName:new DisplayObject('PII or Firm Sensitive Data Transmitted', 'You can list data at a group level such as Customer Account Information, or at the granular level such as social security number, customer name, date of birth etc.'),
+							headerCellTemplate: longHdrCellTxtTpl
 					},
 					{
 							field:'risklevel',
-							displayName: 'Risk Severity Level',
+							displayName: new DisplayObject('Risk Severity', 'Assign a risk severity classification to the data transmitted (low, medium or high).'),
 							editType: 'dropdown',
 							enableCellEdit:true,
 							editableCellTemplate: 'ui-grid/dropdownEditor',
 					        editDropdownOptionsArray: $scope.levels,
 					        editDropdownIdLabel: 'option',
-					        editDropdownValueLabel: 'option'
+					        editDropdownValueLabel: 'option',
+					        headerCellTemplate: longHdrCellTxtTpl
 					},
 					{	
 							field: '3rdpartyaccessneed',
-							displayName: 'Is it Necessary for the Third Party Organization to Access the Data Transmitted?',
-							editType: 'dropdown',
+							displayName: new DisplayObject('Does third party require data?', 'assess whether the third party requires the information it can access for a business purpose.'),
 							enableCellEdit:true,
 							editableCellTemplate: 'ui-grid/dropdownEditor',
 					        editDropdownOptionsArray: $scope.yes_no,
 					        editDropdownIdLabel: 'option',
-					        editDropdownValueLabel: 'option'
+					        editDropdownValueLabel: 'option',
+					         headerCellTemplate: longHdrCellTxtTpl
 					},
 					{	
 							field: 'assess3rdparty',
-							displayName: 'Have you Assessed the Third Party Organization to Ensure that it has Effective Security Practices?',
+							displayName: new DisplayObject('Third Party Security', 'assess the security of the third party’s systems'),
 							editType: 'dropdown',
 							enableCellEdit:true,
 							editableCellTemplate: 'ui-grid/dropdownEditor',
 					        editDropdownOptionsArray: $scope.yes_no,
 					        editDropdownIdLabel: 'option',
-					        editDropdownValueLabel: 'option'
+					        editDropdownValueLabel: 'option',
+					         headerCellTemplate: longHdrCellTxtTpl
 					},
 					{	
 							field: 'ctrlstoisolate',
-							displayName: 'Are there Controls in Place to Isolate this Third Party Connection from your Critical Assets?',
+							displayName: new DisplayObject('Isolate critical assets', 'assess if the third party access to information is limited to information it requires for business reasons'),
 							editType: 'dropdown',
 							enableCellEdit:true,
 							editableCellTemplate: 'ui-grid/dropdownEditor',
 					        editDropdownOptionsArray: $scope.yes_no,
 					        editDropdownIdLabel: 'option',
-					        editDropdownValueLabel: 'option'
+					        editDropdownValueLabel: 'option',
+					         headerCellTemplate: longHdrCellTxtTpl
 					},
 					{	
 							field: 'needtoremediate',
-							displayName: 'Do you need to Remediate?',
+							displayName: new DisplayObject('Remediate', 'consider the risk severity level and your resources and make a risk assessment of whether any remediation is necessary'),
 							editType: 'dropdown',
 							enableCellEdit:true,
 							editableCellTemplate: 'ui-grid/dropdownEditor',
 					        editDropdownOptionsArray: $scope.yes_no,
 					        editDropdownIdLabel: 'option',
-					        editDropdownValueLabel: 'option'
+					        editDropdownValueLabel: 'option',
+					         headerCellTemplate: longHdrCellTxtTpl
 					},
 					{	
 							field: 'remediatesteps',
@@ -332,8 +353,9 @@
 					},
 					{	
 							field: 'risklevel',
-							displayName: 'Risk Severity Level',								
-							cellTemplate : '<div>{{grid.appScope.risklevel()}}</div>'
+							displayName: new DisplayObject('Risk Severity', 'Assign a risk severity classification to the data transmitted (low, medium or high).'),
+							cellTemplate : '<div>{{grid.appScope.risklevel()}}</div>',
+							headerCellTemplate: longHdrCellTxtTpl
 					},
 					{	
 							field: 'passwordprotection',
@@ -361,13 +383,14 @@
 					},
 					{	
 							field: 'needtoremediate',
-							displayName: 'Do you need to Remediate?',
+							displayName: new DisplayObject('Remediate', 'conduct a risk assessment of the strength of the protections considered with the assigned risk severity level '),
 							editType: 'dropdown',
 							enableCellEdit:true,
 							editableCellTemplate: 'ui-grid/dropdownEditor',
 					        editDropdownOptionsArray: $scope.yes_no,
 					        editDropdownIdLabel: 'option',
-					        editDropdownValueLabel: 'option'
+					        editDropdownValueLabel: 'option',
+					        headerCellTemplate: longHdrCellTxtTpl
 					},
 					{	
 							field: 'remediatesteps',
@@ -414,13 +437,14 @@
 					},
 					{	
 							field: 'needtoremediate',
-							displayName: 'Do you need to Remediate?',
+							displayName: new DisplayObject('Remediate', 'conduct a risk assessment of the strength of the protections considered with the assigned risk severity level '),
 							editType: 'dropdown',
 							enableCellEdit:true,
 							editableCellTemplate: 'ui-grid/dropdownEditor',
 					        editDropdownOptionsArray: $scope.yes_no,
 					        editDropdownIdLabel: 'option',
-					        editDropdownValueLabel: 'option'
+					        editDropdownValueLabel: 'option',
+					        headerCellTemplate: longHdrCellTxtTpl
 					},
 					{	
 							field: 'remediatesteps',
@@ -497,13 +521,13 @@
 					},
 					{	
 							field: 'needtoremediate',
-							displayName: 'Do you need to Remediate?',
-							editType: 'dropdown',
+							displayName: new DisplayObject('Remediate', 'conduct a risk assessment of the strength of the protections considered with the assigned risk of the system being inaccessible'),
 							enableCellEdit:true,
 							editableCellTemplate: 'ui-grid/dropdownEditor',
 					        editDropdownOptionsArray: $scope.yes_no,
 					        editDropdownIdLabel: 'option',
-					        editDropdownValueLabel: 'option'
+					        editDropdownValueLabel: 'option',
+					        headerCellTemplate:longHdrCellTxtTpl
 					},
 					{	
 							field: 'remediatesteps',
@@ -550,7 +574,8 @@
 					},
 					{
 						field: 'dataencrypedtoext',
-						displayName:'Is Data Encrypted  in Transit to External Sources?',
+						displayName: new DisplayObject('Encrypted in transit', 'Is it Encrypted  in Transit to External Sources (e.g., email  to non-firm addresses)'),
+						headerCellTemplate:longHdrCellTxtTpl,
 						editType: 'dropdown',
 						enableCellEdit:true,
 						editableCellTemplate: 'ui-grid/dropdownEditor',
@@ -560,7 +585,8 @@
 					},
 			      	{
 						field: 'dataencrypedtoint',
-						displayName:'Is Data Encrypted when Shared Internally and at Rest within the System?',
+						displayName: new DisplayObject('Encrypted internally', 'Is it Encrypted when Shared Internally and at Rest within the System?'),
+						headerCellTemplate:longHdrCellTxtTpl,
 						editType: 'dropdown',
 						enableCellEdit:true,
 						editableCellTemplate: 'ui-grid/dropdownEditor',
@@ -570,7 +596,8 @@
 					},
 			        {
 						field: 'dataencrypedtobkup',
-						displayName:'Is Data Encrypted when archived to backup media?',
+						displayName:new DisplayObject('Encrypted at Backup', ' Is it Encrypted when Archived to Backup Media (e.g., tapes)'),
+						headerCellTemplate:longHdrCellTxtTpl,
 						editType: 'dropdown',
 						enableCellEdit:true,
 						editableCellTemplate: 'ui-grid/dropdownEditor',
@@ -580,7 +607,8 @@
 					},
 					{
 						field: 'datamasked',
-						displayName:'Has Data been Masked when Displayed?',
+						displayName:new DisplayObject('Data masked when displayed?', 'Data such as social security numbers can be masked whenever displayed to a person accessing that data.'),
+						headerCellTemplate:longHdrCellTxtTpl,
 						editType: 'dropdown',
 						enableCellEdit:true,
 						editableCellTemplate: 'ui-grid/dropdownEditor',
@@ -590,7 +618,8 @@
 					},			      
 					{	
 						field: 'needtoremediate',
-						displayName: 'Do you need to Remediate?',
+						displayName:new DisplayObject('Remediate', 'Consider Risk severity of data and resources and decide whether to encrypt or mask data.'),
+						headerCellTemplate:longHdrCellTxtTpl,
 						editType: 'dropdown',
 						enableCellEdit:true,
 						editableCellTemplate: 'ui-grid/dropdownEditor',
@@ -633,7 +662,8 @@
 					},
 					{
 						field:'deviceowner',
-						displayName: 'Device Owner'
+						displayName:new DisplayObject('Device Owner', 'Does the Firm or Individual own the device?'),
+						headerCellTemplate:longHdrCellTxtTpl
 					}
 				]
 			}
@@ -658,7 +688,8 @@
 					},
 					{
 						field:'deviceowner',
-						displayName: 'Device Owner',
+						displayName:new DisplayObject('Device Owner', 'Does the Firm or Individual own the device?'),
+						headerCellTemplate:longHdrCellTxtTpl,
 						cellTemplate : '<div>{{grid.appScope.deviceowner()}}</div>'
 					},
 					{
@@ -687,7 +718,8 @@
 					},
 					{	
 						field: 'needtoremediate',
-						displayName: 'Do you need to Remediate?',
+						displayName:new DisplayObject('Remediate', 'Consider the risk severity level of the PPI accessible to the devices, and make a risk assessment if you take remedial steps.'),
+						headerCellTemplate:longHdrCellTxtTpl,
 						editType: 'dropdown',
 						enableCellEdit:true,
 						editableCellTemplate: 'ui-grid/dropdownEditor',
@@ -871,7 +903,7 @@
 					},
 				    {
 						field: 'yes_no',
-						displayName:'',
+						displayName:'Yes/No',
 						editType: 'dropdown',
 						enableCellEdit:true,
 						editableCellTemplate: 'ui-grid/dropdownEditor',
@@ -930,7 +962,7 @@
 					},
 				    {
 						field: 'yes_no',
-						displayName:'',
+						displayName:'Yes/No',
 						editType: 'dropdown',
 						enableCellEdit:true,
 						editableCellTemplate: 'ui-grid/dropdownEditor',
@@ -1184,14 +1216,7 @@
 			    ]
 			}
 
-		    $scope.addNewItem = function(section){
-		    	section.data.push({});
-		    	reSize(section.data.length);
-		    };
-
-	      	var reSize = function (rows) {		
-		    	var newHeight =(rows*30)+60;
-		    	angular.element(document.getElementsByClassName('ui-grid')[0]).css('height', newHeight + 'px');
-		    };
+		    
+	      	
 		}
 })()
