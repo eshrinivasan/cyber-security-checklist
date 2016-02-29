@@ -1,29 +1,4 @@
 angular.module("cyberapp.section")
-.directive('setRowHeight',['$timeout', function ($timeout) {
-        return {
-            restrict: 'A',
-            link: function (scope, element) {
-              $timeout(function(){
-                // Get the Parent Divider.
-                var parentContainer = element.parent()[0];
-                console.log(parentContainer.offsetHeight);
-
-                // Padding of ui-grid-cell-contents is 5px.
-                // TODO: Better way to get padding height?
-                var topBottomPadding = 10;
-                //Get the wrapped contents rowHeight.
-                var rowHeight = topBottomPadding + parentContainer.offsetHeight;
-                var gridRowHeight = scope.grid.options.rowHeight;
-                // Get current rowHeight
-                if (!gridRowHeight ||
-                        (gridRowHeight && gridRowHeight < rowHeight)) {
-                    // This will OVERRIDE the existing rowHeight.
-                    scope.grid.options.rowHeight = rowHeight;
-                }
-              },0);
-            }
-        };
-}])
 .directive("gridSectionHeader", function() {
     return {
         restrict: 'E',
@@ -63,9 +38,16 @@ angular.module("cyberapp.section")
             $scope.prevPage = function(){
                 var currindex = $scope.getIndex();
                 var previndex = --currindex;
+                var prevSection = $scope.total[previndex];
 
-                if(typeof $scope.total !== "undefined" && previndex !== -1){
-                    var prevSection = $scope.total[previndex];
+                /*if( $sessionStorage["section"+prevSection]){
+                    var sectoretrievearr = dataservice.getSectionAssocArray("section"+prevSection);
+                    angular.forEach(sectoretrievearr, function(key, value){
+                        $scope[key] = $sessionStorage[key]; //retrieving it from the session
+                    });
+                }*/
+
+                if(typeof $scope.total !== "undefined" && previndex !== -1){                   
                     $state.go("section"+prevSection);
                     $scope.prevPageDisabled = false;
                 }else{
@@ -78,7 +60,6 @@ angular.module("cyberapp.section")
                 var nextindex = ++currindex;
 
                 var sectosavearr = dataservice.getSectionAssocArray($scope.currentState);
-
                 if(sectosavearr.length > 1){
                     angular.forEach(sectosavearr, function(key, value){
                         $sessionStorage[key] = $scope[key]; //storing in session
@@ -90,11 +71,9 @@ angular.module("cyberapp.section")
                 
                 if(typeof $scope.total !== "undefined" && nextindex < $scope.total.length){
                     var nextSection = $scope.total[nextindex];
-                    var nextPage = "section"+nextSection;                                                               
-
+                    var nextPage = "section"+nextSection;
                     $state.go(nextPage);
                     $scope.nextPageDisabled = false;
-
                 }else if(typeof $scope.total !== "undefined" && nextindex == $scope.total.length){
                     var nextPage = "print";
                     $state.go(nextPage);
