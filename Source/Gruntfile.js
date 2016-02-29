@@ -8,6 +8,7 @@ module.exports = function (grunt) {
         pkg: grunt.file.readJSON('package.json'),
 
         global: {
+            module:'cyberapp',
             app: 'app',
             build: 'build',
             temp: 'temp',
@@ -15,7 +16,7 @@ module.exports = function (grunt) {
             sass: '/assets/sass',
             css:  '/assets/css',
             libs: '/assets/libs',
-            js: '/assets/js',
+            js: '/assets/js',            
             bower: '/bower_components',
             components: '/components',
             shared: '/shared'
@@ -306,6 +307,11 @@ module.exports = function (grunt) {
                         flatten: true,
                         src: ['<%= global.app %><%= global.bower %>/bootstrap/fonts/*'],
                         dest: '<%= global.build %><%= global.css %>/fonts/', filter: 'isFile'
+                    },{
+                        expand: true,
+                        flatten: true,
+                        src: ['<%= global.app %>/*.js'],
+                        dest: '<%= global.build %><%= global.js %>/', filter: 'isFile'
                     }
 
                 ]
@@ -364,7 +370,7 @@ module.exports = function (grunt) {
         'clean:dist',
         'compass:dist',
         'prepareModules',
-        'concat:dist',
+        'concat',
         'concat_css:dist',
         'cssmin:dist',
         'uglify:dist',
