@@ -20,7 +20,7 @@ export BUILD="$BUILDS/$BUILD_ID"
 export PUBLIC_FILES="/mnt/${APP_NAME}"
 export LOG_DIR="/var/log/${APP_NAME}"
 export CRON_LOG_DIR="${LOG_DIR}/cron"
-export CMFOLDER="cyber-security-checklist"
+export CMFOLDER="cybersecuritychecklist"
 export CMTARGZ="${CMFOLDER}.tar.gz"
 
 ##

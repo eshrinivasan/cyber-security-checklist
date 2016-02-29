@@ -1,59 +1,88 @@
 'use strict';
 
-module.exports = function (grunt) {
+module.exports = function(grunt) {
 
+    // Configurable paths for the application
+    var appConfig = {
+        app: require('./bower.json').appPath || 'app',
+        dist: 'build'
+    };
 
     grunt.initConfig({
 
-        pkg: grunt.file.readJSON('package.json'),
-
-        global: {
-            app: 'app',
-            build: 'build',
-            temp: 'temp',
-            assets: '/assets',
-            sass: '/assets/sass',
-            css:  '/assets/css',
-            libs: '/assets/libs',
-            js: '/assets/js',
-            bower: '/bower_components',
-            components: '/components',
-            shared: '/shared'
-        },
-
+        //Project settings
+        global: appConfig,
 
         // Watches files for changes and runs tasks based on the changed files
         watch: {
             options: {
-                livereload:true,
-                cwd: '<%= global.app %>'
+                livereload: true
             },
-            compass: {
-                files: '**/*.sass',
-                tasks: ['clean:dev','compass:dev', 'cssmin:dev', 'concat_css:dev'],
+            sass: {
+                files: ['app/assets/sass/{,**/}*.{scss,sass}'],
+                tasks: ['default'],
                 options: {
-                    cwd: '<%= global.app %><%= global.sass %>'
+                    livereload: false
                 }
             },
-            js : {
-                files: ['<%= global.components %>/**/*.js', '<%= global.bower %>/**/*.js'],
-                tasks: ['clean:dev', 'uglify:dev', 'concat:dev', 'copy:dev']
-
+            js: {
+                files: ['app/*.js', '!app/*.min.js', '!app/*_test.js'],
+                tasks: ['default'],
+                options: {
+                    livereload: false
+                }
+            },
+            components: {
+                files: ['app/bower_components/**/*', 'app/components/**/*'],
+                tasks: ['default'],
+                options: {
+                    livereload: false
+                }
+            },
+            shared: {
+                files: ['app/shared/**/*'],
+                tasks: ['default'],
+                options: {
+                    livereload: false
+                }
             }
         },
 
-        // Clean out temporary directories and files.
         clean: {
-            dev: ["temp/**/*", "<%= global.app %><%= global.js %>/min/*.min.js", "<%= global.app %><%= global.css %>/min/*.min.css"],
+            dev: ["app/assets/js/**/*", "app/assets/css/**/*"],
             dist: ["build/**/*"]
         },
 
-        // Compile sass files into css.
+        copy: {
+            dev: {
+                files: [{
+                    expand: true,
+                    flatten: true,
+                    src: ['app/bower_components/jquery/dist/jquery.min.js'],
+                    dest: 'app/assets/js/min/',
+                    filter: 'isFile'
+                }, {
+                    expand: true,
+                    flatten: true,
+                    src: ['app/bower_components/jquery/dist/jquery.min.js.map'],
+                    dest: 'app/assets/js/min/',
+                    filter: 'isFile'
+                }, ]
+            },
+
+            dist: {
+                files: [{
+                    expand: true,
+                    dot: true,
+                    cwd: '<%= global.app %>',
+                    dest: '<%= global.dist %>',
+                    src: ["*.*", "**/*.*", '!**/bower_components/**']
+                }, ]
+            }
+        },
         compass: {
             options: {
-                config:  'config.rb',
-                sassDir: '<%= global.app %><%= global.sass %>',
-                cssDir:  '<%= global.app %><%= global.css %>',
+                config: 'config.rb',
                 bundleExec: true,
                 force: true
             },
@@ -67,37 +96,85 @@ module.exports = function (grunt) {
                     environment: 'production'
                 }
             }
+        },
 
-        },      
-
-
-        // Minifies any unminified CSS files.
-        cssmin: {
+        concat: {
+            options: {
+                separator: ';'
+            },
             dev: {
-
                 files: [{
-                    cwd: '<%= global.app %><%= global.css %>',
+                    src: ['app/bower_components/angular/angular.min.js',
+                            'app/bower_components/angular-ui-router/release/angular-ui-router.min.js', 
+                            'app/bower_components/angular-ui/build/angular-ui.min.js',
+                             'app/bower_components/ngstorage/ngStorage.min.js',
+                              'app/bower_components/angular-sanitize/angular-sanitize.min.js', 'app/bower_components/angulartics/dist/angulartics.min.js',
+                               'app/bower_components/angulartics-google-analytics/dist/angulartics-google-analytics.min.js'
+
+                    ],
+
+                    dest: 'app/assets/js/min/angular-plugins.min.js'
+                }, {
+                    src: ['app/app.module.js'],
+                    dest: 'app/assets/js/app.module.js'
+                }, {
+                    src: ['app/components/core/core.module.js', 'app/components/core/core.factories.js', 'app/components/core/core.services.js', 'app/components/core/core.config.js'],
+                    dest: 'app/assets/js/cyberapp.core.js'
+                }, {
+                    src: ['app/components/checklist/checklist.module.js', 'app/components/checklist/checklist.controller.js'],
+                    dest: 'app/assets/js/cyberapp.checklist.js'
+                }, {
+                    src: ['app/components/print/print.module.js', 'app/components/print/print.controller.js'],
+                    dest: 'app/assets/js/cyberapp.print.js'
+                }, {
+                    src: ['app/components/section/section.module.js', 'app/components/section/section.controller.js', 'app/components/section/section.common.directives.js'],
+                    dest: 'app/assets/js/cyberapp.section.js'
+                }]
+            },
+            dist: {
+                files: [{
+                    src: ['app/bower_components/angular/angular.min.js', 'app/bower_components/jquery-mousewheel/jquery.mousewheel.min.js', 'app/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js', 'app/bower_components/ng-scrollbars/dist/scrollbars.min.js', 'app/bower_components/angular-ui-router/release/angular-ui-router.min.js', 'app/bower_components/angular-ui/build/angular-ui.min.js', 'app/bower_components/angular-ui/build/angular-ui-ieshiv.min.js', 'app/bower_components/ui-router-extras/release/ct-ui-router-extras.min.js', 'app/bower_components/angular-animate/angular-animate.min.js', 'app/bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js', 'app/bower_components/ngstorage/ngStorage.min.js', 'app/bower_components/angular-touch/angular-touch.min.js', 'app/bower_components/angular-sanitize/angular-sanitize.min.js', 'app/bower_components/angulartics/dist/angulartics.min.js', 'app/bower_components/angulartics-google-analytics/dist/angulartics-google-analytics.min.js', ],
+                    dest: 'app/assets/js/min/angular-plugins.min.js'
+                }]
+            }
+        },
+        concat_css: {
+            options: {},
+            dev: {
+                files: [{
+                    'app/assets/css/min/compiled-styles.min.css': ['app/assets/libs/animate/animate.min.css', 'app/assets/libs/bootstrap-3.3.6-dist/css/bootstrap.min.css', 'app/bower_components/angular-ui-grid/ui-grid.css']
+                }]
+            },
+            dist: {
+                files: [{
+                    'app/assets/css/min/compiled-styles.min.css': ['app/assets/libs/animate/animate.min.css', 'app/assets/libs/bootstrap-3.3.6-dist/css/bootstrap.min.css', 'app/bower_components/angular-ui-grid/ui-grid.css']
+                }]
+            }
+        },
+
+        cssmin: {
+
+            dev: {
+                files: [{
+                    cwd: 'app',
                     expand: true,
-                    src: ['*.css',
-                        '!*.min.css'],
-                    dest: '<%= global.app %><%= global.css %>/min',
+                    flatten: true,
+                    src: ['bower_components/html5-boilerplate/dist/css/*.css', 'bower_components/html5-boilerplate/dist/css/!*.min.css', 'assets/css/*.css', 'assets/css/!*.min.css'],
+                    dest: 'app/assets/css/min',
                     ext: '.min.css'
                 }]
             },
             dist: {
                 files: [{
-                    cwd: '<%= global.app %><%= global.css %>',
+                    cwd: 'app',
                     expand: true,
                     flatten: true,
-                    src: ['*.css',
-                        '!*.min.css'],
-                    dest: '<%= global.build %><%=global.css %>/min',
+                    src: ['bower_components/html5-boilerplate/dist/css/*.css', 'bower_components/html5-boilerplate/dist/css/!*.min.css', 'assets/css/*.css', 'assets/css/!*.min.css'],
+                    dest: 'app/assets/css/min',
                     ext: '.min.css'
                 }]
             }
         },
-
-        // Uglifies and Minifies js files.
         uglify: {
             dev: {
                 options: {
@@ -106,31 +183,17 @@ module.exports = function (grunt) {
                 },
                 files: [{
                     expand: true,
-                    flatten:true,
-                    cwd: '<%= global.app %><%= global.components %>',
-                    dest: '<%= global.temp %><%= global.js %>/min',
+                    flatten: true,
+                    cwd: 'app/assets/js',
+                    dest: 'app/assets/js/min',
                     src: ['**/*.js', '!**/*.min.js'],
-                    rename: function (dest, src) {
+                    rename: function(dest, src) {
                         var folder = src.substring(0, src.lastIndexOf('/'));
                         var filename = src.substring(src.lastIndexOf('/'), src.length);
                         filename = filename.substring(0, filename.lastIndexOf('.'));
                         return dest + '/' + folder + filename + '.min.js';
                     }
-                },
-                {
-                    expand: true,
-                    flatten:true,
-                    cwd: '<%= global.app %>',
-                    dest: '<%= global.temp %><%= global.js %>/min',
-                    src: ['*.js', '!*.min.js'],
-                    rename: function (dest, src) {
-                        var folder = src.substring(0, src.lastIndexOf('/'));
-                        var filename = src.substring(src.lastIndexOf('/'), src.length);
-                        filename = filename.substring(0, filename.lastIndexOf('.'));
-                        return dest + '/' + folder + filename + '.min.js';
-                    }
-                }
-                ]
+                }]
             },
             dist: {
                 options: {
@@ -139,200 +202,20 @@ module.exports = function (grunt) {
                 },
                 files: [{
                     expand: true,
-                    flatten:true,
-                    cwd: '<%= global.app %><%= global.components %>',
-                    dest: '<%= global.temp %><%= global.js %>/min',
+                    flatten: true,
+                    cwd: 'app/assets/js',
+                    dest: 'app/assets/js/min',
                     src: ['**/*.js', '!**/*.min.js'],
-                    rename: function (dest, src) {
+                    rename: function(dest, src) {
                         var folder = src.substring(0, src.lastIndexOf('/'));
                         var filename = src.substring(src.lastIndexOf('/'), src.length);
                         filename = filename.substring(0, filename.lastIndexOf('.'));
                         return dest + '/' + folder + filename + '.min.js';
                     }
-                },
-                {
-                    expand: true,
-                    flatten:true,
-                    cwd: '<%= global.app %>',
-                    dest: '<%= global.temp %><%= global.js %>/min',
-                    src: ['*.js', '!*.min.js'],
-                    rename: function (dest, src) {
-                        var folder = src.substring(0, src.lastIndexOf('/'));
-                        var filename = src.substring(src.lastIndexOf('/'), src.length);
-                        filename = filename.substring(0, filename.lastIndexOf('.'));
-                        return dest + '/' + folder + filename + '.min.js';
-                    }
-                }
-                ]
-            }
-        },
-
-        //  Concatenate minified css files into single file.
-        concat_css: {
-            options: {},
-            dev: {
-                files: [{
-                    '<%= global.app %><%= global.css %>/min/compiled-styles.min.css': [
-                        '<%= global.app %><%= global.libs %>/animate/animate.min.css',
-                        '<%= global.app %><%= global.libs %>/bootstrap-3.3.6-dist/css/bootstrap.min.css',
-                        '<%= global.app %><%= global.bower %>/angular-ui-grid/ui-grid.min.css'
-                    ]
                 }]
-            },
-            dist: {
-                files: [{
-                    '<%= global.build %><%= global.css %>/min/compiled-styles.min.css': [
-                        '<%= global.app %><%= global.libs %>/animate/animate.min.css',
-                        '<%= global.app %><%= global.libs %>/bootstrap-3.3.6-dist/css/bootstrap.min.css',
-                        '<%= global.app %><%= global.bower %>/angular-ui-grid/ui-grid.min.css'
-                    ]
-                }]
-            }
-        },
-
-        // Concatenate specified files into one file to use in index.html.
-        concat: {
-            options: {
-                separator: ';'
-            },
-            dev: {
-                files:  [
-                    /* This section is used to add js files from the app/bower_components folder to a single concatenated file. */
-                    {
-                        src: ['<%= global.app %><%= global.bower %>/angular/angular.min.js',
-                            '<%= global.app %><%= global.bower %>/angular-ui-router/release/angular-ui-router.min.js',
-                            '<%= global.app %><%= global.bower %>/ui-router-extras/release/ct-ui-router-extras.min.js',
-                            '<%= global.app %><%= global.bower %>/angular-animate/angular-animate.min.js',
-                            '<%= global.app %><%= global.bower %>/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js',
-                            '<%= global.app %><%= global.bower %>/angular-touch/angular-touch.min.js',
-                            '<%= global.app %><%= global.bower %>/ngstorage/ngStorage.min.js',
-                            '<%= global.app %><%= global.bower %>/angular-sanitize/angular-sanitize.min.js',
-                            '<%= global.app %><%= global.bower %>/angulartics/dist/angulartics.min.js',
-                            '<%= global.app %><%= global.bower %>/angulartics-google-analytics/dist/angulartics-google-analytics.min.js',
-                            '<%= global.app %><%= global.bower %>/angular-ui-grid/ui-grid.min.js'
-
-                        ],
-
-                        dest: '<%= global.app %><%= global.js %>/min/angular-plugins.min.js'
-                    },
-
-
-                    /* This section is used to add js files from the /assets/js folder to a single concatenated file. */
-                    {
-                        src: ['<%= global.temp %><%= global.js %>/min/*.min.js'],
-                        dest: '<%= global.app %><%= global.js %>/min/app.min.js'
-                    }
-                    /* This section is used to add js files from the /assets/libs folder to a single concatenated file.
-                     *  Use when there are more than one file from this directory.
-                     * */
-                    // {
-                    //     src: ['<%= global.app %><%= global.libs %>/ngprint/ngprint.min.js'],
-                    //     dest: '<%= global.build %><%= global.libs %>/ngprint/ngprint.min.js'
-                    // }
-
-
-                ]
-            },
-            dist: {
-                files:  [
-                    /* This section is used to add js files from the app/bower_components folder to a single concatenated file. */
-                    {
-                        src: ['<%= global.app %><%= global.bower %>/angular/angular.min.js',
-                            '<%= global.app %><%= global.bower %>/angular-ui-router/release/angular-ui-router.min.js',
-                            '<%= global.app %><%= global.bower %>/ui-router-extras/release/ct-ui-router-extras.min.js',
-                            '<%= global.app %><%= global.bower %>/angular-animate/angular-animate.min.js',
-                            '<%= global.app %><%= global.bower %>/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js',
-                            '<%= global.app %><%= global.bower %>/angular-touch/angular-touch.min.js',
-                            '<%= global.app %><%= global.bower %>/ngstorage/ngStorage.min.js',
-                            '<%= global.app %><%= global.bower %>/angular-sanitize/angular-sanitize.min.js',
-                            '<%= global.app %><%= global.bower %>/angulartics/dist/angulartics.min.js',
-                            '<%= global.app %><%= global.bower %>/angulartics-google-analytics/dist/angulartics-google-analytics.min.js',
-                            '<%= global.app %><%= global.bower %>/angular-ui-grid/ui-grid.min.js'
-
-                        ],
-
-                        dest: '<%= global.build %><%= global.js %>/min/angular-plugins.min.js'
-                    },
-
-
-                    /* This section is used to add js files from the /assets/js folder to a single concatenated file. */
-                    {
-                        src: ['<%= global.app %><%= global.js %>**/**.js'],
-                        dest: '<%= global.build %><%= global.js %>/min/app.min.js'
-                    },
-
-                    /* This section is used to add js files from the /assets/libs folder to a single concatenated file.
-                    *  Use when there are more than one file from this directory.
-                    * */
-                   // {
-                   //     src: ['<%= global.app %><%= global.libs %>/ngprint/ngprint.min.js'],
-                   //     dest: '<%= global.build %><%= global.libs %>/ngprint/ngprint.min.js'
-                   // }
-
-                ]
-            }
-        },
-
-        copy: {
-            dev: {
-                files: [
-                    {
-                        expand: true,
-                        flatten: true,
-                        src: ['<%= global.app %><%= global.bower %>/jquery/dist/jquery.min.js'],
-                        dest: '<%= global.app %><%= global.js %>/min/', filter: 'isFile'},
-                ]
-            },
-            dist: {
-                files: [
-                    {
-                        expand: true,
-                        cwd: '<%= global.app %><%= global.bower %>/jquery/dist/',
-                        src: ['jquery.min.js'],
-                        dest: '<%= global.build %><%= global.js %>/min/', filter: 'isFile'
-                    },
-                    {
-                        expand: true,
-                        cwd: '<%= global.app %><%= global.js %>/min',
-                        src: ['**/*.min.js', '*.*'],
-                        dest: '<%= global.build %><%= global.js %>/min/', filter: 'isFile'
-                    },
-                    {
-                        expand: true,
-                        cwd: '<%= global.app %><%= global.libs %>/',
-                        src: ['ngprint/**/*.min.js', 'xdomain/**/*.min.js'],
-                        dest: '<%= global.build %><%= global.libs %>', filter: 'isFile'
-                    },
-                    {
-                        expand: true,
-                        cwd:'<%= global.app %><%= global.components %>',
-                        dest: '<%= global.build %><%= global.components %>',
-                        src: ["*.html", "**/*.html", "*.json", "**/*.json"]
-                    },
-                    {
-                        expand: true,
-                        cwd:'<%= global.app %><%= global.shared %>',
-                        dest: '<%= global.build %><%= global.shared %>',
-                        src: ["*.*", "**/*.*"]
-                    },
-                    {
-                        expand: true,
-                        cwd:'<%= global.app %>/',
-                        dest: '<%= global.build %>',
-                        src: ["ie9/**/*.*"]
-                    },
-                    {
-                        expand: true,
-                        cwd:'<%= global.app %>/',
-                        dest: '<%= global.build %>/',
-                        src: ["index.html", "app.module.js"]
-                    }
-
-                ]
             }
         }
     });
-
 
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-clean');
@@ -342,41 +225,16 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-concat-css');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-wiredep');
+    grunt.loadNpmTasks('grunt-newer');
+    grunt.loadNpmTasks('grunt-contrib-connect');
 
 
+    grunt.registerTask('watch', ['compass:dev', 'concat_css:dev', 'cssmin:dev']);
 
-    // Watch task for only compiling sass files.  TBD:  Add JSLint task.
-    grunt.registerTask('watch:dev', [
-        'compass:dev'
-    ]);
+    grunt.registerTask('default', ['clean:dev', 'compass:dev', 'concat:dev', 'concat_css:dev', 'cssmin:dev', 'copy:dev']);
 
-    // Running 'grunt' on the command line kicks off this process.
-    // Creates a production like build.
-    grunt.registerTask('default', [
-        'compass:dev',
-        'cssmin:dev',
-        'uglify:dev'
-    ]);
-
-    grunt.registerTask('dev', [
-        'clean:dev',
-        'compass:dev',
-        'cssmin:dev',
-        'uglify:dev',
-        'concat:dev',
-        'concat_css:dev',
-        'copy:dev'
-    ]);
-
-    grunt.registerTask('build', [
-        'clean:dist',
-        'compass:dist',
-        'cssmin:dist',
-        'uglify:dist',
-        'concat:dist',
-        'concat_css:dist',
-        'copy:dist'
-    ]);
+    grunt.registerTask('build', ['clean:dist', 'compass:dist', 'concat:dist', 'concat_css:dist', 'cssmin:dist', 'uglify:dist', 'copy:dist']);
 
 
 };

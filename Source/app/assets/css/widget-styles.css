@@ -14,17 +14,22 @@
  * Mobile first
  */
 .btn-color {
-  background: #b71427;
+  background: #ed583b;
   color: white; }
 
 .info-spacing {
   padding: 10px; }
 
 .btn-default.active, .btn-default:active {
-  background-color: #a2ab58; }
+  background-color: #a0b855;
+  border: 3px solid ghostwhite; }
 
 .btn-default.inactive {
   background-color: #404040; }
+
+.btn-default:active {
+  box-shadow: 0 1px 0 #00823F;
+  bottom: -4px; }
 
 /*
  * Forms
@@ -170,11 +175,15 @@ ul {
  * --------------------------------------------------
  * Mobile first
  */
-.printview {
-  border: 1px solid black; }
-  .printview table.table-bordered {
-    border: 1px solid #dddddd; }
+#printSection {
+  border: 1px solid #000; }
+  @media print {
+    #printSection {
+      border: none; } }
 
+@media print {
+  .page-break {
+    page-break-after: always; } }
 table.table-bordered {
   border: 2px solid #ffe658; }
 
@@ -224,9 +233,12 @@ footer {
     height: 165px; }
   .sectiongrid.gridsection6 {
     height: 180px; }
-  .sectiongrid.gridsection3a, .sectiongrid.gridsection5, .sectiongrid.gridsection7a, .sectiongrid.gridsection7d {
-    min-height: 350px;
-    height: 350px; }
+  .sectiongrid.gridsection3a {
+    min-height: 300px;
+    height: 300px; }
+  .sectiongrid.gridsection1, .sectiongrid.gridsection5, .sectiongrid.gridsection7a, .sectiongrid.gridsection7d {
+    min-height: 165px;
+    height: 165px; }
   .sectiongrid.gridsection7c {
     min-height: 670px;
     height: 670px; }
@@ -462,3 +474,12 @@ Add a counter to the multi-steps indicator
 .multistepcontainer {
   margin: 10px auto;
   padding-bottom: 20px; }
+
+.tooltip > .tooltip-inner {
+  background-color: #ddd;
+  border: 1px solid;
+  color: black;
+  opacity: 1; }
+
+.tooltip > .tooltip-arrow {
+  border-bottom-color: white; }

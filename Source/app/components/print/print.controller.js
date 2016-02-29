@@ -20,10 +20,8 @@ angular.module("cyberapp.print")
 
 		if(total != undefined)
 		var sectionstoretrieve = total.map(retrieveSections);
-		
-		//console.log(sectionstoretrieve);
 
-		//some arrays contains multiple sections - converting them into a single array
+		//some sections contains multiple sub sections - converting them into a single array
 		function getflatarray(sectionstoretrieve){
 			var flatarray = [];
 			var storedSession = sectionstoretrieve;
@@ -50,7 +48,9 @@ angular.module("cyberapp.print")
 		//loop through all sections answered from the session storage variable and assign it to scope.section vars
 		for(var i = 0; i < newflatarray.length; i++){ 
 			var value = newflatarray[i];
+			console.log(value);
 			$scope[value] = $sessionStorage[value];		
+
 		}
 	}
 })()
