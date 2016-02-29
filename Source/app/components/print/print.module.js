@@ -1,3 +1,0 @@
-(function() {
-	angular.module("cyberapp.print", ['ui.router', 'ngStorage', 'ngPrint']);
-})()
