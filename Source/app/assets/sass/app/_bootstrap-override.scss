@@ -2,6 +2,32 @@
 	width: auto !important;
 }
 
+.navbar{
+	border:none;
+	margin:0;
+	min-height:auto;
+	position: static;
+}
+
+.modal-header:before, .nav:after, .nav:before, .navbar-collapse:after, .navbar-collapse:before, 
+.navbar-header:after, .navbar-header:before, .navbar:after, .navbar:before{	
+		display:inline;	
+}
+
+.navbar-brand{
+	padding:0;
+}
+
 .navbar-nav{
-	float:none;
+	margin:0;
+}
+
+.finra_normalize_prefix .gbl-hamburger {
+    width: 12% !important;
+}
+
+@include sizeDesktop(){
+	.navbar-nav{
+		float:none;
+	}
 }
