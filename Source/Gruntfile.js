@@ -353,7 +353,9 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('default', [
-            'copy:dev'
+            'compass:dev',
+            'concat_css:dev',
+            'cssmin:dev',
     ]);
 
     grunt.registerTask('dev', [
