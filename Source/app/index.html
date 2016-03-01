@@ -7,7 +7,12 @@
             <title>Cyber Security Program</title>
         <link href="assets/css/min/compiled-styles.min.css" type="text/css" rel="stylesheet">
         <link href="assets/css/min/widget-styles.min.css" type="text/css" rel="stylesheet">
-        
+         <style>
+            body{
+                display:none;
+            }
+        </style>
+
         <!--[if IE 9]>
         <script src="assets/libs/xdomain/xdomain.min.js"></script>
         <![endif]-->
@@ -28,11 +33,42 @@
 </head>
 
     <body>
+    <div class="header-class">
+        <div id="FINRA_header"></div>
+    </div>
+    
+
+    <div class="finrabrand_container">
+      <div id="FINRA_responsive"></div>
       <div class="widget-container" ng-app="cybersecurityApp">
           <!--<div ng-include="'shared/header/header.html'"></div>-->
             <div ui-view class="main-view" id="cybersecuritychecklist"></div>
           <!--<footer ng-include="'shared/footer/footer.html'"></footer>-->
       </div>
-     
+    </div> 
+
+
+    <div class="footer-class">
+        <div id="FINRA_footer"></div>
+    </div>
+
+      <script>if (typeof window.jQuery == 'undefined' || jQuery.fn.jquery !== "1.9.1"){
+        document.write('<script src="//code.jquery.com/jquery-1.9.1.js"><\/script>');} </script>
+      <script type="text/javascript" src="//www.finra.org/sites/all/themes/finra_theme/js/finrabrand/finrabrand.js"></script>
+      <script type="text/javascript">  
+            j191.jq(document).ready(function(){
+                  j191.jq('body').FINRAbrand({
+                    layout:"responsive",
+                    type:'industry',
+                    footer:'megafooter',
+                    highlight:2,
+                    subhighlight:0,
+                    onload:function(){
+                        j191.jq('body').css('display','block');
+                    }
+            });
+         });
+        </script>
     </body>
+
 </html>
