@@ -1,0 +1,14 @@
+
+@mixin sizeDesktop(){
+  @include breakpoint($no-queries){
+    @content;
+  }
+
+  @include breakpoint($ie7-queries){
+    @content;
+  }
+ 
+  @include breakpoint($desk){
+    @content;
+  }
+}

@@ -61,8 +61,7 @@
 	//Should have auto dynamic heights
 	&.gridsection1,
 	&.gridsection5,
-	&.gridsection7a,	
-	&.gridsection7d{
+	&.gridsection7a{
 		min-height: 165px;
 		height:165px;
 	}
@@ -75,6 +74,11 @@
 	&.gridsection9a{
 		min-height:300px;
 		height:300px;
+	}
+
+	&.gridsection7d{
+		min-height:330px;
+		height:330px;
 	}
 
 	&.gridsection10a{

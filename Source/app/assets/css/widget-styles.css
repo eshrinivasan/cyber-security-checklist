@@ -193,9 +193,34 @@ table.table-bordered {
 .media-body {
   width: auto !important; }
 
-.navbar-nav {
-  float: none; }
+.navbar {
+  border: none;
+  margin: 0;
+  min-height: auto;
+  position: static; }
 
+.modal-header:before, .nav:after, .nav:before, .navbar-collapse:after, .navbar-collapse:before,
+.navbar-header:after, .navbar-header:before, .navbar:after, .navbar:before {
+  display: inline; }
+
+.navbar-brand {
+  padding: 0; }
+
+.navbar-nav {
+  margin: 0; }
+
+.finra_normalize_prefix .gbl-hamburger {
+  width: 12% !important; }
+
+@media (min-width: 960px) {
+  .navbar-nav {
+    float: none; } }
+@media (min-width: 960px) {
+  .navbar-nav {
+    float: none; } }
+@media (min-width: 960px) {
+  .navbar-nav {
+    float: none; } }
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
@@ -245,7 +270,7 @@ footer {
   .sectiongrid.gridsection3a {
     min-height: 300px;
     height: 300px; }
-  .sectiongrid.gridsection1, .sectiongrid.gridsection5, .sectiongrid.gridsection7a, .sectiongrid.gridsection7d {
+  .sectiongrid.gridsection1, .sectiongrid.gridsection5, .sectiongrid.gridsection7a {
     min-height: 165px;
     height: 165px; }
   .sectiongrid.gridsection7c {
@@ -254,6 +279,9 @@ footer {
   .sectiongrid.gridsection9a {
     min-height: 300px;
     height: 300px; }
+  .sectiongrid.gridsection7d {
+    min-height: 330px;
+    height: 330px; }
   .sectiongrid.gridsection10a {
     min-height: 1050px;
     height: 1050px; }

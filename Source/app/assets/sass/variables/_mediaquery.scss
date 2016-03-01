@@ -1,0 +1,13 @@
+@import "singularitygs";
+
+$phone              : 320px;			    //  iPhone 3 portrait, Default
+$tab-portrait       : 767px;	            //  iPad portrait
+$tab-landscape      : 850px;	            //  iPad landscape
+$mdesk				: 959px;
+$desk               : 960px;			    //  Small desktop Nav Arts uses 960
+$ie-desk            : 960px; 				//  IE7 desktop
+$lg-desk            : 1200px;               //  Large desktop
+//$touch            : pointer coarse, 'no-query' '.touch';
+$lt-ie9             : '.lt-ie9' !default;
+$no-queries         : $ie-desk, 'no-query' $lt-ie9;
+$ie7-queries        : $ie-desk, 'no-query' '.lt-ie8';
