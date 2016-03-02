@@ -22,7 +22,8 @@
 			$scope.device_owner = [{option: 'Firm'}, {option: 'Individual'}];
 			$scope.levels = [{option: 'High'},{option: 'Medium'},{option: 'Low'}];
 			$scope.remediationsteps = [{option: 'Not Started'},{option: 'In Process'},{option: 'Complete'},{option: 'Not Needed'}];
-         	$scope.jsonstore = dataservice.getJsonStore();  
+         	$scope.jsonstore = dataservice.getJsonStore(); 
+       
 
 			//Loop through section json objects that represent the row data to be supplied to ui-grid
      		angular.forEach($scope.jsonstore, function(value, key) {
@@ -32,13 +33,16 @@
 			});     
 
 			$scope.sectionLast =  $scope.sectionNumber  == dataservice.getSectionLast();
+
      		$scope.addNewItem = function(section){
-		    	section.data.push({});
+		    		section.data.push({});		    	
 		    };
+
 			$scope.getTableHeight = function(section) {
 			       var headerHeight = 110; // your header height
+			       var calculatedHeight = (section.data.length * section.rowHeight + headerHeight) + "px";			       			       
 			       return {
-			          height: (section.data.length * section.rowHeight + headerHeight) + "px"
+			          height: calculatedHeight
 			       };
 			};
 
@@ -92,7 +96,7 @@
 				        editDropdownValueLabel: 'option'
 					}],
 		      		onRegisterApi: function(gridApi) {
-			       		 grid = gridApi.grid;
+			       		$scope.gridApi = gridApi;			       		
 			      }
 
 			};
@@ -116,14 +120,12 @@
 					{
 							field: 'piidata',
 							displayName:'PII or Firm Sensitive Data',
-							//editableCellTemplate : '<div>{{grid.appScope.piidata(col, row)}}</div>'
 							cellTemplate : '<div>{{grid.appScope.piidata(col, row)}}</div>'
 							
 					},
 					{	
 							field: 'location',
 							displayName:'Location',
-							//editableCellTemplate : '<div>{{grid.appScope.location(col, row)}}</div>'
 							cellTemplate : '<div>{{grid.appScope.location(col, row)}}</div>'
 					},
 					{

@@ -11,7 +11,8 @@
 	  	<!--Print for section 1-->  	
 			<div class="box printview">   
 			  	<grid-section-header title="Section 1 – Identify and Assess Risks: Inventory"></grid-section-header>
-			 	<div ui-grid="section1" class="sectiongrid gridsection1"></div>
+			 	<div ui-grid="section1" class="sectiongrid gridsection1" ng-style="getTableHeight(section1)"></div>
+
 		 		<grid-section-notes template="components/section/templates/notes/section1.notes.html"></grid-section-notes>
 			 </div>
 		 <!--End-->
@@ -33,7 +34,7 @@
 	<!--Print for section 3-->
 		<div class="box printview">  
 			<grid-section-header title="Section 3 – Identify and Assess Risks: Third Party Access"></grid-section-header>
-		 	<div ui-grid="section3a" class="sectiongrid gridsection3a"></div>  
+		 	<div ui-grid="section3a" class="sectiongrid gridsection3a" ng-style="getTableHeight(section3a)"></div>  
 		    <grid-section-notes template="components/section/templates/notes/section3.notes.html"></grid-section-notes>
 		    <div class="page-break"></div>
 		    <grid-section-header title="Manage Vendors and Customer Access"></grid-section-header>
@@ -58,7 +59,7 @@
 	<!--Print for section 5-->
 			<div class="box printview">  
 				<grid-section-header title="Section 5 – Protect: Systems Assets "></grid-section-header>   
-			    <div ui-grid="section5" class="sectiongrid gridsection5"> 
+			    <div ui-grid="section5" class="sectiongrid gridsection5" ng-style="getTableHeight(section5)"> 
 			    </div>  
 			    <grid-section-notes template="components/section/templates/notes/section5.notes.html"></grid-section-notes>
 			</div>
@@ -82,7 +83,7 @@
 	<!--Print for section 7-->
 		<div class="box printview"> 
 		     <grid-section-header title="Section 7 – Protect: Employee Devices"></grid-section-header>  
-		      <div ui-grid="section7a" class="sectiongrid gridsection7a"></div>
+		      <div ui-grid="section7a" class="sectiongrid gridsection7a" ng-style="getTableHeight(section7a)"></div>
 		      <grid-section-notes template="components/section/templates/notes/section7a.notes.html"></grid-section-notes>
 		      <div ui-grid="section7b" class="sectiongrid gridsection7b"></div>
 		      <div class="page-break"></div>

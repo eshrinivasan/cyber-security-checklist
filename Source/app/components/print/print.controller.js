@@ -20,7 +20,7 @@ angular.module("cyberapp.print")
 		$scope.risklevel = function (col, row){
 			return dataservice.risklevel(col, row);
 		}
-		
+
 		$scope.nameemployee = function(){
 			 return $scope.section7a.data[0].nameemployee;
 		}
@@ -32,6 +32,14 @@ angular.module("cyberapp.print")
 		$scope.deviceowner = function(){
 			return $scope.section7a.data[0].deviceowner;
 		}
+
+		$scope.getTableHeight = function(section) {
+			       var headerHeight = 110; // your header height
+			       return {
+			          height: (section.data.length * section.rowHeight + headerHeight) + "px"
+			       };
+		};
+
 
 
 		var total = dataservice.getSections();		
