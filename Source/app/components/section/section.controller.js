@@ -30,6 +30,9 @@
 					$scope[key].data = response;
      			})			
 			});     
+
+			$scope.sectionLast =  $scope.sectionNumber  == dataservice.getSectionLast();
+		
      		
      		$scope.addNewItem = function(section){
 		    	section.data.push({});
