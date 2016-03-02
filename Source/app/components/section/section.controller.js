@@ -32,47 +32,41 @@
 			});     
 
 			$scope.sectionLast =  $scope.sectionNumber  == dataservice.getSectionLast();
-		
-     		
      		$scope.addNewItem = function(section){
 		    	section.data.push({});
 		    };
-
-
 			$scope.getTableHeight = function(section) {
 			       var headerHeight = 110; // your header height
 			       return {
 			          height: (section.data.length * section.rowHeight + headerHeight) + "px"
 			       };
-			 };
+			};
 
-			$scope.piidata = function (col, row){
+			//Sharing with print controller
+			$rootScope.piidata = function (col, row){
 				row.entity.piidata = $sessionStorage.section1.data[0].piidata;
 				return row.entity.piidata;	
 			}
 
-
-			$scope.location = function (col, row){
+			$rootScope.location = function (col, row){
 				row.entity.location = $sessionStorage.section1.data[0].location;
 				return row.entity.location;
-
-			
 			}
 
-			$scope.risklevel = function (col, row){
+			$rootScope.risklevel = function (col, row){
 				row.entity.risklevel = $sessionStorage.section1.data[0].risklevel;
 				return row.entity.risklevel;
 			}
 
-			$scope.nameemployee = function(){
+			$rootScope.nameemployee = function(){
 				return $scope.section7a.data[0].nameemployee;
 			}
 
-			$scope.devicetype = function(){
+			$rootScope.devicetype = function(){
 				return $scope.section7a.data[0].devicetype;
 			}
 
-			$scope.deviceowner = function(){
+			$rootScope.deviceowner = function(){
 				return $scope.section7a.data[0].deviceowner;
 			}
 
