@@ -39,14 +39,7 @@ angular.module("cyberapp.section")
                 var currindex = $scope.getIndex();
                 var previndex = --currindex;
                 var prevSection = $scope.total[previndex];
-
-                /*if( $sessionStorage["section"+prevSection]){
-                    var sectoretrievearr = dataservice.getSectionAssocArray("section"+prevSection);
-                    angular.forEach(sectoretrievearr, function(key, value){
-                        $scope[key] = $sessionStorage[key]; //retrieving it from the session
-                    });
-                }*/
-
+                
                 if(typeof $scope.total !== "undefined" && previndex !== -1){                   
                     $state.go("section"+prevSection);
                     $scope.prevPageDisabled = false;
@@ -57,7 +50,7 @@ angular.module("cyberapp.section")
 
             $scope.nextPage = function(){
                 var currindex = $scope.getIndex();
-                var nextindex = ++currindex;
+                var nextindex = ++currindex;                
 
                 var sectosavearr = dataservice.getSectionAssocArray($scope.currentState);
                 if(sectosavearr.length > 1){
@@ -68,7 +61,6 @@ angular.module("cyberapp.section")
                     $sessionStorage[$scope.currentState] = $scope[$scope.currentState]; //storing in session    
                 }
 
-                
                 if(typeof $scope.total !== "undefined" && nextindex < $scope.total.length){
                     var nextSection = $scope.total[nextindex];
                     var nextPage = "section"+nextSection;

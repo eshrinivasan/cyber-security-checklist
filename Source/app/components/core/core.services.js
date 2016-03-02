@@ -2,9 +2,9 @@
     angular.module('cyberapp.core')
     		.service('dataservice', dataservice);
 
-    dataservice.inject = ['$state', '$rootScope', ',$http'];
+    dataservice.inject = ['$state', '$rootScope', '$http', '$sessionStorage'];
 
-    function dataservice($state, $rootScope, $http){           
+    function dataservice($state, $rootScope, $http, $sessionStorage){
 
     	var service = {
             setJsonData: setJsonData,
@@ -18,7 +18,10 @@
             getSectionNoLast: getSectionNoLast,
             getSectionAssocArray: getSectionAssocArray,
             getJsonStore: getJsonStore,
-            getSectionLast: getSectionLast
+            getSectionLast: getSectionLast,
+            piidata:piidata,
+            location:location,
+            risklevel:risklevel
     	};
 
     	return service;
@@ -27,7 +30,6 @@
     	var totalsArr = [];
         var datajsonObj = {};
         var storedJsonValues = [];
-
 
         function getJsonStore(){
              var jsonstore = {
@@ -97,11 +99,6 @@
 	  		totalsArr.sort(function(a, b) {
 			  return a - b;
 			});
-
-	  		 /*//Remove duplicates from array
-			totalsArr = totalsArr.filter( function( item, index, inputArray ) {					  
-		           return inputArray.indexOf(item) == index;
-			});*/
             
 			return totalsArr;
     	}
@@ -110,7 +107,6 @@
     	function getCurrentState(){
     		return $scope.state.name;                   
     	}
-
 
         function setJsonData(data){
              datajsonObj = data;
@@ -135,6 +131,25 @@
         function getSectionLast(){
             return _sectionArr[_sectionArr.length-1];
         }
+
+
+       //Sharing with print controller
+        function piidata(col, row){
+            row.entity.piidata = $sessionStorage.section1.data[0].piidata;
+            return row.entity.piidata;  
+        }
+
+        function location(col, row){
+            row.entity.location = $sessionStorage.section1.data[0].location;
+            return row.entity.location;
+        }
+
+        function risklevel(col, row){
+            row.entity.risklevel = $sessionStorage.section1.data[0].risklevel;
+            return row.entity.risklevel;
+        }
+
+    
        
     }
 })()

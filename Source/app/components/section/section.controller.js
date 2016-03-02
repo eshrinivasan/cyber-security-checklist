@@ -22,7 +22,8 @@
 			$scope.device_owner = [{option: 'Firm'}, {option: 'Individual'}];
 			$scope.levels = [{option: 'High'},{option: 'Medium'},{option: 'Low'}];
 			$scope.remediationsteps = [{option: 'Not Started'},{option: 'In Process'},{option: 'Complete'},{option: 'Not Needed'}];
-         	$scope.jsonstore = dataservice.getJsonStore();  
+         	$scope.jsonstore = dataservice.getJsonStore(); 
+       
 
 			//Loop through section json objects that represent the row data to be supplied to ui-grid
      		angular.forEach($scope.jsonstore, function(value, key) {
@@ -32,44 +33,43 @@
 			});     
 
 			$scope.sectionLast =  $scope.sectionNumber  == dataservice.getSectionLast();
+
      		$scope.addNewItem = function(section){
-		    	section.data.push({});
+		    		section.data.push({});		    	
 		    };
+
 			$scope.getTableHeight = function(section) {
 			       var headerHeight = 110; // your header height
+			       var calculatedHeight = (section.data.length * section.rowHeight + headerHeight) + "px";			       			       
 			       return {
-			          height: (section.data.length * section.rowHeight + headerHeight) + "px"
+			          height: calculatedHeight
 			       };
 			};
 
 			//Sharing with print controller
-			$rootScope.piidata = function (col, row){
-				row.entity.piidata = $sessionStorage.section1.data[0].piidata;
-				return row.entity.piidata;	
+			$scope.piidata = function (col, row){
+				return dataservice.piidata(col, row);	
 			}
 
-			$rootScope.location = function (col, row){
-				row.entity.location = $sessionStorage.section1.data[0].location;
-				return row.entity.location;
+			$scope.location = function (col, row){
+				return dataservice.location(col, row);
 			}
 
-			$rootScope.risklevel = function (col, row){
-				row.entity.risklevel = $sessionStorage.section1.data[0].risklevel;
-				return row.entity.risklevel;
+			$scope.risklevel = function (col, row){
+				return dataservice.risklevel(col, row);
 			}
 
-			$rootScope.nameemployee = function(){
-				return $scope.section7a.data[0].nameemployee;
+			$scope.nameemployee = function(){
+				 return $scope.section7a.data[0].nameemployee;
 			}
 
-			$rootScope.devicetype = function(){
+			$scope.devicetype = function(){
 				return $scope.section7a.data[0].devicetype;
 			}
 
-			$rootScope.deviceowner = function(){
+			$scope.deviceowner = function(){
 				return $scope.section7a.data[0].deviceowner;
 			}
-
 
 			$scope.section1 = { 
 				enableCellEditOnFocus: true, 
@@ -96,7 +96,7 @@
 				        editDropdownValueLabel: 'option'
 					}],
 		      		onRegisterApi: function(gridApi) {
-			       		 grid = gridApi.grid;
+			       		$scope.gridApi = gridApi;			       		
 			      }
 
 			};
@@ -120,14 +120,12 @@
 					{
 							field: 'piidata',
 							displayName:'PII or Firm Sensitive Data',
-							//editableCellTemplate : '<div>{{grid.appScope.piidata(col, row)}}</div>'
 							cellTemplate : '<div>{{grid.appScope.piidata(col, row)}}</div>'
 							
 					},
 					{	
 							field: 'location',
 							displayName:'Location',
-							//editableCellTemplate : '<div>{{grid.appScope.location(col, row)}}</div>'
 							cellTemplate : '<div>{{grid.appScope.location(col, row)}}</div>'
 					},
 					{

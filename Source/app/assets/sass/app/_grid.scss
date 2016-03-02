@@ -38,8 +38,7 @@
 	}
 
 	//single row tables
-	&.gridsection1,
-	&.gridsection2,	
+	
 	&.gridsection4a,	
 	&.gridsection7b,
 	&.gridsection8,
@@ -59,9 +58,15 @@
 	}
 
 	//Should have auto dynamic heights
-	&.gridsection1,
+	
+	&.gridsection2,
 	&.gridsection5,
 	&.gridsection7a{
+		min-height: 265px;
+		height:265px;
+	}
+
+	&.gridsection1{
 		min-height: 165px;
 		height:165px;
 	}
