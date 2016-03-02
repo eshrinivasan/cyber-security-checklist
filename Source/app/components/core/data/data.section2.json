@@ -1,12 +1,12 @@
 [
    {
-        "PII or Firm Sensitive Data": "",
-		"Location": "",
-		"Risk Severity Level": "",
-        "Business Objective can be met without data?": "",
-        "Busines Objective can be accomplished without data being output or shared with other internal systems or people? ": "",
-        "Do you need to Remediate?": "",
-        "Remediation Steps": "",
-        "Remediation Status": ""
+        "piidata": "",
+		"location": "",
+		"risklevel": "",
+        "busobjwodata": "",
+        "busobjwodatashared": "",
+        "needtoremediate": "",
+        "remediatesteps": "",
+        "remediatestatus": ""
     }
 ]

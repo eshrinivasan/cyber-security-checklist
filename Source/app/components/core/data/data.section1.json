@@ -1,8 +1,8 @@
  [
 	{
-		"PII or Firm Sensitive Data": "",
-		"Location": "",
-		"Risk Severity Level": ""
+		"piidata": "",
+		"location": "",
+		"risklevel": ""
 	}
 ]
 

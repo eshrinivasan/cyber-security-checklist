@@ -43,17 +43,22 @@
 			       };
 			 };
 
-			$scope.piidata = function (){
-				return $sessionStorage.section1.data[0].piidata;
-			}
-
-			$scope.location = function (){
-				return $sessionStorage.section1.data[0].location;
+			$scope.piidata = function (col, row){
+				row.entity.piidata = $sessionStorage.section1.data[0].piidata;
+				return row.entity.piidata;	
 			}
 
 
-			$scope.risklevel = function (){
-				return $sessionStorage.section1.data[0].risklevel;
+			$scope.location = function (col, row){
+				row.entity.location = $sessionStorage.section1.data[0].location;
+				return row.entity.location;
+
+			
+			}
+
+			$scope.risklevel = function (col, row){
+				row.entity.risklevel = $sessionStorage.section1.data[0].risklevel;
+				return row.entity.risklevel;
 			}
 
 			$scope.nameemployee = function(){
@@ -71,7 +76,6 @@
 
 			$scope.section1 = { 
 				enableCellEditOnFocus: true, 
-				enableCellEdit:true, 
 				enableSorting: false,
 				rowHeight:55,
 				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
@@ -88,7 +92,7 @@
 						field:'risklevel',
 						displayName: 'Risk Severity Level',
 						editType: 'dropdown',
-						enableCellEdit:true,
+						enableCellEditOnFocus:true,
 						editableCellTemplate: 'ui-grid/dropdownEditor',
 				        editDropdownOptionsArray: $scope.levels,
 				        editDropdownIdLabel: 'option',
@@ -100,18 +104,17 @@
 
 			};
 
-			 function DisplayObject(name, tooltip) {
+			function DisplayObject(name, tooltip) {
 			    // this refers to the new instance
-			    this.name = name;
-			    this.tooltip = tooltip;
-			  }
+				    this.name = name;
+				    this.tooltip = tooltip;
+			}
 
 			var longHdrCellTxtTpl = '<div class="grid-tooltip" tooltip="{{ col.displayName.tooltip}}" tooltip-placement="top" tooltip-append-to-body="true">'
   +'<div class="ui-grid-cell-contents">{{ col.displayName.name }}</div></div>';
-
+			
 			$scope.section2 = { 
 				enableCellEditOnFocus: true, 
-				enableCellEdit:true, 
 				enableSorting: false,
 				rowHeight:55,
 				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
@@ -120,23 +123,27 @@
 					{
 							field: 'piidata',
 							displayName:'PII or Firm Sensitive Data',
-							cellTemplate : '<div>{{grid.appScope.piidata()}}</div>'
+							//editableCellTemplate : '<div>{{grid.appScope.piidata(col, row)}}</div>'
+							cellTemplate : '<div>{{grid.appScope.piidata(col, row)}}</div>'
+							
 					},
 					{	
 							field: 'location',
 							displayName:'Location',
-							cellTemplate : '<div>{{grid.appScope.location()}}</div>'
+							//editableCellTemplate : '<div>{{grid.appScope.location(col, row)}}</div>'
+							cellTemplate : '<div>{{grid.appScope.location(col, row)}}</div>'
 					},
 					{
 							field:'risklevel',
 							displayName: 'Risk Severity Level',
-							cellTemplate : '<div>{{grid.appScope.risklevel()}}</div>'
+							//editableCellTemplate : '<div>{{grid.appScope.risklevel(col, row)}}</div>'
+							cellTemplate : '<div>{{grid.appScope.risklevel(col, row)}}</div>'
 					},
 					{	
 							field: 'busobjwodata',
 							displayName:  new DisplayObject('Data Required?', 'Can your business objective be met without storing the PII or firm sensitive information?'),
 							editType: 'dropdown',
-							enableCellEdit:true,
+							enableCellEditOnFocus:true,
 							editableCellTemplate: 'ui-grid/dropdownEditor',
 					        editDropdownOptionsArray: $scope.yes_no,
 					        editDropdownIdLabel: 'option',
@@ -148,7 +155,7 @@
 							field: 'busobjwodatashared',
 							displayName: new DisplayObject('Data Required to be output or shared?', 'Can your business objective be met without outputting or sharing the data –identify people or systems that do not require access to the data, and consider isolating the data.'),
 							editType: 'dropdown',
-							enableCellEdit:true,
+							enableCellEditOnFocus:true,
 							editableCellTemplate: 'ui-grid/dropdownEditor',
 					        editDropdownOptionsArray: $scope.yes_no,
 					        editDropdownIdLabel: 'option',
@@ -159,7 +166,7 @@
 							field: 'needtoremediate',
 							displayName: new DisplayObject('Remediate', 'If data is not required to be stored or shared, you should consider removing or isolating the data.'),
 							editType: 'dropdown',
-							enableCellEdit:true,
+							enableCellEditOnFocus:true,
 							editableCellTemplate: 'ui-grid/dropdownEditor',
 					        editDropdownOptionsArray: $scope.yes_no,
 					        editDropdownIdLabel: 'option',
@@ -174,24 +181,23 @@
 							field: 'remediatestatus',
 							displayName: 'Remediation Status',
 							editType: 'dropdown',
-							enableCellEdit:true,
+							enableCellEditOnFocus:true,
 							editableCellTemplate: 'ui-grid/dropdownEditor',
 					        editDropdownOptionsArray: $scope.remediationsteps,
 					        editDropdownIdLabel: 'option',
 					        editDropdownValueLabel: 'option'
 					}
 				],
-		      	onRegisterApi: function(gridApi) {
-			       		 grid = gridApi.grid;
-			       		 //console.log(grid);
-			      }
+	      		onRegisterApi: function(gridApi) {
+		       		 grid = gridApi.grid;	       		    
+		      	}
 
 			};
 
 
+
 			$scope.section3a = { 
 				enableCellEditOnFocus: true, 
-				enableCellEdit:true, 
 				enableSorting: false,
 				rowHeight:55,
 				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
@@ -209,7 +215,7 @@
 							field:'risklevel',
 							displayName: new DisplayObject('Risk Severity', 'Assign a risk severity classification to the data transmitted (low, medium or high).'),
 							editType: 'dropdown',
-							enableCellEdit:true,
+							enableCellEditOnFocus:true,
 							editableCellTemplate: 'ui-grid/dropdownEditor',
 					        editDropdownOptionsArray: $scope.levels,
 					        editDropdownIdLabel: 'option',
@@ -219,7 +225,7 @@
 					{	
 							field: '3rdpartyaccessneed',
 							displayName: new DisplayObject('Does third party require data?', 'assess whether the third party requires the information it can access for a business purpose.'),
-							enableCellEdit:true,
+							enableCellEditOnFocus:true,
 							editableCellTemplate: 'ui-grid/dropdownEditor',
 					        editDropdownOptionsArray: $scope.yes_no,
 					        editDropdownIdLabel: 'option',
@@ -230,7 +236,7 @@
 							field: 'assess3rdparty',
 							displayName: new DisplayObject('Third Party Security', 'assess the security of the third party’s systems'),
 							editType: 'dropdown',
-							enableCellEdit:true,
+							enableCellEditOnFocus:true,
 							editableCellTemplate: 'ui-grid/dropdownEditor',
 					        editDropdownOptionsArray: $scope.yes_no,
 					        editDropdownIdLabel: 'option',
@@ -241,7 +247,7 @@
 							field: 'ctrlstoisolate',
 							displayName: new DisplayObject('Isolate critical assets', 'assess if the third party access to information is limited to information it requires for business reasons'),
 							editType: 'dropdown',
-							enableCellEdit:true,
+							enableCellEditOnFocus:true,
 							editableCellTemplate: 'ui-grid/dropdownEditor',
 					        editDropdownOptionsArray: $scope.yes_no,
 					        editDropdownIdLabel: 'option',
@@ -252,7 +258,7 @@
 							field: 'needtoremediate',
 							displayName: new DisplayObject('Remediate', 'consider the risk severity level and your resources and make a risk assessment of whether any remediation is necessary'),
 							editType: 'dropdown',
-							enableCellEdit:true,
+							enableCellEditOnFocus:true,
 							editableCellTemplate: 'ui-grid/dropdownEditor',
 					        editDropdownOptionsArray: $scope.yes_no,
 					        editDropdownIdLabel: 'option',
@@ -267,7 +273,7 @@
 							field: 'remediatestatus',
 							displayName: 'Remediation Status',
 							editType: 'dropdown',
-							enableCellEdit:true,
+							enableCellEditOnFocus:true,
 							editableCellTemplate: 'ui-grid/dropdownEditor',
 					        editDropdownOptionsArray: $scope.remediationsteps,
 					        editDropdownIdLabel: 'option',
@@ -283,7 +289,6 @@
 
 			$scope.section3b = { 
 				enableCellEditOnFocus: true, 
-				enableCellEdit:true, 
 				enableSorting: false,
 				rowHeight:92,
 				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
@@ -297,7 +302,7 @@
 							field: 'yes_no',
 							displayName:'Yes/No',
 							editType: 'dropdown',
-							enableCellEdit:true,
+							enableCellEditOnFocus:true,
 							editableCellTemplate: 'ui-grid/dropdownEditor',
 					        editDropdownOptionsArray: $scope.yes_no,
 					        editDropdownIdLabel: 'option',
@@ -307,7 +312,7 @@
 							field: 'needtoremediate',
 							displayName: 'Do you need to Remediate?',
 							editType: 'dropdown',
-							enableCellEdit:true,
+							enableCellEditOnFocus:true,
 							editableCellTemplate: 'ui-grid/dropdownEditor',
 					        editDropdownOptionsArray: $scope.yes_no,
 					        editDropdownIdLabel: 'option',
@@ -321,7 +326,7 @@
 							field: 'remediatestatus',
 							displayName: 'Remediation Status',
 							editType: 'dropdown',
-							enableCellEdit:true,
+							enableCellEditOnFocus:true,
 							editableCellTemplate: 'ui-grid/dropdownEditor',
 					        editDropdownOptionsArray: $scope.remediationsteps,
 					        editDropdownIdLabel: 'option',
@@ -335,8 +340,7 @@
 			};
 
 			$scope.section4a = { 
-				enableCellEditOnFocus: true, 
-				enableCellEdit:true, 
+				enableCellEditOnFocus: true,
 				enableSorting: false,
 				rowHeight:55,
 				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
@@ -344,24 +348,24 @@
 				columnDefs:[{
 							field: 'piidata',
 							displayName:'PII or Firm Sensitive Data',
-							cellTemplate : '<div>{{grid.appScope.piidata()}}</div>'
+							cellTemplate : '<div>{{grid.appScope.piidata(col, row)}}</div>'
 					},
 					{	
 							field: 'location',
 							displayName: 'Location',
-							cellTemplate : '<div>{{grid.appScope.location()}}</div>'
+							cellTemplate : '<div>{{grid.appScope.location(col, row)}}</div>'
 					},
 					{	
 							field: 'risklevel',
 							displayName: new DisplayObject('Risk Severity', 'Assign a risk severity classification to the data transmitted (low, medium or high).'),
-							cellTemplate : '<div>{{grid.appScope.risklevel()}}</div>',
+							cellTemplate : '<div>{{grid.appScope.risklevel(col, row)}}</div>',
 							headerCellTemplate: longHdrCellTxtTpl
 					},
 					{	
 							field: 'passwordprotection',
 							displayName: 'Password Protection',
 							editType: 'dropdown',
-							enableCellEdit:true,
+							enableCellEditOnFocus:true,
 							editableCellTemplate: 'ui-grid/dropdownEditor',
 					        editDropdownOptionsArray: $scope.yes_no,
 					        editDropdownIdLabel: 'option',
@@ -371,7 +375,7 @@
 							field: 'malwareprotection',
 							displayName: 'Malware/Anti-virus Protection',
 							editType: 'dropdown',
-							enableCellEdit:true,
+							enableCellEditOnFocus:true,
 							editableCellTemplate: 'ui-grid/dropdownEditor',
 					        editDropdownOptionsArray: $scope.yes_no,
 					        editDropdownIdLabel: 'option',
@@ -385,7 +389,7 @@
 							field: 'needtoremediate',
 							displayName: new DisplayObject('Remediate', 'conduct a risk assessment of the strength of the protections considered with the assigned risk severity level '),
 							editType: 'dropdown',
-							enableCellEdit:true,
+							enableCellEditOnFocus:true,
 							editableCellTemplate: 'ui-grid/dropdownEditor',
 					        editDropdownOptionsArray: $scope.yes_no,
 					        editDropdownIdLabel: 'option',
@@ -400,7 +404,7 @@
 							field: 'remediatestatus',
 							displayName: 'Remediation Status',
 							editType: 'dropdown',
-							enableCellEdit:true,
+							enableCellEditOnFocus:true,
 							editableCellTemplate: 'ui-grid/dropdownEditor',
 					        editDropdownOptionsArray: $scope.remediationsteps,
 					        editDropdownIdLabel: 'option',
@@ -415,7 +419,6 @@
 
 			$scope.section4b = { 
 				enableCellEditOnFocus: true, 
-				enableCellEdit:true, 
 				enableSorting: false,
 				rowHeight:55,
 				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
@@ -429,7 +432,7 @@
 							field: 'yes_no',
 							displayName:'Yes/No',
 							editType: 'dropdown',
-							enableCellEdit:true,
+							enableCellEditOnFocus:true,
 							editableCellTemplate: 'ui-grid/dropdownEditor',
 					        editDropdownOptionsArray: $scope.yes_no,
 					        editDropdownIdLabel: 'option',
@@ -439,7 +442,7 @@
 							field: 'needtoremediate',
 							displayName: new DisplayObject('Remediate', 'conduct a risk assessment of the strength of the protections considered with the assigned risk severity level '),
 							editType: 'dropdown',
-							enableCellEdit:true,
+							enableCellEditOnFocus:true,
 							editableCellTemplate: 'ui-grid/dropdownEditor',
 					        editDropdownOptionsArray: $scope.yes_no,
 					        editDropdownIdLabel: 'option',
@@ -454,7 +457,7 @@
 							field: 'remediatestatus',
 							displayName: 'Remediation Status',
 							editType: 'dropdown',
-							enableCellEdit:true,
+							enableCellEditOnFocus:true,
 							editableCellTemplate: 'ui-grid/dropdownEditor',
 					        editDropdownOptionsArray: $scope.remediationsteps,
 					        editDropdownIdLabel: 'option',
@@ -470,7 +473,6 @@
 
 			$scope.section5 = { 
 				enableCellEditOnFocus: true, 
-				enableCellEdit:true, 
 				enableSorting: false,
 				rowHeight:55,
 				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
@@ -483,7 +485,7 @@
 							field: 'risklevel',
 							displayName: 'Risk to Firm if system is inoperable',	
 							editType: 'dropdown',
-							enableCellEdit:true,
+							enableCellEditOnFocus:true,
 							editableCellTemplate: 'ui-grid/dropdownEditor',
 					        editDropdownOptionsArray: $scope.levels,
 					        editDropdownIdLabel: 'option',
@@ -493,7 +495,7 @@
 							field: 'passwordprotection',
 							displayName: 'Password Protection',
 							editType: 'dropdown',
-							enableCellEdit:true,
+							enableCellEditOnFocus:true,
 							editableCellTemplate: 'ui-grid/dropdownEditor',
 					        editDropdownOptionsArray: $scope.yes_no,
 					        editDropdownIdLabel: 'option',
@@ -503,7 +505,7 @@
 							field: 'malwareprotection',
 							displayName: 'Malware/Anti-virus/Firewalls',
 							editType: 'dropdown',
-							enableCellEdit:true,
+							enableCellEditOnFocus:true,
 							editableCellTemplate: 'ui-grid/dropdownEditor',
 					        editDropdownOptionsArray: $scope.yes_no,
 					        editDropdownIdLabel: 'option',
@@ -513,7 +515,7 @@
 							field: 'scheduledbackups',
 							displayName: 'Regularly Scheduled Backups',
 							editType: 'dropdown',
-							enableCellEdit:true,
+							enableCellEditOnFocus:true,
 							editableCellTemplate: 'ui-grid/dropdownEditor',
 					        editDropdownOptionsArray: $scope.yes_no,
 					        editDropdownIdLabel: 'option',
@@ -522,7 +524,7 @@
 					{	
 							field: 'needtoremediate',
 							displayName: new DisplayObject('Remediate', 'conduct a risk assessment of the strength of the protections considered with the assigned risk of the system being inaccessible'),
-							enableCellEdit:true,
+							enableCellEditOnFocus:true,
 							editableCellTemplate: 'ui-grid/dropdownEditor',
 					        editDropdownOptionsArray: $scope.yes_no,
 					        editDropdownIdLabel: 'option',
@@ -537,7 +539,7 @@
 							field: 'remediatestatus',
 							displayName: 'Remediation Status',
 							editType: 'dropdown',
-							enableCellEdit:true,
+							enableCellEditOnFocus:true,
 							editableCellTemplate: 'ui-grid/dropdownEditor',
 					        editDropdownOptionsArray: $scope.remediationsteps,
 					        editDropdownIdLabel: 'option',
@@ -552,7 +554,6 @@
 
 			$scope.section6 = {
 				enableCellEditOnFocus: true, 
-				enableCellEdit:true, 
 				enableSorting: false,
 				rowHeight:55,
 				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
@@ -560,24 +561,24 @@
 				columnDefs:[{
 						field: 'piidata',
 						displayName:'PII or Firm Sensitive Data',
-						cellTemplate : '<div>{{grid.appScope.piidata()}}</div>'
+						cellTemplate : '<div>{{grid.appScope.piidata(col, row)}}</div>'
 					},
 					{
 						field: 'location',
 						displayName:'Location',
-						cellTemplate : '<div>{{grid.appScope.location()}}</div>'
+						cellTemplate : '<div>{{grid.appScope.location(col, row)}}</div>'
 					},
 				    {
 						field: 'risklevel',
 						displayName:'Risk Severity Level',						
-						cellTemplate : '<div>{{grid.appScope.risklevel()}}</div>'
+						cellTemplate : '<div>{{grid.appScope.risklevel(col, row)}}</div>'
 					},
 					{
 						field: 'dataencrypedtoext',
 						displayName: new DisplayObject('Encrypted in transit', 'Is it Encrypted  in Transit to External Sources (e.g., email  to non-firm addresses)'),
 						headerCellTemplate:longHdrCellTxtTpl,
 						editType: 'dropdown',
-						enableCellEdit:true,
+						enableCellEditOnFocus:true,
 						editableCellTemplate: 'ui-grid/dropdownEditor',
 				        editDropdownOptionsArray: $scope.yes_no,
 				        editDropdownIdLabel: 'option',
@@ -588,7 +589,7 @@
 						displayName: new DisplayObject('Encrypted internally', 'Is it Encrypted when Shared Internally and at Rest within the System?'),
 						headerCellTemplate:longHdrCellTxtTpl,
 						editType: 'dropdown',
-						enableCellEdit:true,
+						enableCellEditOnFocus:true,
 						editableCellTemplate: 'ui-grid/dropdownEditor',
 				        editDropdownOptionsArray: $scope.yes_no,
 				        editDropdownIdLabel: 'option',
@@ -599,7 +600,7 @@
 						displayName:new DisplayObject('Encrypted at Backup', ' Is it Encrypted when Archived to Backup Media (e.g., tapes)'),
 						headerCellTemplate:longHdrCellTxtTpl,
 						editType: 'dropdown',
-						enableCellEdit:true,
+						enableCellEditOnFocus:true,
 						editableCellTemplate: 'ui-grid/dropdownEditor',
 				        editDropdownOptionsArray: $scope.yes_no,
 				        editDropdownIdLabel: 'option',
@@ -610,7 +611,7 @@
 						displayName:new DisplayObject('Data masked when displayed?', 'Data such as social security numbers can be masked whenever displayed to a person accessing that data.'),
 						headerCellTemplate:longHdrCellTxtTpl,
 						editType: 'dropdown',
-						enableCellEdit:true,
+						enableCellEditOnFocus:true,
 						editableCellTemplate: 'ui-grid/dropdownEditor',
 				        editDropdownOptionsArray: $scope.yes_no,
 				        editDropdownIdLabel: 'option',
@@ -621,7 +622,7 @@
 						displayName:new DisplayObject('Remediate', 'Consider Risk severity of data and resources and decide whether to encrypt or mask data.'),
 						headerCellTemplate:longHdrCellTxtTpl,
 						editType: 'dropdown',
-						enableCellEdit:true,
+						enableCellEditOnFocus:true,
 						editableCellTemplate: 'ui-grid/dropdownEditor',
 				        editDropdownOptionsArray: $scope.yes_no,
 				        editDropdownIdLabel: 'option',
@@ -635,7 +636,7 @@
 						field: 'remediatestatus',
 						displayName: 'Remediation Status',
 						editType: 'dropdown',
-						enableCellEdit:true,
+						enableCellEditOnFocus:true,
 						editableCellTemplate: 'ui-grid/dropdownEditor',
 				        editDropdownOptionsArray: $scope.remediationsteps,
 				        editDropdownIdLabel: 'option',
@@ -646,7 +647,6 @@
 			
 			$scope.section7a = {
 				enableCellEditOnFocus: true, 
-				enableCellEdit:true, 
 				enableSorting: false,
 				rowHeight:55,
 				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
@@ -669,8 +669,7 @@
 			}
 
 			$scope.section7b = {
-				enableCellEditOnFocus: true, 
-				enableCellEdit:true, 
+				enableCellEditOnFocus: true,
 				enableSorting: false,
 				rowHeight:55,
 				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
@@ -696,7 +695,7 @@
 						field: 'accesstopii',
 						displayName: 'Access to PII and Firm Sensitive Data?',
 						editType: 'dropdown',
-						enableCellEdit:true,
+						enableCellEditOnFocus:true,
 						editableCellTemplate: 'ui-grid/dropdownEditor',
 				        editDropdownOptionsArray: $scope.yes_no,
 				        editDropdownIdLabel: 'option',
@@ -706,7 +705,7 @@
 						field: 'risklevel',
 						displayName: 'Risk Severity Level',
 						editType: 'dropdown',
-						enableCellEdit:true,
+						enableCellEditOnFocus:true,
 						editableCellTemplate: 'ui-grid/dropdownEditor',
 				        editDropdownOptionsArray: $scope.levels,
 				        editDropdownIdLabel: 'option',
@@ -721,7 +720,7 @@
 						displayName:new DisplayObject('Remediate', 'Consider the risk severity level of the PPI accessible to the devices, and make a risk assessment if you take remedial steps.'),
 						headerCellTemplate:longHdrCellTxtTpl,
 						editType: 'dropdown',
-						enableCellEdit:true,
+						enableCellEditOnFocus:true,
 						editableCellTemplate: 'ui-grid/dropdownEditor',
 				        editDropdownOptionsArray: $scope.yes_no,
 				        editDropdownIdLabel: 'option',
@@ -735,7 +734,7 @@
 						field: 'remediatestatus',
 						displayName: 'Remediation Status',
 						editType: 'dropdown',
-						enableCellEdit:true,
+						enableCellEditOnFocus:true,
 						editableCellTemplate: 'ui-grid/dropdownEditor',
 				        editDropdownOptionsArray: $scope.remediationsteps,
 				        editDropdownIdLabel: 'option',
@@ -747,7 +746,6 @@
 
 			$scope.section7c = { 
 				enableCellEditOnFocus: true, 
-				enableCellEdit:true, 
 				enableSorting: false,
 				rowHeight:92,
 				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
@@ -761,7 +759,7 @@
 							field: 'yes_no',
 							displayName:'Yes/No',
 							editType: 'dropdown',
-							enableCellEdit:true,
+							enableCellEditOnFocus:true,
 							editableCellTemplate: 'ui-grid/dropdownEditor',
 					        editDropdownOptionsArray: $scope.yes_no,
 					        editDropdownIdLabel: 'option',
@@ -771,7 +769,7 @@
 							field: 'needtoremediate',
 							displayName: 'Do you need to Remediate?',
 							editType: 'dropdown',
-							enableCellEdit:true,
+							enableCellEditOnFocus:true,
 							editableCellTemplate: 'ui-grid/dropdownEditor',
 					        editDropdownOptionsArray: $scope.yes_no,
 					        editDropdownIdLabel: 'option',
@@ -785,7 +783,7 @@
 							field: 'remediatestatus',
 							displayName: 'Remediation Status',
 							editType: 'dropdown',
-							enableCellEdit:true,
+							enableCellEditOnFocus:true,
 							editableCellTemplate: 'ui-grid/dropdownEditor',
 					        editDropdownOptionsArray: $scope.remediationsteps,
 					        editDropdownIdLabel: 'option',
@@ -799,7 +797,6 @@
 
 			$scope.section7d = { 
 				enableCellEditOnFocus: true, 
-				enableCellEdit:true, 
 				enableSorting: false,
 				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
         		enableVerticalScrollbar   : uiGridConstants.scrollbars.NEVER,
@@ -813,7 +810,7 @@
 							field: 'yes_no',
 							displayName:'Yes/No',
 							editType: 'dropdown',
-							enableCellEdit:true,
+							enableCellEditOnFocus:true,
 							editableCellTemplate: 'ui-grid/dropdownEditor',
 					        editDropdownOptionsArray: $scope.yes_no,
 					        editDropdownIdLabel: 'option',
@@ -828,7 +825,6 @@
 
 			$scope.section8 = {
 				enableCellEditOnFocus: true, 
-				enableCellEdit:true, 
 				enableSorting: false,
 				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
         		enableVerticalScrollbar   : uiGridConstants.scrollbars.NEVER,
@@ -842,7 +838,7 @@
 						field: 'risklevel',
 						displayName:'Risk Severity Level',
 						editType: 'dropdown',
-						enableCellEdit:true,
+						enableCellEditOnFocus:true,
 						editableCellTemplate: 'ui-grid/dropdownEditor',
 				        editDropdownOptionsArray: $scope.levels,
 				        editDropdownIdLabel: 'option',
@@ -852,7 +848,7 @@
 						field: 'assettested',
 						displayName:'Asset Tested?',
 						editType: 'dropdown',
-						enableCellEdit:true,
+						enableCellEditOnFocus:true,
 						editableCellTemplate: 'ui-grid/dropdownEditor',
 				        editDropdownOptionsArray: $scope.yes_no,
 				        editDropdownIdLabel: 'option',
@@ -866,7 +862,7 @@
 						field: 'needtoremediate',
 						displayName: 'Do you need to Remediate?',
 						editType: 'dropdown',
-						enableCellEdit:true,
+						enableCellEditOnFocus:true,
 						editableCellTemplate: 'ui-grid/dropdownEditor',
 				        editDropdownOptionsArray: $scope.yes_no,
 				        editDropdownIdLabel: 'option',
@@ -880,7 +876,7 @@
 						field: 'remediatestatus',
 						displayName: 'Remediation Status',
 						editType: 'dropdown',
-						enableCellEdit:true,
+						enableCellEditOnFocus:true,
 						editableCellTemplate: 'ui-grid/dropdownEditor',
 				        editDropdownOptionsArray: $scope.remediationsteps,
 				        editDropdownIdLabel: 'option',
@@ -891,7 +887,6 @@
 
 			$scope.section9a = {
 				enableCellEditOnFocus: true, 
-				enableCellEdit:true, 
 				enableSorting: false,
 				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
         		enableVerticalScrollbar   : uiGridConstants.scrollbars.NEVER,
@@ -905,7 +900,7 @@
 						field: 'yes_no',
 						displayName:'Yes/No',
 						editType: 'dropdown',
-						enableCellEdit:true,
+						enableCellEditOnFocus:true,
 						editableCellTemplate: 'ui-grid/dropdownEditor',
 				        editDropdownOptionsArray: $scope.yes_no,
 				        editDropdownIdLabel: 'option',
@@ -915,7 +910,7 @@
 						field: 'risklevel',
 						displayName:'Risk Severity Level',
 						editType: 'dropdown',
-						enableCellEdit:true,
+						enableCellEditOnFocus:true,
 						editableCellTemplate: 'ui-grid/dropdownEditor',
 				        editDropdownOptionsArray: $scope.levels,
 				        editDropdownIdLabel: 'option',
@@ -925,7 +920,7 @@
 						field: 'needtoremediate',
 						displayName: 'Do you need to Remediate?',
 						editType: 'dropdown',
-						enableCellEdit:true,
+						enableCellEditOnFocus:true,
 						editableCellTemplate: 'ui-grid/dropdownEditor',
 				        editDropdownOptionsArray: $scope.yes_no,
 				        editDropdownIdLabel: 'option',
@@ -939,7 +934,7 @@
 						field: 'remediatestatus',
 						displayName: 'Remediation Status',
 						editType: 'dropdown',
-						enableCellEdit:true,
+						enableCellEditOnFocus:true,
 						editableCellTemplate: 'ui-grid/dropdownEditor',
 				        editDropdownOptionsArray: $scope.remediationsteps,
 				        editDropdownIdLabel: 'option',
@@ -950,7 +945,6 @@
 
 			$scope.section9b = {
 				enableCellEditOnFocus: true, 
-				enableCellEdit:true, 
 				enableSorting: false,
 				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
         		enableVerticalScrollbar   : uiGridConstants.scrollbars.NEVER,
@@ -964,7 +958,7 @@
 						field: 'yes_no',
 						displayName:'Yes/No',
 						editType: 'dropdown',
-						enableCellEdit:true,
+						enableCellEditOnFocus:true,
 						editableCellTemplate: 'ui-grid/dropdownEditor',
 				        editDropdownOptionsArray: $scope.yes_no,
 				        editDropdownIdLabel: 'option',
@@ -974,7 +968,7 @@
 						field: 'needtoremediate',
 						displayName: 'Do you need to Remediate?',
 						editType: 'dropdown',
-						enableCellEdit:true,
+						enableCellEditOnFocus:true,
 						editableCellTemplate: 'ui-grid/dropdownEditor',
 				        editDropdownOptionsArray: $scope.yes_no,
 				        editDropdownIdLabel: 'option',
@@ -988,7 +982,7 @@
 						field: 'remediatestatus',
 						displayName: 'Remediation Status',
 						editType: 'dropdown',
-						enableCellEdit:true,
+						enableCellEditOnFocus:true,
 						editableCellTemplate: 'ui-grid/dropdownEditor',
 				        editDropdownOptionsArray: $scope.remediationsteps,
 				        editDropdownIdLabel: 'option',
@@ -999,7 +993,6 @@
 
 			$scope.section10a = {
 				enableCellEditOnFocus: true, 
-				enableCellEdit:true, 
 				enableSorting: false,
 				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
         		enableVerticalScrollbar   : uiGridConstants.scrollbars.NEVER,
@@ -1013,7 +1006,7 @@
 						field: 'risklevel',
 						displayName:'Risk Severity Level',
 						editType: 'dropdown',
-						enableCellEdit:true,
+						enableCellEditOnFocus:true,
 						editableCellTemplate: 'ui-grid/dropdownEditor',
 				        editDropdownOptionsArray: $scope.levels,
 				        editDropdownIdLabel: 'option',
@@ -1023,7 +1016,7 @@
 						field: 'responseplan',
 						displayName:'Response Plan in Place',
 						editType: 'dropdown',
-						enableCellEdit:true,
+						enableCellEditOnFocus:true,
 						editableCellTemplate: 'ui-grid/dropdownEditor',
 				        editDropdownOptionsArray: $scope.yes_no,
 				        editDropdownIdLabel: 'option',
@@ -1033,7 +1026,7 @@
 						field: 'needtoremediate',
 						displayName: 'Do you need to Remediate?',
 						editType: 'dropdown',
-						enableCellEdit:true,
+						enableCellEditOnFocus:true,
 						editableCellTemplate: 'ui-grid/dropdownEditor',
 				        editDropdownOptionsArray: $scope.yes_no,
 				        editDropdownIdLabel: 'option',
@@ -1047,7 +1040,7 @@
 						field: 'remediatestatus',
 						displayName: 'Remediation Status',
 						editType: 'dropdown',
-						enableCellEdit:true,
+						enableCellEditOnFocus:true,
 						editableCellTemplate: 'ui-grid/dropdownEditor',
 				        editDropdownOptionsArray: $scope.remediationsteps,
 				        editDropdownIdLabel: 'option',
@@ -1058,7 +1051,6 @@
 
 			$scope.section10b = {
 				enableCellEditOnFocus: true, 
-				enableCellEdit:true, 
 				enableSorting: false,
 				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
         		enableVerticalScrollbar   : uiGridConstants.scrollbars.NEVER,
@@ -1072,7 +1064,7 @@
 						field: 'customers',
 						displayName:'Customers',
 						editType: 'dropdown',
-						enableCellEdit:true,
+						enableCellEditOnFocus:true,
 						editableCellTemplate: 'ui-grid/dropdownEditor',
 				        editDropdownOptionsArray: $scope.yes_no,
 				        editDropdownIdLabel: 'option',
@@ -1082,7 +1074,7 @@
 						field: 'regulators',
 						displayName:'Regulators',
 						editType: 'dropdown',
-						enableCellEdit:true,
+						enableCellEditOnFocus:true,
 						editableCellTemplate: 'ui-grid/dropdownEditor',
 				        editDropdownOptionsArray: $scope.yes_no,
 				        editDropdownIdLabel: 'option',
@@ -1092,7 +1084,7 @@
 						field: 'lawenforcement',
 						displayName: 'Law Enforcement',
 						editType: 'dropdown',
-						enableCellEdit:true,
+						enableCellEditOnFocus:true,
 						editableCellTemplate: 'ui-grid/dropdownEditor',
 				        editDropdownOptionsArray: $scope.yes_no,
 				        editDropdownIdLabel: 'option',
@@ -1102,7 +1094,7 @@
 						field: 'industry',
 						displayName: 'Industry',
 						editType: 'dropdown',
-						enableCellEdit:true,
+						enableCellEditOnFocus:true,
 						editableCellTemplate: 'ui-grid/dropdownEditor',
 				        editDropdownOptionsArray: $scope.yes_no,
 				        editDropdownIdLabel: 'option',
@@ -1112,7 +1104,7 @@
 						field: 'thirdpartyinfoorg',
 						displayName: 'Third Party Information Sharing Organizations',
 						editType: 'dropdown',
-						enableCellEdit:true,
+						enableCellEditOnFocus:true,
 						editableCellTemplate: 'ui-grid/dropdownEditor',
 				        editDropdownOptionsArray: $scope.yes_no,
 				        editDropdownIdLabel: 'option',
@@ -1123,7 +1115,6 @@
 
 			$scope.section10c = { 
 				enableCellEditOnFocus: true, 
-				enableCellEdit:true, 
 				enableSorting: false,
 				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
         		enableVerticalScrollbar   : uiGridConstants.scrollbars.NEVER,
@@ -1137,7 +1128,7 @@
 							field: 'yes_no',
 							displayName:'Yes/No',
 							editType: 'dropdown',
-							enableCellEdit:true,
+							enableCellEditOnFocus:true,
 							editableCellTemplate: 'ui-grid/dropdownEditor',
 					        editDropdownOptionsArray: $scope.yes_no,
 					        editDropdownIdLabel: 'option',
@@ -1151,8 +1142,7 @@
 			};
 
 			$scope.section11 = {
-				enableCellEditOnFocus: true, 
-				enableCellEdit:true, 
+				enableCellEditOnFocus: true,
 				enableSorting: false,
 				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
         		enableVerticalScrollbar   : uiGridConstants.scrollbars.NEVER,
@@ -1173,7 +1163,7 @@
 						field: 'yes_no',
 						displayName:'Yes/No',
 						editType: 'dropdown',
-						enableCellEdit:true,
+						enableCellEditOnFocus:true,
 						editableCellTemplate: 'ui-grid/dropdownEditor',
 				        editDropdownOptionsArray: $scope.yes_no,
 				        editDropdownIdLabel: 'option',
@@ -1183,7 +1173,7 @@
 						field: 'risklevel',
 						displayName: 'Risk Severity Level',
 						editType: 'dropdown',
-						enableCellEdit:true,
+						enableCellEditOnFocus:true,
 						editableCellTemplate: 'ui-grid/dropdownEditor',
 				        editDropdownOptionsArray: $scope.levels,
 				        editDropdownIdLabel: 'option',
@@ -1193,7 +1183,7 @@
 						field: 'needtoremediate',
 						displayName: 'Do you need to Remediate?',
 						editType: 'dropdown',
-						enableCellEdit:true,
+						enableCellEditOnFocus:true,
 						editableCellTemplate: 'ui-grid/dropdownEditor',
 				        editDropdownOptionsArray: $scope.yes_no,
 				        editDropdownIdLabel: 'option',
@@ -1207,7 +1197,7 @@
 						field: 'remediatestatus',
 						displayName: 'Remediation Status',
 						editType: 'dropdown',
-						enableCellEdit:true,
+						enableCellEditOnFocus:true,
 						editableCellTemplate: 'ui-grid/dropdownEditor',
 				        editDropdownOptionsArray: $scope.remediationsteps,
 				        editDropdownIdLabel: 'option',
@@ -1215,7 +1205,6 @@
 					}
 			    ]
 			}
-
 		    
 	      	
 		}
