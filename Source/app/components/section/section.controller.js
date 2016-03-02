@@ -43,33 +43,29 @@
 			};
 
 			//Sharing with print controller
-			$rootScope.piidata = function (col, row){
-				row.entity.piidata = $sessionStorage.section1.data[0].piidata;
-				return row.entity.piidata;	
+			$scope.piidata = function (col, row){
+				return dataservice.piidata(col, row);	
 			}
 
-			$rootScope.location = function (col, row){
-				row.entity.location = $sessionStorage.section1.data[0].location;
-				return row.entity.location;
+			$scope.location = function (col, row){
+				return dataservice.location(col, row);
 			}
 
-			$rootScope.risklevel = function (col, row){
-				row.entity.risklevel = $sessionStorage.section1.data[0].risklevel;
-				return row.entity.risklevel;
+			$scope.risklevel = function (col, row){
+				return dataservice.risklevel(col, row);
 			}
 
-			$rootScope.nameemployee = function(){
-				return $scope.section7a.data[0].nameemployee;
+			$scope.nameemployee = function(){
+				 return $scope.section7a.data[0].nameemployee;
 			}
 
-			$rootScope.devicetype = function(){
+			$scope.devicetype = function(){
 				return $scope.section7a.data[0].devicetype;
 			}
 
-			$rootScope.deviceowner = function(){
+			$scope.deviceowner = function(){
 				return $scope.section7a.data[0].deviceowner;
 			}
-
 
 			$scope.section1 = { 
 				enableCellEditOnFocus: true, 

@@ -8,9 +8,34 @@ angular.module("cyberapp.print")
 	function PrintController($scope, $state, $sessionStorage, dataservice, datafactory){
 		var printCtrl = this;
 		$scope.firmname = datafactory.firm.firmname;
+		
+		$scope.piidata = function (col, row){
+			return dataservice.piidata(col, row);
+		}
+
+		$scope.location = function (col, row){
+			return dataservice.location(col, row);
+		}
+
+		$scope.risklevel = function (col, row){
+			return dataservice.risklevel(col, row);
+		}
+		
+		$scope.nameemployee = function(){
+			 return $scope.section7a.data[0].nameemployee;
+		}
+
+		$scope.devicetype = function(){
+			return $scope.section7a.data[0].devicetype;
+		}
+
+		$scope.deviceowner = function(){
+			return $scope.section7a.data[0].deviceowner;
+		}
+
 
 		var total = dataservice.getSections();		
-		//console.log(total);
+	
 
 		//Callback:for each section in total array, get the corresponding sections for eg: section3 contains section3a, section3b
 		function retrieveSections(item){
@@ -48,9 +73,10 @@ angular.module("cyberapp.print")
 		//loop through all sections answered from the session storage variable and assign it to scope.section vars
 		for(var i = 0; i < newflatarray.length; i++){ 
 			var value = newflatarray[i];
-			//console.log(value);
-			$scope[value] = $sessionStorage[value];		
+			$scope[value] = $sessionStorage[value];
+			//console.log($scope[value]);
 		}
+
 	}
 })()
 
