@@ -17,7 +17,8 @@
     		getCurrentState: getCurrentState,
             getSectionNoLast: getSectionNoLast,
             getSectionAssocArray: getSectionAssocArray,
-            getJsonStore: getJsonStore
+            getJsonStore: getJsonStore,
+            getSectionLast: getSectionLast
     	};
 
     	return service;
@@ -122,7 +123,6 @@
         function setCollectionData(data){
             storedJsonValues = storedJsonValues || [];
             storedJsonValues.push(data);
-            //console.log(storedJsonValues);
         }
 
         function getCollectionData(sec){
@@ -130,6 +130,10 @@
             return storedJsonValues[sec];
             else
             return storedJsonValues;
+        }
+
+        function getSectionLast(){
+            return _sectionArr[_sectionArr.length-1];
         }
        
     }
