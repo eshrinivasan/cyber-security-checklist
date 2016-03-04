@@ -15,6 +15,16 @@
             url: '/',
             sticky: true,
             dsr: true,
+            templateUrl: 'components/checklist/templates/checklist.start.index.html',
+            controller: 'ChecklistController',
+            controllerAs: 'checklistCtrl'
+        };
+
+        var checklist = {
+            name: 'checklist',
+            url: '/checklist',
+            sticky: true,
+            dsr: true,
             templateUrl: 'components/checklist/templates/checklist.index.html',
             controller: 'ChecklistController',
             controllerAs: 'checklistCtrl'
@@ -156,6 +166,7 @@
 
         $stateProvider
             .state(main)
+            .state(checklist)
             .state(print)
             .state(section1)
             .state(section2)

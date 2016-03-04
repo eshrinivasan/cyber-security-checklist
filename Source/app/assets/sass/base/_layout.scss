@@ -2,14 +2,19 @@
 	background:#404040;	
 }
 
+
+
 .box {
 	width:100%;
 	height:auto;
 	background:#FFF;
 	margin:40px auto;
 	padding:5px;
-}
 
+    &.omega{
+        padding:30px;
+    }
+}
 
 .boxeffect1
 {

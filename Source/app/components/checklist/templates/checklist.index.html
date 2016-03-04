@@ -1,10 +1,10 @@
 <div class="container">
   <div class="row">    
     <div class="col-md-12">
-       <div class="box boxeffect7">
-       		<h3><p class="heading text-center"></p></h3>
+       <div class="box boxeffect7 omega">       		
        		<form class="form-horizontal">
        			<div class="form-wrapper">
+              <div class="container">
             <div class="row">
        			<div class=""><label class="control-label col-xs-12 col-md-4">Firm Name:</label> <div class="col-xs-12 col-md-8"><input type="text" class="textbox-underline" placeholder="" ng-model="firm.firmname"/></div></div>
        			</div>
@@ -17,18 +17,19 @@
             <div class="row">
        			<div class=""><label class="control-label col-xs-12 col-md-4">Key Personnel:</label><div class="col-xs-12 col-md-8"><input type="text" class="textbox-underline" placeholder="" ng-model="firm.keyrep"/></div></div>
        			</div>
-
-            </div>
             <div class="row">
               <div class=""><label class="control-label col-xs-4">Last Updated:</label><p class="text-left last-updated-date col-xs-12 col-md-8">{{lastUpdated}}</p></div> 
-            </div>        		      		
+            </div>
+          </div>
+            </div>
+                    		      		
        		</form>
     			<form class="form-horizontal">
-           		<h3> Checklist Methodology </h3>
+           		<h4> Checklist Methodology </h4>
               Firms will answer questions about their systems and electronically stored assets. Based upon their responses, they will be directed to complete sections of the checklist applicable to their business. The five core sections of the checklist follow the NIST cybersecurity-framework identify, protect, detect, respond, and recover. 
-              <h4>Questions about your firm’s assets and systems:</h4>           
+              <label class="control-label">Questions about your firm’s assets and systems:</label>           
     	        <div ng-repeat="question in questions">
-    		           <label>{{question.text}}</label>
+    		           <label class="control-label">{{question.text}}</label>
     		 			    <div class="col-xs-12">
     		            	<div class="col-xs-4 col-md-2">
     			               <button type="button" class="btn btn-default btn-lg btn-color" ng-class="question.ActiveYes? 'active' : '' " ng-click="addInfo($index);toggleActivateYes(question)">Yes</button>

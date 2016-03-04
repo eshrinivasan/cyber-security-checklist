@@ -54,13 +54,11 @@
 	  	}
 
 	  	$scope.clearUserInput = function(sections){	  	  	
-	  		if(sections.id!= 5){ //Remove array of elements from the total array on clicking "No"
-	  			$scope.sectionArray = sections.section.split(',');	 
-	  			$scope.total = $scope.total.filter(function(item) {
-	    			return $scope.sectionArray.indexOf(item) === -1;
-				}); 				
-	  		}		  	 	
-	  		//console.log($scope.total);
+	  		//Remove array of elements from the total array on clicking "No"
+  			$scope.sectionArray = sections.section.split(',');	 
+  			$scope.total = $scope.total.filter(function(item) {
+    			return $scope.sectionArray.indexOf(item) === -1;
+			});		
 	  	}
 
 

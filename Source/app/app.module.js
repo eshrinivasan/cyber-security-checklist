@@ -8,8 +8,8 @@
     angular.module('cyberapp.core', ['ui.router', 'ngStorage']);
 })();
 (function() {
-	angular.module("cyberapp.print", ['ui.router', 'ngStorage', 'ngPrint']);
+	angular.module("cyberapp.print", ['ui.router', 'ngStorage', 'ngPrint', 'ui.grid.rowEdit']);
 })();
 (function() {
-	angular.module("cyberapp.section", ['ui.router', 'ngStorage', 'ui.grid','ui.bootstrap', 'ui.grid.selection', 'ui.grid.edit','ui.grid.cellNav','ui.grid.autoResize']);
+	angular.module("cyberapp.section", ['ui.router', 'ngStorage', 'ui.grid','ui.bootstrap', 'ui.grid.selection', 'ui.grid.edit','ui.grid.cellNav','ui.grid.autoResize', 'ui.grid.rowEdit']);
 })()
