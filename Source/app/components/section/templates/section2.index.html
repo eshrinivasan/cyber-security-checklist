@@ -7,6 +7,7 @@
  	<div ui-grid="section2" 
  	 	class="sectiongrid gridsection2" ng-style="getTableHeight(section2)" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-resize-columns>
     </div>
+     {{section2.data | json}};
 <grid-section-notes template="components/section/templates/notes/section2.notes.html"></grid-section-notes>
 <div ng-pagination></div>
 </div>

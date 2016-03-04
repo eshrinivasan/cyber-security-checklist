@@ -26,7 +26,7 @@
        		</form>
     			<form class="form-horizontal">
            		<h4> Checklist Methodology </h4>
-              Firms will answer questions about their systems and electronically stored assets. Based upon their responses, they will be directed to complete sections of the checklist applicable to their business. The five core sections of the checklist follow the NIST cybersecurity-framework identify, protect, detect, respond, and recover. 
+              You will answer all 5 questions about your systems and electronically stored assets. Based upon your responses, you will be directed to complete sections of the checklist applicable to your business. The five core sections of the checklist follow the NIST Cybersecurity Framework: Identify, Protect, Detect, respond, and Recover. 
               <label class="control-label">Questions about your firm’s assets and systems:</label>           
     	        <div ng-repeat="question in questions">
     		           <label class="control-label">{{question.text}}</label>
@@ -44,7 +44,7 @@
     		        	</div>
     	       	</div>        	
         			<div class="form-group  align-label"><div class="col-xs-12  align-label"><label class="hidden-xs col-md-4"></label><div class="col-xs-12 col-md-4"><button type="button" class="btn btn-default btn-lg btn-color col-xs-12" ng-click="isAnswered()" ng-class="{'disabled' : notAnsweredAll}">Start</button></div></div>
-              <div class="col-xs-12" ng-show="answerAlltext"><span class="glyphicon glyphicon-info-sign highlight-text" aria-hidden="true"></span><span class="highlight-text">Please answer all the above questions(atleast Yes to one question) to proceed!</span></div>
+              <div class="col-xs-12" ng-show="answerAlltext"><span class="glyphicon glyphicon-info-sign highlight-text" aria-hidden="true"></span><span class="highlight-text">Please answer all the above questions(Yes or No) to proceed!</span></div>
               </div>	
             </form>
        </div>

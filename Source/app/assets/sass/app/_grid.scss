@@ -71,6 +71,7 @@
 		height:165px;
 	}
 
+	
 	&.gridsection7c{
 		min-height:670px;
 		height:670px;
@@ -99,19 +100,18 @@
 	&.gridsection4b{
 		min-height:450px;
 		height:450px;
-	}
-	
-	&.gridsection10c{
-		min-height:500px;
-		height:500px;
-	}
+	}	
 
-	&.gridsection9b,
-	&.gridsection11{
+	&.gridsection10c{
 		min-height:580px;
 		height:580px;
 	}
 
+	&.gridsection9b,
+	&.gridsection11{
+		min-height:810px;
+		height:810px;
+	}
 }
 
 .notesaroundGrid{
