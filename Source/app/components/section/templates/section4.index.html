@@ -5,10 +5,11 @@
 
 <div ng-multistepsindicator total="total" class="clearfix multistepcontainer"></div>
 <grid-section-header title="Section 4 – Protect: Information Assets"></grid-section-header>
-	<div ui-grid="section4a" class="sectiongrid gridsection4a" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-resize-columns>
+	<div ui-grid="section4a" class="sectiongrid gridsection4a" ng-style="getTableHeight(section4a)"  ui-grid-edit ui-grid-cellNav ui-grid-resize-columns>
 	</div>  
+
 <grid-section-notes template="components/section/templates/notes/section4.notes.html"></grid-section-notes>
-	<div ui-grid="section4b" class="sectiongrid gridsection4b" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-resize-columns></div>
+	<div ui-grid="section4b" class="sectiongrid gridsection4b" ui-grid-edit ui-grid-cellNav ui-grid-resize-columns></div>
 <div ng-pagination></div>
 </div>
 </div>

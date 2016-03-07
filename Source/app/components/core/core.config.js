@@ -10,6 +10,7 @@
 
     function configure($httpProvider, $urlRouterProvider, $stateProvider) {
 
+
         var main = {
             name: 'main',
             url: '/',
@@ -35,10 +36,31 @@
             url: '/section/12',
             sticky: true,
             dsr: true,
+            templateUrl: 'components/print/templates/print.options.html',
+            controller: 'PrintController',
+            controllerAs: 'printCtrl'
+        };
+
+         var printsummary = {
+            name: 'printsummary',
+            url: '/printsummary',
+            sticky: true,
+            dsr: true,
+            templateUrl: 'components/print/templates/print.summary.html',
+            controller: 'PrintController',
+            controllerAs: 'printCtrl'
+        };
+        
+         var printdetailed = {
+            name: 'printdetailed',
+            url: '/printdetail',
+            sticky: true,
+            dsr: true,
             templateUrl: 'components/print/templates/print.index.html',
             controller: 'PrintController',
             controllerAs: 'printCtrl'
         };
+        
         
          var section1 = {
             name: 'section1',
@@ -151,16 +173,6 @@
             controller: 'SectionController',
             controllerAs: 'sectionCtrl'
         }
-        /*
-        var error = {
-            name: 'error',
-            parent: 'main',
-            url: 'error',
-            templateUrl: 'components/message/templates/noservice-error.html',
-            controller: 'MessageController',
-            controllerAs: 'messageCtl'
-        };
-        */
 
         $urlRouterProvider.otherwise('/');
 
@@ -179,8 +191,8 @@
             .state(section9)
             .state(section10)
             .state(section11)
-            .state(section12)
-           /*.state(error)*/
+            .state(printsummary)
+            .state(printdetailed)
     }
 
     function runApp($rootScope, $state, $stateParams) {

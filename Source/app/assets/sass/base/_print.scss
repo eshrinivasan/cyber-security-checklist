@@ -7,6 +7,17 @@
 	}
 }
 
+.optionsPage{
+    height: 300px;
+    margin: 150px;
+    text-align: center;
+
+    .printBtn{
+        margin: 30px;
+        display: inline-block;
+    }
+}
+
 @media print {
   .page-break{
 	page-break-after: always;

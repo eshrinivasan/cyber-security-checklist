@@ -2,17 +2,14 @@
 	angular.module("cyberapp.section")
 			.controller("SectionController", SectionController);
 
-		SectionController.$inject = ['$scope', '$state' , '$rootScope', 'datafactory', 'dataservice', '$sessionStorage', '$http', 'uiGridConstants'];
+		SectionController.$inject = ['$scope', '$state', '$rootScope', 'datafactory', 'dataservice', '$sessionStorage', '$localStorage', '$http', 'uiGridConstants'];
 
-		function SectionController($scope, $state, $rootScope, datafactory, dataservice, $sessionStorage, $http, uiGridConstants){
-			var sectionCtrl = this;
+		function SectionController($scope, $state, $rootScope, datafactory, dataservice, $sessionStorage, $localStorage, $http, uiGridConstants){
+			var sectionCtrl = this;			
 			$scope.currentState = $state.current.name;			
-			$scope.sectionNumber = $scope.currentState.match(/\d+$/)[0];//filter out non numberic characters ie "section"
-			$scope.total = dataservice.getSections();
+			$scope.sectionNumber = $scope.currentState.match(/\d+$/)[0];//filter out non numberic characters ie "section"			
 			$scope.firm = datafactory.firm;
-			$scope.allsteps = [1,2,3,4,5,6,7,8,9,10,11];	
-			$scope.globalrows = [];
-			$scope.sessionStorage = $sessionStorage;
+			$scope.allsteps = [1,2,3,4,5,6,7,8,9,10,11];
 
 			$scope.section1 = {}; $scope.section2 = {}; $scope.section3a = {}; 	$scope.section3b = {}; $scope.section4 = {}; 	$scope.section5 = {};
 			$scope.section6 = {}; $scope.section7a = {};  $scope.section7b = {};  $scope.section7c = {}; $scope.section7d = {}; $scope.section8 = {}; 
@@ -22,22 +19,32 @@
 			$scope.device_owner = [{option: 'Firm'}, {option: 'Individual'}];
 			$scope.levels = [{option: 'High'},{option: 'Medium'},{option: 'Low'}];
 			$scope.remediationsteps = [{option: 'Not Started'},{option: 'In Process'},{option: 'Complete'},{option: 'Not Needed'}];
-         	$scope.jsonstore = dataservice.getJsonStore(); 
-       
-
-			//Loop through section json objects that represent the row data to be supplied to ui-grid
-     		angular.forEach($scope.jsonstore, function(value, key) {
-     			$http.get(value).success(function(response){     				
-					$scope[key].data = response;
-     			})			
-			});     
-
 			$scope.sectionLast =  $scope.sectionNumber  == dataservice.getSectionLast();
 
-     		$scope.addNewItem = function(section){
-		    		section.data.push({});		    	
-		    };
+			//get current section including its sub sections
+			var getallsubs = dataservice.getSectionAssocArray($scope.currentState);
+			
+			
 
+			angular.forEach(getallsubs, function(value, key) {			
+				dataservice.asyncData(value).then(function(data){
+						$scope[value].data = data;						
+						
+						//get values from section1 that needs to be prepopulated in other sections
+						if($localStorage["section1"] != null)						
+						dataservice.getScopeObjectsWithValue($localStorage["section1"].data, $scope[value].data, $scope[value], value);
+
+				});
+			});
+
+     		$scope.addNewItem = function(section){
+     			angular.forEach(arguments, function(value, key){
+     				value.data.push({});	
+     			})
+		    	
+		    	//dataservice.getSamePageScopeValue($scope["section7a"].data, $scope["section7b"].data);
+		    };
+		  
 			$scope.getTableHeight = function(section) {
 			       var headerHeight = 110; // your header height
 			       var calculatedHeight = (section.data.length * section.rowHeight + headerHeight) + "px";			       			       
@@ -45,32 +52,7 @@
 			          height: calculatedHeight
 			       };
 			};
-
-			//Sharing with print controller
-			$scope.piidata = function (col, row){
-				return dataservice.piidata(col, row);	
-			}
-
-			$scope.location = function (col, row){
-				return dataservice.location(col, row);
-			}
-
-			$scope.risklevel = function (col, row){
-				return dataservice.risklevel(col, row);
-			}
-
-			$scope.nameemployee = function(){
-				 return $scope.section7a.data[0].nameemployee;
-			}
-
-			$scope.devicetype = function(){
-				return $scope.section7a.data[0].devicetype;
-			}
-
-			$scope.deviceowner = function(){
-				return $scope.section7a.data[0].deviceowner;
-			}
-
+			
 			$scope.section1 = { 
 				enableCellEditOnFocus: true, 
 				enableSorting: false,
@@ -94,15 +76,14 @@
 				        editDropdownOptionsArray: $scope.levels,
 				        editDropdownIdLabel: 'option',
 				        editDropdownValueLabel: 'option'
-					}],
-		      		onRegisterApi: function(gridApi) {
-			       		$scope.gridApi = gridApi;			       		
-			      }
-
+				}],
+	      		onRegisterApi: function(gridApi) {
+		       		grid = gridApi.grid;	
+			    }
 			};
 
 			function DisplayObject(name, tooltip) {
-			    // this refers to the new instance
+			    	// this refers to the new instance
 				    this.name = name;
 				    this.tooltip = tooltip;
 			}
@@ -119,20 +100,16 @@
 				columnDefs:[
 					{
 							field: 'piidata',
-							displayName:'PII or Firm Sensitive Data',
-							cellTemplate : '<div>{{grid.appScope.piidata(col, row)}}</div>'
-							
+							displayName:'PII or Firm Sensitive Data'
+							//cellTemplate : '<div>{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}</div>'							
 					},
 					{	
 							field: 'location',
-							displayName:'Location',
-							cellTemplate : '<div>{{grid.appScope.location(col, row)}}</div>'
+							displayName:'Location'
 					},
 					{
 							field:'risklevel',
-							displayName: 'Risk Severity Level',
-							//editableCellTemplate : '<div>{{grid.appScope.risklevel(col, row)}}</div>'
-							cellTemplate : '<div>{{grid.appScope.risklevel(col, row)}}</div>'
+							displayName: 'Risk Severity Level'
 					},
 					{	
 							field: 'busobjwodata',
@@ -184,12 +161,9 @@
 					}
 				],
 	      		onRegisterApi: function(gridApi) {
-		       		 grid = gridApi.grid;	       		    
+		       		 $scope.gridApi = gridApi;			       			       		 
 		      	}
-
 			};
-
-
 
 			$scope.section3a = { 
 				enableCellEditOnFocus: true, 
@@ -342,18 +316,15 @@
         		enableVerticalScrollbar   : uiGridConstants.scrollbars.NEVER,
 				columnDefs:[{
 							field: 'piidata',
-							displayName:'PII or Firm Sensitive Data',
-							cellTemplate : '<div>{{grid.appScope.piidata(col, row)}}</div>'
+							displayName:'PII or Firm Sensitive Data'
 					},
 					{	
 							field: 'location',
-							displayName: 'Location',
-							cellTemplate : '<div>{{grid.appScope.location(col, row)}}</div>'
+							displayName: 'Location'
 					},
 					{	
 							field: 'risklevel',
 							displayName: new DisplayObject('Risk Severity', 'Assign a risk severity classification to the data transmitted (low, medium or high).'),
-							cellTemplate : '<div>{{grid.appScope.risklevel(col, row)}}</div>',
 							headerCellTemplate: longHdrCellTxtTpl
 					},
 					{	
@@ -421,9 +392,8 @@
 				columnDefs:[{
 					 	field: 'passwordpolicy',
 						displayName: '',
-						enableCellEdit:false
-					}
-					,{
+						enableCellEdit:false },
+					{
 							field: 'yes_no',
 							displayName:'Yes/No',
 							editType: 'dropdown',
@@ -555,18 +525,15 @@
         		enableVerticalScrollbar   : uiGridConstants.scrollbars.NEVER,
 				columnDefs:[{
 						field: 'piidata',
-						displayName:'PII or Firm Sensitive Data',
-						cellTemplate : '<div>{{grid.appScope.piidata(col, row)}}</div>'
+						displayName:'PII or Firm Sensitive Data'
 					},
 					{
 						field: 'location',
-						displayName:'Location',
-						cellTemplate : '<div>{{grid.appScope.location(col, row)}}</div>'
+						displayName:'Location'
 					},
 				    {
 						field: 'risklevel',
-						displayName:'Risk Severity Level',						
-						cellTemplate : '<div>{{grid.appScope.risklevel(col, row)}}</div>'
+						displayName:'Risk Severity Level'
 					},
 					{
 						field: 'dataencrypedtoext',
@@ -640,6 +607,21 @@
 			    ]
 			}
 			
+
+
+			$scope.nameemployee = function(){
+				return $scope.section7a.data[0].nameemployee;
+			}
+
+			$scope.devicetype = function(){
+				return $scope.section7a.data[0].devicetype;
+			}
+
+			$scope.deviceowner = function(){
+				return $scope.section7a.data[0].deviceowner;
+			}
+
+
 			$scope.section7a = {
 				enableCellEditOnFocus: true, 
 				enableSorting: false,
@@ -658,7 +640,13 @@
 					{
 						field:'deviceowner',
 						displayName:new DisplayObject('Device Owner', 'Does the Firm or Individual own the device?'),
-						headerCellTemplate:longHdrCellTxtTpl
+						headerCellTemplate:longHdrCellTxtTpl,
+						editType: 'dropdown',
+						enableCellEditOnFocus:true,
+						editableCellTemplate: 'ui-grid/dropdownEditor',
+				        editDropdownOptionsArray: $scope.device_owner,
+				        editDropdownIdLabel: 'option',
+				        editDropdownValueLabel: 'option'
 					}
 				]
 			}
@@ -672,19 +660,16 @@
 				columnDefs:[					
 					{
 						field:'devicetype',
-						displayName: 'Device Type' ,
-						cellTemplate : '<div>{{grid.appScope.devicetype()}}</div>'
+						displayName: 'Device Type' 
 					},
 					{
 						field:'nameemployee',
-						displayName: 'Employee',
-						cellTemplate : '<div>{{grid.appScope.nameemployee()}}</div>'
+						displayName: 'Employee'
 					},
 					{
 						field:'deviceowner',
 						displayName:new DisplayObject('Device Owner', 'Does the Firm or Individual own the device?'),
-						headerCellTemplate:longHdrCellTxtTpl,
-						cellTemplate : '<div>{{grid.appScope.deviceowner()}}</div>'
+						headerCellTemplate:longHdrCellTxtTpl
 					},
 					{
 						field: 'accesstopii',
@@ -708,7 +693,13 @@
 					},
 					{
 						field: 'protected',
-						displayName: 'Protected?' 
+						displayName: 'Protected?',
+						editType: 'dropdown',
+						enableCellEditOnFocus:true,
+						editableCellTemplate: 'ui-grid/dropdownEditor',
+				        editDropdownOptionsArray: $scope.yes_no,
+				        editDropdownIdLabel: 'option',
+				        editDropdownValueLabel: 'option' 
 					},
 					{	
 						field: 'needtoremediate',
@@ -798,7 +789,7 @@
 				rowHeight:55,
 				columnDefs:[{
 					 	field: 'stafftraining',
-						displayName: '',
+						displayName: 'Staff training',
 						enableCellEdit:false
 					},
 					{
@@ -827,7 +818,7 @@
 				columnDefs:[
 					{
 						field: 'techasset',
-						displayName:'Technology Asset'
+						displayName:'Technology Asset tested'
 					},
 				    {
 						field: 'risklevel',
@@ -943,7 +934,7 @@
 				enableSorting: false,
 				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
         		enableVerticalScrollbar   : uiGridConstants.scrollbars.NEVER,
-				rowHeight:92,
+				rowHeight:135,
 				columnDefs:[
 					{
 						field: 'idscontrols',
@@ -1113,7 +1104,7 @@
 				enableSorting: false,
 				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
         		enableVerticalScrollbar   : uiGridConstants.scrollbars.NEVER,
-				rowHeight:55,
+				rowHeight:75,
 				columnDefs:[{
 					 	field: 'activity',
 						displayName: 'Activity/Governance',
@@ -1141,7 +1132,7 @@
 				enableSorting: false,
 				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
         		enableVerticalScrollbar   : uiGridConstants.scrollbars.NEVER,
-				rowHeight:92,
+				rowHeight:140,
 				columnDefs:[
 					{
 						field: 'controls',

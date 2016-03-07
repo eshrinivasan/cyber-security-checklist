@@ -27,21 +27,35 @@ angular.module("cyberapp.section")
         templateUrl: 'components/section/directives/mstep.dir.html'
     }
 }])
-.directive('ngPagination', ['dataservice', '$state', '$sessionStorage', function(dataservice, $state, $sessionStorage) {
+.directive('ngPagination', ['dataservice', '$state', '$sessionStorage', '$localStorage',  function(dataservice, $state, $sessionStorage, $localStorage) {
       return {
         restrict: 'EA',                   
         templateUrl: 'components/section/directives/pager.dir.html',
         link: function($scope, element, attrs){
             $scope.currentState = $state.current.name;          
             $scope.sectionNumber = $scope.currentState.match(/\d+$/)[0];//filter out non numberic characters ie "section"
-
+        
             $scope.prevPage = function(){
                 var currindex = $scope.getIndex();
                 var previndex = --currindex;
-                var prevSection = $scope.total[previndex];
-                
-                if(typeof $scope.total !== "undefined" && previndex !== -1){                   
-                    $state.go("section"+prevSection);
+                var prevSection = $localStorage.total[previndex];
+                $scope.prevState = "section"+prevSection;
+                $scope.currState = "section"+currindex;
+
+                var sectosavearr = dataservice.getSectionAssocArray($scope.prevState);
+                if(sectosavearr.length > 1){
+                    angular.forEach(sectosavearr, function(key, value){
+                      if($localStorage[key] != null)
+                            $scope[key] = $localStorage[key]; //storing in session
+                    });
+                }else{
+                       if($localStorage[$scope.prevState] != null)
+                            $scope[$scope.prevState] = $localStorage[$scope.prevState];    
+                }
+
+
+                if(typeof $localStorage.total !== "undefined" && previndex !== -1){                   
+                    $state.go($scope.prevState);
                     $scope.prevPageDisabled = false;
                 }else{
                     $scope.prevPageDisabled = true;
@@ -55,18 +69,21 @@ angular.module("cyberapp.section")
                 var sectosavearr = dataservice.getSectionAssocArray($scope.currentState);
                 if(sectosavearr.length > 1){
                     angular.forEach(sectosavearr, function(key, value){
-                        $sessionStorage[key] = $scope[key]; //storing in session
+                        $localStorage[key] = $scope[key]; //storing in session
                     });
                 }else{
-                    $sessionStorage[$scope.currentState] = $scope[$scope.currentState]; //storing in session    
+                    if($localStorage[$scope.currentState] == null)
+                        $localStorage[$scope.currentState] = $scope[$scope.currentState]; //storing in session    
+                  
                 }
+                
 
-                if(typeof $scope.total !== "undefined" && nextindex < $scope.total.length){
-                    var nextSection = $scope.total[nextindex];
+                if(typeof $localStorage.total !== "undefined" && nextindex < $localStorage.total.length){
+                    var nextSection = $localStorage.total[nextindex];
                     var nextPage = "section"+nextSection;
                     $state.go(nextPage);
                     $scope.nextPageDisabled = false;
-                }else if(typeof $scope.total !== "undefined" && nextindex == $scope.total.length){
+                }else if(typeof $localStorage.total !== "undefined" && nextindex == $localStorage.total.length){
                     var nextPage = "print";
                     $state.go(nextPage);
                 }else{
@@ -75,8 +92,8 @@ angular.module("cyberapp.section")
             }
 
             $scope.getIndex = function(){
-                if(typeof $scope.total !== "undefined"){
-                    var index = $scope.total.indexOf($scope.sectionNumber);
+                if(typeof $localStorage.total!== "undefined"){
+                    var index = $localStorage.total.indexOf($scope.sectionNumber);
                     return index;
                 }                   
             }

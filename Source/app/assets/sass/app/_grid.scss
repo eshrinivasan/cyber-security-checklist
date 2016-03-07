@@ -38,32 +38,26 @@
 	}
 
 	//single row tables
-	
-	&.gridsection4a,	
-	&.gridsection7b,
+		
 	&.gridsection8,
 	&.gridsection10b{
 		min-height: 165px;
 		height:165px;
 	}
 		
-	&.gridsection6{
-		height:180px;
-	}
 	
-
-	&.gridsection3a{
-		min-height: 300px;
-		height:300px;
-	}
 
 	//Should have auto dynamic heights
 	
-	&.gridsection2,
-	&.gridsection5,
+	
 	&.gridsection7a{
 		min-height: 265px;
 		height:265px;
+	}
+
+
+	&.gridsection7b{
+		min-height: 265px;
 	}
 
 	&.gridsection1{
@@ -119,7 +113,6 @@
 }
 
 .highlighted-area{
-	padding:5px;
+	padding:20px 10px;
 	background:$highlighted-area;
-	border:1px solid $pager-inactive;
 }
