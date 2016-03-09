@@ -7,11 +7,11 @@
 	<div class="box printview omega">   	
 		<div ng-include src="'components/checklist/templates/checklist.notes.html'"></div>
 	</div>
-	<div class="box highlighted-area">
-		<div><b>Firm Name:</b> {{firmname}}</div>
-		<div><b>Person responsible for Cybersecurity Program:</b> {{rep}}</div>
-		<div><b>Last Updated:</b> {{lastupdated}}</div>
-		<div><b>Key Personnel:</b> {{keyrep}}</div>
+	<div class="box printview highlighted-area">
+		<div class="spacewrapper"><b>Firm Name:</b> {{firmname}}</div>
+		<div class="spacewrapper"><b>Person responsible for Cybersecurity Program:</b> {{rep}}</div>
+		<div class="spacewrapper"><b>Last Updated:</b> {{lastupdated}}</div>
+		<div class="spacewrapper"><b>Key Personnel:</b> {{keyrep}}</div>
 	</div>
 	<div ng-if="section1 != undefined">		
 	  	<!--Print for section 1-->  	

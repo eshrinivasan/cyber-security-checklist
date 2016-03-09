@@ -11,6 +11,7 @@ angular.module("cyberapp.print")
 		$scope.rep = datafactory.firm.rep;
 		$scope.lastupdated = datafactory.firm.lastupdated;
         $scope.keyrep = datafactory.firm.keyrep;
+        $state.go('print.options');
 
 		$scope.piidata = function (col, row){
 			return dataservice.piidata(col, row);

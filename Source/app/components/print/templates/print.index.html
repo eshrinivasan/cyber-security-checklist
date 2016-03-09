@@ -3,19 +3,23 @@
   	<div class="alignRight">
 	 	<button class="btn btn-default btn-color" ng-print print-element-id="printSection"><i class="fa fa-print"></i>Print</button>
 	</div>
+
 	<div id="printSection">
 	<div class="printpreview">	
 	<div class="box printview omega">   	
 		<div ng-include src="'components/checklist/templates/checklist.notes.html'"></div>
 	</div>
-	<div class="box highlighted-area">
-		<div><b>Firm Name:</b> {{firmname}}</div>
-		<div><b>Person responsible for Cybersecurity Program:</b> {{rep}}</div>
-		<div><b>Last Updated:</b> {{lastupdated}}</div>
-		<div><b>Key Personnel:</b> {{keyrep}}</div>
+	<div class="box printview highlighted-area">
+		<div class="spacewrapper"><b>Firm Name:</b> {{firmname}}</div>
+		<div class="spacewrapper"><b>Person responsible for Cybersecurity Program:</b> {{rep}}</div>
+		<div class="spacewrapper"><b>Last Updated:</b> {{lastupdated}}</div>
+		<div class="spacewrapper"><b>Key Personnel:</b> {{keyrep}}</div>
 	</div>
+	<div class="page-break"></div>  
+	
 	<div ng-if="section1 != undefined">		
-	  	<!--Print for section 1-->  	
+	  	<!--Print for section 1-->
+	  		<div class="page-break"></div>  	
 			<div class="box printview">   
 			  	<grid-section-header title="Section 1 – Identify and Assess Risks: Inventory"></grid-section-header>
 			 	<div ui-grid="section1" class="sectiongrid gridsection1" ng-style="getTableHeight(section1)"></div>
@@ -39,6 +43,7 @@
 	
 
 	<div ng-if="section3a != undefined">
+		<div class="page-break"></div>	
 	<!--Print for section 3-->
 		<div class="box printview">  
 			<grid-section-header title="Section 3 – Identify and Assess Risks: Third Party Access"></grid-section-header>
@@ -50,6 +55,7 @@
 		    <div ui-grid="section3c" class="sectiongrid gridsection3c"></div>
 		</div>
 	<!--End-->
+	 <div class="page-break"></div>
 	</div>
 
 	<div ng-if="section4a != undefined">
@@ -64,7 +70,8 @@
 	</div>
 	
 
-	<div ng-if="section5 != undefined">
+	<div ng-if="section5 != undefined">		
+	<div class="page-break"></div>	
 	<!--Print for section 5-->
 			<div class="box printview">  
 				<grid-section-header title="Section 5 – Protect: Systems Assets "></grid-section-header>   
@@ -89,6 +96,7 @@
 	
 
 	<div ng-if="section7a != undefined">
+	<div class="page-break"></div>		 
 	<!--Print for section 7-->
 		<div class="box printview"> 
 		     <grid-section-header title="Section 7 – Protect: Employee Devices"></grid-section-header>  

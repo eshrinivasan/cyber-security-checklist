@@ -29,38 +29,7 @@
             templateUrl: 'components/checklist/templates/checklist.index.html',
             controller: 'ChecklistController',
             controllerAs: 'checklistCtrl'
-        };
-
-        var print = {
-            name: 'print',
-            url: '/section/12',
-            sticky: true,
-            dsr: true,
-            templateUrl: 'components/print/templates/print.options.html',
-            controller: 'PrintController',
-            controllerAs: 'printCtrl'
-        };
-
-         var printsummary = {
-            name: 'printsummary',
-            url: '/printsummary',
-            sticky: true,
-            dsr: true,
-            templateUrl: 'components/print/templates/print.summary.html',
-            controller: 'PrintController',
-            controllerAs: 'printCtrl'
-        };
-        
-         var printdetailed = {
-            name: 'printdetailed',
-            url: '/printdetail',
-            sticky: true,
-            dsr: true,
-            templateUrl: 'components/print/templates/print.index.html',
-            controller: 'PrintController',
-            controllerAs: 'printCtrl'
-        };
-        
+        };   
         
          var section1 = {
             name: 'section1',
@@ -178,8 +147,7 @@
 
         $stateProvider
             .state(main)
-            .state(checklist)
-            .state(print)
+            .state(checklist)           
             .state(section1)
             .state(section2)
             .state(section3)
@@ -191,8 +159,27 @@
             .state(section9)
             .state(section10)
             .state(section11)
-            .state(printsummary)
-            .state(printdetailed)
+            .state('print', {
+                  url: "/print",
+                  templateUrl: 'components/print/templates/print.html',                      
+                  controller: 'PrintController',
+                  controllerAs: 'printCtrl'
+                })
+                .state('print.options', {
+                  url: "/options",
+                  templateUrl: 'components/print/templates/print.options.html',
+                  parent: "print"
+                })
+                .state('print.summary', {
+                  url: "/summary",
+                  templateUrl: 'components/print/templates/print.summary.html',
+                  parent: "print"
+                })
+                .state('print.detailed', {
+                  url: "/detail",
+                  templateUrl: 'components/print/templates/print.index.html',
+                  parent: "print"
+                });
     }
 
     function runApp($rootScope, $state, $stateParams) {

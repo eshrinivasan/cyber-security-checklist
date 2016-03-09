@@ -1,7 +1,7 @@
 .sectiongrid {
     width: 100%;
-    min-height: 200px;
-    height:200px;
+    min-height: 166px;
+    height:166px;
 
     .ui-grid-header-cell .ui-grid-cell-contents {
 	     min-height: 110px;
@@ -49,7 +49,6 @@
 	&.gridsection7a,
 	&.gridsection7b,
 	&.gridsection8{
-		min-height: 165px;
 		height:165px;
 	}
 
@@ -107,6 +106,6 @@
 }
 
 .highlighted-area{
-	padding:20px 10px;
+	padding:5px 0;
 	background:$highlighted-area;
 }
