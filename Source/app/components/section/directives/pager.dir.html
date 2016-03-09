@@ -1,6 +1,10 @@
 <nav>
     <ul class="pager">
-        <li class="previous" ng-click="prevPage()" ng-class="{disabled: prevPageDisabled == true}"><a href><span aria-hidden="true">&larr;</span>Previous</a></li>   
+    	<span ng-if="!sectionFirst">
+        <li class="previous" ng-click="prevPage()" ng-class="{disabled: prevPageDisabled == true}">
+        	<a href><span aria-hidden="true">&larr;</span>Previous</a>
+        </li>
+        </span>   
         <span ng-if="!sectionLast">     
 	        <li class="next" ng-click="nextPage()" ng-class="{disabled: nextPageDisabled == true}">
 	        	<a href>Next <span aria-hidden="true">&rarr;</span></a> </span>        

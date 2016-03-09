@@ -4,10 +4,11 @@
 	 	<button class="btn btn-default btn-color" ng-print print-element-id="printSection"><i class="fa fa-print"></i>Print</button>
 	</div>
 	<div id="printSection">
+	<div class="printpreview">	
 	<div class="box printview omega">   	
 		<div ng-include src="'components/checklist/templates/checklist.notes.html'"></div>
 	</div>
-	<div class="highlighted-area">
+	<div class="box highlighted-area">
 		<div><b>Firm Name:</b> {{firmname}}</div>
 		<div><b>Person responsible for Cybersecurity Program:</b> {{rep}}</div>
 		<div><b>Last Updated:</b> {{lastupdated}}</div>
@@ -46,6 +47,7 @@
 		    <div class="page-break"></div>
 		    <grid-section-header title="Manage Vendors and Customer Access"></grid-section-header>
 		    <div ui-grid="section3b" class="sectiongrid gridsection3b"></div>
+		    <div ui-grid="section3c" class="sectiongrid gridsection3c"></div>
 		</div>
 	<!--End-->
 	</div>
@@ -107,7 +109,7 @@
 	<!--Print for section 8-->
 		<div class="box printview"> 
 		    <grid-section-header title="Section 8 – Detect: Penetration Testing "></grid-section-header> 
-		 	 <div ui-grid="section8" class="sectiongrid gridsection8"></div> 
+		 	 <div ui-grid="section8" class="sectiongrid gridsection8" ng-style="getTableHeight(section8)"></div> 
 		  	<grid-section-notes template="components/section/templates/notes/section8.notes.html"></grid-section-notes>	  	
 	  	</div>
     <!--End-->
@@ -155,6 +157,6 @@
 	</div>
 	</div>
 
-
+	</div><!--print preview-->
  </div>
 </div>

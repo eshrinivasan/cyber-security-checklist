@@ -51,7 +51,7 @@ Multi steps indicator
   }
   
   .cd-multi-steps li.visited::after {
-    background-color:  $pager-visited;
+    background-color:  $btn-color;
   }
 
   .cd-multi-steps li > *, .cd-multi-steps li.current > * {
@@ -87,7 +87,7 @@ Multi steps indicator
 
 .cd-multi-steps.text-center li.visited > *{
     color: #ffffff;
-    background-color: $pager-visited;
+    background-color: $btn-color;
 }
   .cd-multi-steps.text-center li.current > *{ 
     color: #ffffff;
@@ -130,7 +130,7 @@ Multi steps indicator
 
  .cd-multi-steps.text-top li.visited > *::before,
   .cd-multi-steps.text-top li.current > *::before, .cd-multi-steps.text-bottom li.visited > *::before{
-    background-color: $pager-visited;
+    background-color: $btn-color;
   }
 
   .cd-multi-steps.text-bottom li.current > *::before {

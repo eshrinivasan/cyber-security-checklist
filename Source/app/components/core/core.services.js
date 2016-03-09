@@ -15,6 +15,7 @@
             getSectionAssocArray: getSectionAssocArray,
             getJsonStore: getJsonStore,
             getSectionLast: getSectionLast,
+            getSectionFirst: getSectionFirst,
             getScopeObjectsWithValue:getScopeObjectsWithValue,
             resetLocallyStored: resetLocallyStored,
             getSamePageScopeValue:getSamePageScopeValue
@@ -33,6 +34,7 @@
                         'section2' : 'components/core/data/data.section2.json',
                         'section3a': 'components/core/data/data.section3a.json',
                         'section3b': 'components/core/data/data.section3b.json',
+                        'section3c': 'components/core/data/data.section3c.json',
                         'section4a' : 'components/core/data/data.section4a.json',
                         'section4b' : 'components/core/data/data.section4b.json',
                         'section5' :  'components/core/data/data.section5.json',
@@ -55,7 +57,7 @@
 
         function resetLocallyStored(){
              var sectionNames = getJsonStore();
-
+             $localStorage.total = null;
              angular.forEach(sectionNames, function(value, key){
                    $localStorage[key] = null;
             });
@@ -65,7 +67,7 @@
             var sectionMap = {
                 'section1': "section1",
                 'section2': "section2",
-                'section3' : "section3a,section3b",
+                'section3' : "section3a,section3b,section3c",
                 "section4" : "section4a,section4b",
                 "section5" : "section5",
                 "section6" : "section6",
@@ -119,7 +121,10 @@
     	}
         
 
-    	
+    	function getSectionFirst(){
+             return $localStorage._sectionArr[0];
+        }
+
         function getSectionLast(){
             return $localStorage._sectionArr[$localStorage._sectionArr.length-1];
         }
@@ -128,26 +133,26 @@
         function getScopeObjectsWithValue(srcObj, destObj, currSection, val){
             var sectionInfo = _getSectionstoInsert(srcObj, destObj);
             //pre-populate section1 values into other sections with matching keys
-           var checkArrayInsertionReqd = ['section1', 'section2', 'section4a', 'section6'];
+             var checkArrayInsertionReqd = ['section1', 'section2', 'section4a', 'section6'];
            
            if(checkArrayInsertionReqd.indexOf(val) > -1){
             for(var j= 0; j< srcObj.length-1;j++){       
                 destObj.push({});
             } 
            }
-            
          
-            if($localStorage[val] != null){               
+            if($localStorage[val] != null){               //Previous option chosen
                 currSection.data = $localStorage[val].data; 
-            }            
-                        
-            if(sectionInfo.sectiontoInsert){//Sections to be prepopulated with section1 values               
-                for(var i= 0; i< srcObj.length; i++){                    
-                     for( var prop in srcObj[i] ){
-                        destObj[i][prop] = srcObj[i][prop];                        
+            }else{
+                if(sectionInfo.sectiontoInsert){
+                   for(var i= 0; i< srcObj.length; i++){                    
+                         for( var prop in srcObj[i] ){
+                            destObj[i][prop] = srcObj[i][prop];                        
+                        }
                     }
                 }
-            }
+            }           
+         
         }
 
         function _getSectionstoInsert(srcObj, destObj){

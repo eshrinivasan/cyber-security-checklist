@@ -36,23 +36,14 @@ angular.module("cyberapp.section")
             $scope.sectionNumber = $scope.currentState.match(/\d+$/)[0];//filter out non numberic characters ie "section"
         
             $scope.prevPage = function(){
+
                 var currindex = $scope.getIndex();
                 var previndex = --currindex;
                 var prevSection = $localStorage.total[previndex];
                 $scope.prevState = "section"+prevSection;
                 $scope.currState = "section"+currindex;
 
-                var sectosavearr = dataservice.getSectionAssocArray($scope.prevState);
-                if(sectosavearr.length > 1){
-                    angular.forEach(sectosavearr, function(key, value){
-                      if($localStorage[key] != null)
-                            $scope[key] = $localStorage[key]; //storing in session
-                    });
-                }else{
-                       if($localStorage[$scope.prevState] != null)
-                            $scope[$scope.prevState] = $localStorage[$scope.prevState];    
-                }
-
+             
 
                 if(typeof $localStorage.total !== "undefined" && previndex !== -1){                   
                     $state.go($scope.prevState);
@@ -66,17 +57,15 @@ angular.module("cyberapp.section")
                 var currindex = $scope.getIndex();
                 var nextindex = ++currindex;                
 
-                var sectosavearr = dataservice.getSectionAssocArray($scope.currentState);
+               var sectosavearr = dataservice.getSectionAssocArray($scope.currentState);
                 if(sectosavearr.length > 1){
                     angular.forEach(sectosavearr, function(key, value){
                         $localStorage[key] = $scope[key]; //storing in session
                     });
                 }else{
-                    if($localStorage[$scope.currentState] == null)
-                        $localStorage[$scope.currentState] = $scope[$scope.currentState]; //storing in session    
-                  
+                    $localStorage[$scope.currentState] = $scope[$scope.currentState]; //storing in session   
+                    //console.log( $localStorage[$scope.currentState].data);
                 }
-                
 
                 if(typeof $localStorage.total !== "undefined" && nextindex < $localStorage.total.length){
                     var nextSection = $localStorage.total[nextindex];

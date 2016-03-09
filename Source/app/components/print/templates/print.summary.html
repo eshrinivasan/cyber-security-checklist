@@ -7,7 +7,7 @@
 	<div class="box printview omega">   	
 		<div ng-include src="'components/checklist/templates/checklist.notes.html'"></div>
 	</div>
-	<div class="highlighted-area">
+	<div class="box highlighted-area">
 		<div><b>Firm Name:</b> {{firmname}}</div>
 		<div><b>Person responsible for Cybersecurity Program:</b> {{rep}}</div>
 		<div><b>Last Updated:</b> {{lastupdated}}</div>
@@ -42,6 +42,8 @@
 		    <div class="page-break"></div>
 		    <grid-section-header title="Manage Vendors and Customer Access"></grid-section-header>
 		    <div ui-grid="section3b" class="sectiongrid gridsection3b"></div>
+		    <div class="pre-line"></div>
+		    <div ui-grid="section3c" class="sectiongrid gridsection3c"></div>
 		</div>
 	<!--End-->
 	</div>
@@ -50,7 +52,8 @@
 	<!--Print for section 4-->
 			<div class="box printview">  
 				<grid-section-header title="Section 4 – Protect: Information Assets"></grid-section-header>
-				<div ui-grid="section4a" class="sectiongrid gridsection4a" ng-style="getTableHeight(section4a)"></div>  				
+				<div ui-grid="section4a" class="sectiongrid gridsection4a" ng-style="getTableHeight(section4a)"></div>
+				<div class="pre-line"></div>  				
 				<div ui-grid="section4b" class="sectiongrid gridsection4b"></div> 
 			</div><!--End-->
 	<div class="page-break"></div>
@@ -84,8 +87,9 @@
 		<div class="box printview"> 
 		     <grid-section-header title="Section 7 – Protect: Employee Devices"></grid-section-header>  
 		      <div ui-grid="section7a" class="sectiongrid gridsection7a" ng-style="getTableHeight(section7a)"></div>
-		      
+		      <div class="pre-line"></div>
 		      <div ui-grid="section7b" class="sectiongrid gridsection7b" ng-style="getTableHeight(section7b)"></div>
+		      <div class="pre-line"></div>
 		      <div class="page-break"></div>
 		      
 		      <div ui-grid="section7c" class="sectiongrid gridsection7c"></div>		      
@@ -100,7 +104,7 @@
 	<!--Print for section 8-->
 		<div class="box printview"> 
 		    <grid-section-header title="Section 8 – Detect: Penetration Testing "></grid-section-header> 
-		 	 <div ui-grid="section8" class="sectiongrid gridsection8"></div> 		  
+		 	 <div ui-grid="section8" class="sectiongrid gridsection8" ng-style="getTableHeight(section8)"></div> 		  
 	  	</div>
     <!--End-->
     <div class="page-break"></div>
@@ -142,8 +146,8 @@
     <!--End-->
     <div class="page-break"></div>
 	</div>
-	</div>
 
 
+	</div><!--print preview-->
  </div>
 </div>

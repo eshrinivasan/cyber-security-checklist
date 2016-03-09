@@ -2,9 +2,9 @@
 	angular.module("cyberapp.section")
 			.controller("SectionController", SectionController);
 
-		SectionController.$inject = ['$scope', '$state', '$rootScope', 'datafactory', 'dataservice', '$sessionStorage', '$localStorage', '$http', 'uiGridConstants'];
+		SectionController.$inject = ['$scope', '$state', '$q', '$interval', '$rootScope', 'datafactory', 'dataservice', '$sessionStorage', '$localStorage', '$http', 'uiGridConstants'];
 
-		function SectionController($scope, $state, $rootScope, datafactory, dataservice, $sessionStorage, $localStorage, $http, uiGridConstants){
+		function SectionController($scope, $state, $q, $interval, $rootScope, datafactory, dataservice, $sessionStorage, $localStorage, $http, uiGridConstants){
 			var sectionCtrl = this;			
 			$scope.currentState = $state.current.name;			
 			$scope.sectionNumber = $scope.currentState.match(/\d+$/)[0];//filter out non numberic characters ie "section"			
@@ -14,33 +14,37 @@
 			$scope.section1 = {}; $scope.section2 = {}; $scope.section3a = {}; 	$scope.section3b = {}; $scope.section4 = {}; 	$scope.section5 = {};
 			$scope.section6 = {}; $scope.section7a = {};  $scope.section7b = {};  $scope.section7c = {}; $scope.section7d = {}; $scope.section8 = {}; 
 			$scope.section9a = {}; $scope.section9b = {}; $scope.section10a = {}; $scope.section10b = {}; $scope.section10c = {}; $scope.section11 = {};
+		
 
 			$scope.yes_no = [{option: 'Yes'}, {option: 'No'}];
 			$scope.device_owner = [{option: 'Firm'}, {option: 'Individual'}];
 			$scope.levels = [{option: 'High'},{option: 'Medium'},{option: 'Low'}];
 			$scope.remediationsteps = [{option: 'Not Started'},{option: 'In Process'},{option: 'Complete'},{option: 'Not Needed'}];
 			$scope.sectionLast =  $scope.sectionNumber  == dataservice.getSectionLast();
+			$scope.sectionFirst =  $scope.sectionNumber  == dataservice.getSectionFirst();
 
 			//get current section including its sub sections
-			var getallsubs = dataservice.getSectionAssocArray($scope.currentState);
-			
-			
-
-			angular.forEach(getallsubs, function(value, key) {			
+			var getallsubs = dataservice.getSectionAssocArray($scope.currentState);	
+			if(typeof $scope[$scope.currentState] != undefined){
+				angular.forEach(getallsubs, function(value, key) {			
 				dataservice.asyncData(value).then(function(data){
-						$scope[value].data = data;						
-						
+							$scope[value].data = data;
+							
+
+						//dataservice.getPreviousData($scope[value].data, value);
 						//get values from section1 that needs to be prepopulated in other sections
 						if($localStorage["section1"] != null)						
 						dataservice.getScopeObjectsWithValue($localStorage["section1"].data, $scope[value].data, $scope[value], value);
 
 				});
-			});
+				});
+			}
+			
 
-     		$scope.addNewItem = function(section){
+     		$scope.addNewItem = function(sections){
      			angular.forEach(arguments, function(value, key){
      				value.data.push({});	
-     			})
+     			});		    	
 		    	
 		    	//dataservice.getSamePageScopeValue($scope["section7a"].data, $scope["section7b"].data);
 		    };
@@ -78,9 +82,48 @@
 				        editDropdownValueLabel: 'option'
 				}],
 	      		onRegisterApi: function(gridApi) {
-		       		grid = gridApi.grid;	
+		       		$scope.gridApi = gridApi;
+    				//gridApi.rowEdit.on.saveRow($scope, $scope.saveRow);
+               		
+                	//$scope.restoreState();
+
 			    }
 			};
+
+			  /*$scope.section1.state = {};
+
+			  $scope.saveState = function() {
+			    $scope.section1.state = $scope.section1.gridApi.saveState.save();
+			    $localStorage['section1'] = $scope.section1.state;
+			    console.log( $scope.section1.state);
+			  };
+			 
+			   $scope.restoreState = function() {
+			   	var state = $localStorage['section1'];
+			    if (state) $scope.section1.gridApi.saveState.restore($scope.section1, state);
+			  };*/
+
+
+			$scope.saveRow = function( rowEntity ) {
+			    // create a fake promise - normally you'd use the promise returned by $http or $resource
+			    var promise = $q.defer();
+			    $scope.gridApi.rowEdit.setSavePromise( rowEntity, promise.promise );
+			 
+			    $interval( function() {
+			      if (rowEntity.gender === 'male' ){
+			        promise.reject();
+			      } else {
+			      	$scope.savetoStorage(rowEntity);
+			        promise.resolve();
+			      }
+			    }, 1, 1);
+			  };
+
+
+			/*$scope.savetoStorage= function(rowEntity){
+				console.log("row added");
+				console.log(rowEntity);
+			}*/
 
 			function DisplayObject(name, tooltip) {
 			    	// this refers to the new instance
@@ -264,7 +307,59 @@
         		enableVerticalScrollbar   : uiGridConstants.scrollbars.NEVER,
 				columnDefs:[{
 					 	field: 'activityaddress',
-						displayName: '',
+						displayName: 'Activity',
+						enableCellEdit:false
+					},
+					{
+							field: 'yes_no',
+							displayName:'Yes/No',
+							editType: 'dropdown',
+							enableCellEditOnFocus:true,
+							editableCellTemplate: 'ui-grid/dropdownEditor',
+					        editDropdownOptionsArray: $scope.yes_no,
+					        editDropdownIdLabel: 'option',
+					        editDropdownValueLabel: 'option'
+					},
+					{	
+							field: 'needtoremediate',
+							displayName: 'Do you need to Remediate?',
+							editType: 'dropdown',
+							enableCellEditOnFocus:true,
+							editableCellTemplate: 'ui-grid/dropdownEditor',
+					        editDropdownOptionsArray: $scope.yes_no,
+					        editDropdownIdLabel: 'option',
+					        editDropdownValueLabel: 'option'
+					},
+					{	
+							field: 'remediatesteps',
+							displayName: 'Remediation Steps'
+					},
+					{	
+							field: 'remediatestatus',
+							displayName: 'Remediation Status',
+							editType: 'dropdown',
+							enableCellEditOnFocus:true,
+							editableCellTemplate: 'ui-grid/dropdownEditor',
+					        editDropdownOptionsArray: $scope.remediationsteps,
+					        editDropdownIdLabel: 'option',
+					        editDropdownValueLabel: 'option'
+					}
+				],
+		      	onRegisterApi: function(gridApi) {
+			       		 grid = gridApi.grid;
+			      }
+
+			};
+
+			$scope.section3c = { 
+				enableCellEditOnFocus: true, 
+				enableSorting: false,
+				rowHeight:92,
+				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
+        		enableVerticalScrollbar   : uiGridConstants.scrollbars.NEVER,
+				columnDefs:[{
+					 	field: 'contractaddress',
+						displayName: 'Contract',
 						enableCellEdit:false
 					},
 					{
@@ -609,16 +704,16 @@
 			
 
 
-			$scope.nameemployee = function(){
-				return $scope.section7a.data[0].nameemployee;
+			$scope.nameemployee = function(rowIndex){
+				return $scope.section7a.data[rowIndex].nameemployee;
 			}
 
-			$scope.devicetype = function(){
-				return $scope.section7a.data[0].devicetype;
+			$scope.devicetype = function(rowIndex){
+				return $scope.section7a.data[rowIndex].devicetype;
 			}
 
-			$scope.deviceowner = function(){
-				return $scope.section7a.data[0].deviceowner;
+			$scope.deviceowner = function(rowIndex){
+				return $scope.section7a.data[rowIndex].deviceowner;
 			}
 
 
@@ -660,15 +755,18 @@
 				columnDefs:[					
 					{
 						field:'devicetype',
-						displayName: 'Device Type' 
+						displayName: 'Device Type',
+						cellTemplate: '<div>{{ grid.appScope.devicetype(grid.renderContainers.body.visibleRowCache.indexOf(row)) }}</div>'
 					},
 					{
 						field:'nameemployee',
-						displayName: 'Employee'
+						displayName: 'Employee',
+						cellTemplate: '<div>{{ grid.appScope.nameemployee(grid.renderContainers.body.visibleRowCache.indexOf(row)) }}</div>'
 					},
 					{
 						field:'deviceowner',
 						displayName:new DisplayObject('Device Owner', 'Does the Firm or Individual own the device?'),
+						cellTemplate: '<div>{{ grid.appScope.deviceowner(grid.renderContainers.body.visibleRowCache.indexOf(row)) }}</div>',
 						headerCellTemplate:longHdrCellTxtTpl
 					},
 					{
@@ -1040,7 +1138,7 @@
 				enableSorting: false,
 				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
         		enableVerticalScrollbar   : uiGridConstants.scrollbars.NEVER,
-				rowHeight:55,
+				rowHeight:92,
 				columnDefs:[
 					{
 						field: 'incident',

@@ -8,12 +8,15 @@
 	width:100%;
 	height:auto;
 	background:#FFF;
-	margin:40px auto;
-	padding:5px;
+	margin: 20px auto;
+    padding: 5px 25px;    
 
-    &.omega{
-        padding:30px;
-    }
+}
+
+
+.pre-line{
+    white-space: pre-line;
+    height:20px;
 }
 
 .boxeffect1
