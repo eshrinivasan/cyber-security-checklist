@@ -20,6 +20,9 @@
 		display:none;
 	}
 
+
+
+
 	.ui-grid-cell{
 		padding:5px;
 
@@ -37,40 +40,20 @@
 		background-color:transparent;
 	}
 
-	//single row tables
-	
-	&.gridsection4a,	
-	&.gridsection7b,
-	&.gridsection8,
-	&.gridsection10b{
-		min-height: 165px;
-		height:165px;
-	}
-		
-	&.gridsection6{
-		height:180px;
-	}
-	
 
-	&.gridsection3a{
-		min-height: 300px;
-		height:300px;
-	}
-
-	//Should have auto dynamic heights
-	
+	&.gridsection1,
 	&.gridsection2,
-	&.gridsection5,
-	&.gridsection7a{
-		min-height: 265px;
-		height:265px;
-	}
-
-	&.gridsection1{
+	&.gridsection3a,
+	&.gridsection4a,
+	&.gridsection6,
+	&.gridsection7a,
+	&.gridsection7b,
+	&.gridsection8{
 		min-height: 165px;
 		height:165px;
 	}
 
+	
 	&.gridsection7c{
 		min-height:670px;
 		height:670px;
@@ -86,32 +69,37 @@
 		height:330px;
 	}
 
-	&.gridsection10a{
+	&.gridsection10a,
+	&.gridsection10b{
 		min-height:1050px;
 		height:1050px;
 	}
 
 	&.gridsection3b{
-		min-height:1400px;
-		height:1400px;
+		min-height:600px;
+		height:600px;
 	}
 	
+	&.gridsection3c{
+		min-height:860px;
+		height:860px;
+	}
+
 	&.gridsection4b{
 		min-height:450px;
 		height:450px;
-	}
-	
-	&.gridsection10c{
-		min-height:500px;
-		height:500px;
-	}
+	}	
 
-	&.gridsection9b,
-	&.gridsection11{
+	&.gridsection10c{
 		min-height:580px;
 		height:580px;
 	}
 
+	&.gridsection9b,
+	&.gridsection11{
+		min-height:810px;
+		height:810px;
+	}
 }
 
 .notesaroundGrid{
@@ -119,7 +107,6 @@
 }
 
 .highlighted-area{
-	padding:5px;
+	padding:20px 10px;
 	background:$highlighted-area;
-	border:1px solid $pager-inactive;
 }

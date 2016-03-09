@@ -17,11 +17,11 @@
 	width:60%;
 }
 
-.form-horizontal input[type="text"],
+/* .form-horizontal input[type="text"],
 .form-horizontal select{
 	width:100%;
 }
-
+ */
 /*
 .form-wrapper{
 	border:2px solid $info-color;
@@ -50,6 +50,7 @@
 
 label.control-label{
 	margin:10px 0;
+	font-weight:normal;
 }
 
 .last-updated-date{
@@ -67,11 +68,17 @@ label.control-label{
 	  &:after {
 	    clear: both;
 	  }
+
+	.control-label{
+		padding:7px;
+		text-align: left;
+	}  
 }
 
 .alignRight{
 	padding:10px 0;
 	
+	div.right,
 	button{
 		float:right;	
 	}

@@ -14,7 +14,7 @@
         "remediatestatus":""	
 	},
 	{
-		"idscontrols": "Do you utilize tools to regularly scan/monitor your systems for vulnerabilities, secure configuration, and current patch levels? ",
+		"idscontrols": "Do you utilize tools to regularly scan/monitor your systems for vulnerabilities, secure configuration, and current patch levels?",
 		"yes_no": "",
 		"needtoremediate": "",
         "remediatesteps":"",

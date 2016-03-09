@@ -3,12 +3,15 @@
 angular.module("cyberapp.print")
 .controller("PrintController", PrintController);
 
-	PrintController.$inject = ['$scope', '$state', '$sessionStorage', 'dataservice', 'datafactory'];
+	PrintController.$inject = ['$scope', '$state', '$sessionStorage', '$localStorage', 'dataservice', 'datafactory'];
 
-	function PrintController($scope, $state, $sessionStorage, dataservice, datafactory){
+	function PrintController($scope, $state, $sessionStorage, $localStorage, dataservice, datafactory){
 		var printCtrl = this;
 		$scope.firmname = datafactory.firm.firmname;
-		
+		$scope.rep = datafactory.firm.rep;
+		$scope.lastupdated = datafactory.firm.lastupdated;
+        $scope.keyrep = datafactory.firm.keyrep;
+
 		$scope.piidata = function (col, row){
 			return dataservice.piidata(col, row);
 		}
@@ -34,13 +37,11 @@ angular.module("cyberapp.print")
 		}
 
 		$scope.getTableHeight = function(section) {
-			       var headerHeight = 110; // your header height
-			       return {
-			          height: (section.data.length * section.rowHeight + headerHeight) + "px"
-			       };
+	       var headerHeight = 110; // your header height
+	       return {
+	          height: (section.data.length * section.rowHeight + headerHeight) + "px"
+	       };
 		};
-
-
 
 		var total = dataservice.getSections();		
 	
@@ -81,7 +82,7 @@ angular.module("cyberapp.print")
 		//loop through all sections answered from the session storage variable and assign it to scope.section vars
 		for(var i = 0; i < newflatarray.length; i++){ 
 			var value = newflatarray[i];
-			$scope[value] = $sessionStorage[value];
+			$scope[value] = $localStorage[value];
 			//console.log($scope[value]);
 		}
 

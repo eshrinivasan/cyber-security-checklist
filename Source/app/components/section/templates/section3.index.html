@@ -5,14 +5,15 @@
    <div ng-multistepsindicator total="total" class="clearfix multistepcontainer"></div>
     <grid-section-header title="Section 3 – Identify and Assess Risks: Third Party Access"></grid-section-header>
  	<div ui-grid="section3a" 
- 		class="sectiongrid gridsection3a" ng-style="getTableHeight(section3a)" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-resize-columns ui-grid-auto-resize>
+ 		class="sectiongrid gridsection3a" ng-style="getTableHeight(section3a)" ui-grid-edit ui-grid-cellNav ui-grid-resize-columns ui-grid-auto-resize>
     </div>
     
      <div class="alignRight clearfix"><button ng-click="addNewItem(section3a)">Add Row</button></div>
      <grid-section-notes template="components/section/templates/notes/section3.notes.html"></grid-section-notes>
 
     <grid-section-header title="Manage Vendors and Customer Access"></grid-section-header>
-    <div ui-grid="section3b" class="sectiongrid gridsection3b" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-resize-columns></div>
+    <div ui-grid="section3b" class="sectiongrid gridsection3b" ui-grid-edit ui-grid-cellNav ui-grid-resize-columns></div>
+     <div ui-grid="section3c" class="sectiongrid gridsection3c" ui-grid-edit ui-grid-cellNav ui-grid-resize-columns></div>
     <div ng-pagination></div>
   </div>
  </div>

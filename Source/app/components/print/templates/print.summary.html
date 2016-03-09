@@ -4,7 +4,6 @@
 	 	<button class="btn btn-default btn-color" ng-print print-element-id="printSection"><i class="fa fa-print"></i>Print</button>
 	</div>
 	<div id="printSection">
-	<div class="printpreview">	
 	<div class="box printview omega">   	
 		<div ng-include src="'components/checklist/templates/checklist.notes.html'"></div>
 	</div>
@@ -19,8 +18,6 @@
 			<div class="box printview">   
 			  	<grid-section-header title="Section 1 – Identify and Assess Risks: Inventory"></grid-section-header>
 			 	<div ui-grid="section1" class="sectiongrid gridsection1" ng-style="getTableHeight(section1)"></div>
-
-		 		<grid-section-notes template="components/section/templates/notes/section1.notes.html"></grid-section-notes>
 			 </div>
 		 <!--End-->
 		 <div class="page-break"></div>
@@ -30,8 +27,7 @@
 	<!--Print for section 2-->
 		<div class="box printview">  
 			<grid-section-header title="Section 2 – Identify and Assess Risks: Minimize Use"></grid-section-header>
-		 	<div ui-grid="section2" class="sectiongrid gridsection2" ng-style="getTableHeight(section2)"></div>
-			<grid-section-notes template="components/section/templates/notes/section2.notes.html"></grid-section-notes>
+		 	<div ui-grid="section2" class="sectiongrid gridsection2" ng-style="getTableHeight(section2)"></div>			
 		</div>
 	<!--End-->
 	<div class="page-break"></div>
@@ -42,11 +38,11 @@
 	<!--Print for section 3-->
 		<div class="box printview">  
 			<grid-section-header title="Section 3 – Identify and Assess Risks: Third Party Access"></grid-section-header>
-		 	<div ui-grid="section3a" class="sectiongrid gridsection3a" ng-style="getTableHeight(section3a)"></div>  
-		    <grid-section-notes template="components/section/templates/notes/section3.notes.html"></grid-section-notes>
+		 	<div ui-grid="section3a" class="sectiongrid gridsection3a" ng-style="getTableHeight(section3a)"></div>  		    
 		    <div class="page-break"></div>
 		    <grid-section-header title="Manage Vendors and Customer Access"></grid-section-header>
 		    <div ui-grid="section3b" class="sectiongrid gridsection3b"></div>
+		    <div class="pre-line"></div>
 		    <div ui-grid="section3c" class="sectiongrid gridsection3c"></div>
 		</div>
 	<!--End-->
@@ -56,8 +52,8 @@
 	<!--Print for section 4-->
 			<div class="box printview">  
 				<grid-section-header title="Section 4 – Protect: Information Assets"></grid-section-header>
-				<div ui-grid="section4a" class="sectiongrid gridsection4a" ng-style="getTableHeight(section4a)"></div>  
-				<grid-section-notes template="components/section/templates/notes/section4.notes.html"></grid-section-notes>
+				<div ui-grid="section4a" class="sectiongrid gridsection4a" ng-style="getTableHeight(section4a)"></div>
+				<div class="pre-line"></div>  				
 				<div ui-grid="section4b" class="sectiongrid gridsection4b"></div> 
 			</div><!--End-->
 	<div class="page-break"></div>
@@ -69,8 +65,7 @@
 			<div class="box printview">  
 				<grid-section-header title="Section 5 – Protect: Systems Assets "></grid-section-header>   
 			    <div ui-grid="section5" class="sectiongrid gridsection5" ng-style="getTableHeight(section5)"> 
-			    </div>  
-			    <grid-section-notes template="components/section/templates/notes/section5.notes.html"></grid-section-notes>
+			    </div>  			
 			</div>
     <!--End-->
     <div class="page-break"></div>
@@ -80,8 +75,7 @@
 	<!--Print for section 6-->
 			<div class="box printview"> 
 				<grid-section-header title="Section 6 – Protect: Encryption"></grid-section-header>  
-		   		<div ui-grid="section6" class="sectiongrid gridsection6" ng-style="getTableHeight(section6)"></div>
-		    	<grid-section-notes template="components/section/templates/notes/section6.notes.html"></grid-section-notes>
+		   		<div ui-grid="section6" class="sectiongrid gridsection6" ng-style="getTableHeight(section6)"></div>		   
 		    </div>
     <!--End-->
 	<div class="page-break"></div>
@@ -93,10 +87,11 @@
 		<div class="box printview"> 
 		     <grid-section-header title="Section 7 – Protect: Employee Devices"></grid-section-header>  
 		      <div ui-grid="section7a" class="sectiongrid gridsection7a" ng-style="getTableHeight(section7a)"></div>
-		      <grid-section-notes template="components/section/templates/notes/section7a.notes.html"></grid-section-notes>
+		      <div class="pre-line"></div>
 		      <div ui-grid="section7b" class="sectiongrid gridsection7b" ng-style="getTableHeight(section7b)"></div>
+		      <div class="pre-line"></div>
 		      <div class="page-break"></div>
-		      <grid-section-notes template="components/section/templates/notes/section7b.notes.html"></grid-section-notes>
+		      
 		      <div ui-grid="section7c" class="sectiongrid gridsection7c"></div>		      
 		      <div><h4>Staff training</h4></div>
 		      <div ui-grid="section7d" class="sectiongrid gridsection7d"></div>
@@ -109,8 +104,7 @@
 	<!--Print for section 8-->
 		<div class="box printview"> 
 		    <grid-section-header title="Section 8 – Detect: Penetration Testing "></grid-section-header> 
-		 	 <div ui-grid="section8" class="sectiongrid gridsection8" ng-style="getTableHeight(section8)"></div> 
-		  	<grid-section-notes template="components/section/templates/notes/section8.notes.html"></grid-section-notes>	  	
+		 	 <div ui-grid="section8" class="sectiongrid gridsection8" ng-style="getTableHeight(section8)"></div> 		  
 	  	</div>
     <!--End-->
     <div class="page-break"></div>
@@ -120,8 +114,7 @@
 	<!--Print for section 9-->
 		<div class="box printview">
 		    <grid-section-header title="Section 9 – Detect: Intrusion"></grid-section-header> 
-		    <div ui-grid="section9a" class="sectiongrid gridsection9a"></div> 
-		    <grid-section-notes template="components/section/templates/notes/section9.notes.html"></grid-section-notes>
+		    <div ui-grid="section9a" class="sectiongrid gridsection9a"></div> 		
 		    <div class="highlighted-area">Are the following controls implemented? If No, assess the risk of not having the controls and decide whether to remediate.</div>
 		    <div ui-grid="section9b" class="sectiongrid gridsection9b"></div>
 	  	</div>
@@ -133,8 +126,7 @@
 	<!--Print for section 10-->
 		<div class="box printview"> 
 		    <grid-section-header title="Section 10 – Response Plan"></grid-section-header> 
-		    <div ui-grid="section10a" class="sectiongrid gridsection10a"></div> 
-		    <grid-section-notes template="components/section/templates/notes/section10.notes.html"></grid-section-notes>
+		    <div ui-grid="section10a" class="sectiongrid gridsection10a"></div> 		
 		    <div class="page-break"></div>
 		    <h4>Stakeholders</h4>
 		    <div ui-grid="section10b" class="sectiongrid gridsection10b"></div> 
@@ -148,14 +140,13 @@
 	<div ng-if="section11 != undefined">
     <!--Print for section 11-->
 		<div class="box printview"> 
-		    <grid-section-header title="Section 11 – Recovery "></grid-section-header>
-		    <grid-section-notes template="components/section/templates/notes/section11.notes.html"></grid-section-notes>
+		    <grid-section-header title="Section 11 – Recovery "></grid-section-header>		
 		    <div ui-grid="section11" class="sectiongrid gridsection11"></div>  
 	  	</div>
     <!--End-->
     <div class="page-break"></div>
 	</div>
-	</div>
+
 
 	</div><!--print preview-->
  </div>

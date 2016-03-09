@@ -10,9 +10,20 @@
 
     function configure($httpProvider, $urlRouterProvider, $stateProvider) {
 
+
         var main = {
             name: 'main',
             url: '/',
+            sticky: true,
+            dsr: true,
+            templateUrl: 'components/checklist/templates/checklist.start.index.html',
+            controller: 'ChecklistController',
+            controllerAs: 'checklistCtrl'
+        };
+
+        var checklist = {
+            name: 'checklist',
+            url: '/checklist',
             sticky: true,
             dsr: true,
             templateUrl: 'components/checklist/templates/checklist.index.html',
@@ -25,10 +36,31 @@
             url: '/section/12',
             sticky: true,
             dsr: true,
+            templateUrl: 'components/print/templates/print.options.html',
+            controller: 'PrintController',
+            controllerAs: 'printCtrl'
+        };
+
+         var printsummary = {
+            name: 'printsummary',
+            url: '/printsummary',
+            sticky: true,
+            dsr: true,
+            templateUrl: 'components/print/templates/print.summary.html',
+            controller: 'PrintController',
+            controllerAs: 'printCtrl'
+        };
+        
+         var printdetailed = {
+            name: 'printdetailed',
+            url: '/printdetail',
+            sticky: true,
+            dsr: true,
             templateUrl: 'components/print/templates/print.index.html',
             controller: 'PrintController',
             controllerAs: 'printCtrl'
         };
+        
         
          var section1 = {
             name: 'section1',
@@ -141,21 +173,12 @@
             controller: 'SectionController',
             controllerAs: 'sectionCtrl'
         }
-        /*
-        var error = {
-            name: 'error',
-            parent: 'main',
-            url: 'error',
-            templateUrl: 'components/message/templates/noservice-error.html',
-            controller: 'MessageController',
-            controllerAs: 'messageCtl'
-        };
-        */
 
         $urlRouterProvider.otherwise('/');
 
         $stateProvider
             .state(main)
+            .state(checklist)
             .state(print)
             .state(section1)
             .state(section2)
@@ -168,8 +191,8 @@
             .state(section9)
             .state(section10)
             .state(section11)
-            .state(section12)
-           /*.state(error)*/
+            .state(printsummary)
+            .state(printdetailed)
     }
 
     function runApp($rootScope, $state, $stateParams) {

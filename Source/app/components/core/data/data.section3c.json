@@ -1,0 +1,64 @@
+[
+	{
+		"contractaddress" : "Non-disclosure agreements/confidentiality agreements",
+		"":"",
+		"needsremediate": "",
+		"remediatesteps":"",
+		"remediatestatus":""
+	},
+		{
+		"contractaddress" : "Data storage, retention, delivery, encryption",
+		"":"",
+		"needsremediate": "",
+		"remediatesteps":"",
+		"remediatestatus":""
+	},
+		{
+		"contractaddress" : "Breach notification responsibilities",
+		"":"",
+		"needsremediate": "",
+		"remediatesteps":"",
+		"remediatestatus":""
+	},
+		{
+		"contractaddress" : "Right-to-audit clauses",
+		"":"",
+		"needsremediate": "",
+		"remediatesteps":"",
+		"remediatestatus":""
+	},
+		{
+		"contractaddress" : "Vendor employee access limitations, identity and access management, and separation of duties",
+		"":"",
+		"needsremediate": "",
+		"remediatesteps":"",
+		"remediatestatus":""
+	},
+		{
+		"contractaddress" : "Use of subcontractors",
+		"":"",
+		"needsremediate": "",
+		"remediatesteps":"",
+		"remediatestatus":""
+	},
+		{
+		"contractaddress" : "Vendor obligations upon contract termination",
+		"":"",
+		"needsremediate": "",
+		"remediatesteps":"",
+		"remediatestatus":""
+	},
+
+	{
+		"contractaddress" : "Security processes initiated by the vendor(E.g., acquire copy of SSAE 16 Report)",
+		"":"",
+		"needsremediate": "",
+		"remediatesteps":"",
+		"remediatestatus":""
+	}
+
+	
+	
+]
+
+

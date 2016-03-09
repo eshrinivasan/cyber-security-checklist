@@ -2,26 +2,23 @@
     angular.module('cyberapp.core')
     		.service('dataservice', dataservice);
 
-    dataservice.inject = ['$state', '$rootScope', '$http', '$sessionStorage'];
+    dataservice.inject = ['$state', '$rootScope', '$http', '$sessionStorage', '$localStorage'];
 
-    function dataservice($state, $rootScope, $http, $sessionStorage){
+    function dataservice($state, $rootScope, $http, $sessionStorage, $localStorage){
 
     	var service = {
-            setJsonData: setJsonData,
-            getJsonData: getJsonData,
-            setCollectionData: setCollectionData,
-            getCollectionData: getCollectionData,
+            asyncData:asyncData,
     		getNextSection : getNextSection,
             getSections : getSections,
     		setSection : setSection,
-    		getCurrentState: getCurrentState,
             getSectionNoLast: getSectionNoLast,
             getSectionAssocArray: getSectionAssocArray,
             getJsonStore: getJsonStore,
             getSectionLast: getSectionLast,
-            piidata:piidata,
-            location:location,
-            risklevel:risklevel
+            getSectionFirst: getSectionFirst,
+            getScopeObjectsWithValue:getScopeObjectsWithValue,
+            resetLocallyStored: resetLocallyStored,
+            getSamePageScopeValue:getSamePageScopeValue
     	};
 
     	return service;
@@ -37,6 +34,7 @@
                         'section2' : 'components/core/data/data.section2.json',
                         'section3a': 'components/core/data/data.section3a.json',
                         'section3b': 'components/core/data/data.section3b.json',
+                        'section3c': 'components/core/data/data.section3c.json',
                         'section4a' : 'components/core/data/data.section4a.json',
                         'section4b' : 'components/core/data/data.section4b.json',
                         'section5' :  'components/core/data/data.section5.json',
@@ -57,11 +55,19 @@
             return jsonstore;
         }
 
+        function resetLocallyStored(){
+             var sectionNames = getJsonStore();
+             $localStorage.total = null;
+             angular.forEach(sectionNames, function(value, key){
+                   $localStorage[key] = null;
+            });
+        }
+
         function getSectionAssocArray(key){
             var sectionMap = {
                 'section1': "section1",
                 'section2': "section2",
-                'section3' : "section3a,section3b",
+                'section3' : "section3a,section3b,section3c",
                 "section4" : "section4a,section4b",
                 "section5" : "section5",
                 "section6" : "section6",
@@ -74,23 +80,34 @@
             return sectionMap[key].split(',');
         }
 
+        function asyncData(section) {
+          var promise;
+          var jsondataurl = getJsonStore()[section];
+
+          promise = $http.get(jsondataurl).then(function (response) {  
+                return response.data;
+          });
+         
+          return promise;
+        }
+     
         //public getter
     	function getNextSection(){            
-            var nextSection = "section"+_sectionArr.shift();
+            var nextSection = "section"+ $localStorage._sectionArr.shift();
     	    return nextSection;                  
     	}
 
         function getSections(){
-            return _sectionArr;
+            return $localStorage._sectionArr;
         }
 
         function getSectionNoLast(){
-            return _sectionArr.pop();
+            return $localStorage._sectionArr.pop();
         }
 
         //public setter
     	function setSection(totalsArr){         
-    		_sectionArr = processArray(totalsArr);
+    		$localStorage._sectionArr = processArray(totalsArr);
     	}
 
         //private
@@ -104,52 +121,65 @@
     	}
         
 
-    	function getCurrentState(){
-    		return $scope.state.name;                   
-    	}
-
-        function setJsonData(data){
-             datajsonObj = data;
-        }
-
-        function getJsonData(){
-            return datajsonObj;
-        }
-
-        function setCollectionData(data){
-            storedJsonValues = storedJsonValues || [];
-            storedJsonValues.push(data);
-        }
-
-        function getCollectionData(sec){
-            if(arguments.length)
-            return storedJsonValues[sec];
-            else
-            return storedJsonValues;
+    	function getSectionFirst(){
+             return $localStorage._sectionArr[0];
         }
 
         function getSectionLast(){
-            return _sectionArr[_sectionArr.length-1];
+            return $localStorage._sectionArr[$localStorage._sectionArr.length-1];
         }
 
-
-       //Sharing with print controller
-        function piidata(col, row){
-            row.entity.piidata = $sessionStorage.section1.data[0].piidata;
-            return row.entity.piidata;  
+       
+        function getScopeObjectsWithValue(srcObj, destObj, currSection, val){
+            var sectionInfo = _getSectionstoInsert(srcObj, destObj);
+            //pre-populate section1 values into other sections with matching keys
+             var checkArrayInsertionReqd = ['section1', 'section2', 'section4a', 'section6'];
+           
+           if(checkArrayInsertionReqd.indexOf(val) > -1){
+            for(var j= 0; j< srcObj.length-1;j++){       
+                destObj.push({});
+            } 
+           }
+         
+            if($localStorage[val] != null){               //Previous option chosen
+                currSection.data = $localStorage[val].data; 
+            }else{
+                if(sectionInfo.sectiontoInsert){
+                   for(var i= 0; i< srcObj.length; i++){                    
+                         for( var prop in srcObj[i] ){
+                            destObj[i][prop] = srcObj[i][prop];                        
+                        }
+                    }
+                }
+            }           
+         
         }
 
-        function location(col, row){
-            row.entity.location = $sessionStorage.section1.data[0].location;
-            return row.entity.location;
+        function _getSectionstoInsert(srcObj, destObj){
+            var sectionInfo = {
+                sectiontoInsert:false,
+                prepopulateCount:0
+            }
+
+            for(var i= 0; i< srcObj.length; i++){   //srcObj is array
+                  for( var prop in srcObj[i] ){
+                        if (destObj[0].hasOwnProperty(prop)) {            
+                            sectionInfo.prepopulateCount++;                         
+                        }                          
+                  }
+                // console.log(sectionInfo.prepopulateCount);   
+                 break;      
+            }            
+            
+            if(sectionInfo.prepopulateCount && sectionInfo.prepopulateCount%3 == 0) sectionInfo.sectiontoInsert = true;
+            return sectionInfo;
         }
 
-        function risklevel(col, row){
-            row.entity.risklevel = $sessionStorage.section1.data[0].risklevel;
-            return row.entity.risklevel;
+        function getSamePageScopeValue(srcObj, destObj){
+            angular.forEach(srcObj, function(value, key){
+                    destObj[key] = srcObj[key]; 
+            });
         }
-
-    
        
     }
 })()

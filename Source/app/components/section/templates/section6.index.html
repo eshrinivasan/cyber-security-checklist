@@ -5,7 +5,7 @@
    <div ng-multistepsindicator total="total" class="clearfix multistepcontainer"></div>
    
     <grid-section-header title="Section 6 – Protect: Encryption"></grid-section-header>  
-   	<div ui-grid="section6" class="sectiongrid gridsection6" ui-grid-edit ui-grid-row-edit ui-grid-cellNav ui-grid-resize-columns></div>
+   	<div ui-grid="section6" class="sectiongrid gridsection6" ng-style="getTableHeight(section6)" ui-grid-edit ui-grid-cellNav ui-grid-resize-columns ui-grid-auto-resize></div>
     <grid-section-notes template="components/section/templates/notes/section6.notes.html"></grid-section-notes>
 
 
