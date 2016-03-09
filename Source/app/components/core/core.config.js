@@ -177,7 +177,7 @@
                 })
                 .state('print.detailed', {
                   url: "/detail",
-                  templateUrl: 'components/print/templates/print.index.html',
+                  templateUrl: 'components/print/templates/print.detail.html',
                   parent: "print"
                 });
     }
