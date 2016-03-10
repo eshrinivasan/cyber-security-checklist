@@ -36,6 +36,9 @@
 			$scope.sectionFirst =  total[0]  == dataservice.getSectionFirst();
 			
 			$scope.compareObjects = function (destObj, srcObj){
+					if(destObj === srcObj)
+					return;
+				
 					while(destObj.length != srcObj.length){
 	                    		 	destObj.push({});
                 	}
