@@ -77,7 +77,7 @@
 	  		//Now the allanswers array has 5 answers, lets start with the first section in the total array.
 	  		if($scope.allanswers.length == 5 && $scope.notAnsweredAll == false){
 	  			if(typeof $scope.total[0] != undefined){
-	  				var sectiontoforward = "section"+$scope.total[0];		  		
+	  				var sectiontoforward = "section";		  		 //+$scope.total[0]
 	  				$state.go(sectiontoforward);
 	  				$localStorage.total = $scope.total;
 	  			}else{
@@ -87,8 +87,8 @@
 	  		}else{
 	  			$scope.answerAlltext = true;
 	  		}
-
-	  		console.log($localStorage.total);
+	  	
 	  	}
+	
 	}
 })()
