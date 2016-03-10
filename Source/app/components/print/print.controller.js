@@ -3,38 +3,30 @@
 angular.module("cyberapp.print")
 .controller("PrintController", PrintController);
 
-	PrintController.$inject = ['$scope', '$state', '$sessionStorage', '$localStorage', 'dataservice', 'datafactory'];
+	PrintController.$inject = ['$scope', '$state', '$rootScope', '$sessionStorage', '$localStorage', 'dataservice', 'datafactory'];
 
-	function PrintController($scope, $state, $sessionStorage, $localStorage, dataservice, datafactory){
+	function PrintController($scope, $state, $rootScope, $sessionStorage, $localStorage, dataservice, datafactory){
 		var printCtrl = this;
+		$state.go('print.options');
+		var sectionstoretrieve;
+
 		$scope.firmname = datafactory.firm.firmname;
 		$scope.rep = datafactory.firm.rep;
 		$scope.lastupdated = datafactory.firm.lastupdated;
-        $scope.keyrep = datafactory.firm.keyrep;
+        $scope.keyrep = datafactory.firm.keyrep;        
 
-		$scope.piidata = function (col, row){
-			return dataservice.piidata(col, row);
+		$scope.nameemployee = function(rowIndex){
+			return $scope.section7a.data[rowIndex].nameemployee;
 		}
 
-		$scope.location = function (col, row){
-			return dataservice.location(col, row);
+		$scope.devicetype = function(rowIndex){
+			return $scope.section7a.data[rowIndex].devicetype;
 		}
 
-		$scope.risklevel = function (col, row){
-			return dataservice.risklevel(col, row);
+		$scope.deviceowner = function(rowIndex){
+			return $scope.section7a.data[rowIndex].deviceowner;
 		}
 
-		$scope.nameemployee = function(){
-			 return $scope.section7a.data[0].nameemployee;
-		}
-
-		$scope.devicetype = function(){
-			return $scope.section7a.data[0].devicetype;
-		}
-
-		$scope.deviceowner = function(){
-			return $scope.section7a.data[0].deviceowner;
-		}
 
 		$scope.getTableHeight = function(section) {
 	       var headerHeight = 110; // your header height
@@ -43,8 +35,7 @@ angular.module("cyberapp.print")
 	       };
 		};
 
-		var total = dataservice.getSections();		
-	
+		var total = dataservice.getSections();
 
 		//Callback:for each section in total array, get the corresponding sections for eg: section3 contains section3a, section3b
 		function retrieveSections(item){
@@ -52,8 +43,10 @@ angular.module("cyberapp.print")
 			return sectoretrieve;
 		}
 
+
 		if(total != undefined)
-		var sectionstoretrieve = total.map(retrieveSections);
+		sectionstoretrieve = total.map(retrieveSections);
+
 
 		//some sections contains multiple sub sections - converting them into a single array
 		function getflatarray(sectionstoretrieve){
@@ -67,14 +60,11 @@ angular.module("cyberapp.print")
 						flatarray.push( subarray.slice(j, j+1));	
 					}										
 				}else{
-					flatarray.push(storedSession[i]);
+						flatarray.push(storedSession[i]);
 				}
-			}
-			
+			}			
 			return flatarray;
 		}
-
-		//console.log(getflatarray(sectionstoretrieve));
 
 		if(getflatarray(sectionstoretrieve)!= undefined && getflatarray(sectionstoretrieve).length)
 		var newflatarray = getflatarray(sectionstoretrieve);
@@ -83,9 +73,7 @@ angular.module("cyberapp.print")
 		for(var i = 0; i < newflatarray.length; i++){ 
 			var value = newflatarray[i];
 			$scope[value] = $localStorage[value];
-			//console.log($scope[value]);
 		}
-
 	}
 })()
 

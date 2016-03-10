@@ -7,12 +7,13 @@
 	<div class="box printview omega">   	
 		<div ng-include src="'components/checklist/templates/checklist.notes.html'"></div>
 	</div>
-	<div class="box highlighted-area">
-		<div><b>Firm Name:</b> {{firmname}}</div>
-		<div><b>Person responsible for Cybersecurity Program:</b> {{rep}}</div>
-		<div><b>Last Updated:</b> {{lastupdated}}</div>
-		<div><b>Key Personnel:</b> {{keyrep}}</div>
+	<div class="box printview highlighted-area">
+		<div class="spacewrapper"><b>Firm Name:</b> {{firmname}}</div>
+		<div class="spacewrapper"><b>Person responsible for Cybersecurity Program:</b> {{rep}}</div>
+		<div class="spacewrapper"><b>Last Updated:</b> {{lastupdated}}</div>
+		<div class="spacewrapper"><b>Key Personnel:</b> {{keyrep}}</div>
 	</div>
+	 <div class="page-break"></div>
 	<div ng-if="section1 != undefined">		
 	  	<!--Print for section 1-->  	
 			<div class="box printview">   
@@ -32,8 +33,6 @@
 	<!--End-->
 	<div class="page-break"></div>
 	</div>
-	
-
 	<div ng-if="section3a != undefined">
 	<!--Print for section 3-->
 		<div class="box printview">  
@@ -47,7 +46,6 @@
 		</div>
 	<!--End-->
 	</div>
-
 	<div ng-if="section4a != undefined">
 	<!--Print for section 4-->
 			<div class="box printview">  
@@ -58,8 +56,6 @@
 			</div><!--End-->
 	<div class="page-break"></div>
 	</div>
-	
-
 	<div ng-if="section5 != undefined">
 	<!--Print for section 5-->
 			<div class="box printview">  
@@ -70,7 +66,6 @@
     <!--End-->
     <div class="page-break"></div>
 	</div>
-
 	<div ng-if="section6 != undefined">
 	<!--Print for section 6-->
 			<div class="box printview"> 
@@ -80,8 +75,6 @@
     <!--End-->
 	<div class="page-break"></div>
 	</div>
-	
-
 	<div ng-if="section7a != undefined">
 	<!--Print for section 7-->
 		<div class="box printview"> 
@@ -110,12 +103,11 @@
     <div class="page-break"></div>
     </div>
 
-	<div ng-if="section9 != undefined">
+	<div ng-if="section9a != undefined">
 	<!--Print for section 9-->
 		<div class="box printview">
 		    <grid-section-header title="Section 9 – Detect: Intrusion"></grid-section-header> 
 		    <div ui-grid="section9a" class="sectiongrid gridsection9a"></div> 		
-		    <div class="highlighted-area">Are the following controls implemented? If No, assess the risk of not having the controls and decide whether to remediate.</div>
 		    <div ui-grid="section9b" class="sectiongrid gridsection9b"></div>
 	  	</div>
     <!--End-->

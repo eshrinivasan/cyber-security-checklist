@@ -14,6 +14,8 @@
             getSectionNoLast: getSectionNoLast,
             getSectionAssocArray: getSectionAssocArray,
             getJsonStore: getJsonStore,
+            setScopeObjects:setScopeObjects,
+            getScopeObject:getScopeObject,
             getSectionLast: getSectionLast,
             getSectionFirst: getSectionFirst,
             getScopeObjectsWithValue:getScopeObjectsWithValue,
@@ -26,7 +28,7 @@
     	var _sectionArr = [];
     	var totalsArr = [];
         var datajsonObj = {};
-        var storedJsonValues = [];
+        var storedJsonValues = [];   
 
         function getJsonStore(){
              var jsonstore = {
@@ -64,6 +66,7 @@
         }
 
         function getSectionAssocArray(key){
+            //console.log(key);
             var sectionMap = {
                 'section1': "section1",
                 'section2': "section2",
@@ -80,10 +83,17 @@
             return sectionMap[key].split(',');
         }
 
-        function asyncData(section) {
-          var promise;
-          var jsondataurl = getJsonStore()[section];
+        var scopeobjCollection = {};
+        function setScopeObjects(key, scopeobj){ 
+           if (!angular.isUndefined(scopeobjCollection) && scopeobjCollection !== '')
+           scopeobjCollection[key] = scopeobj;           
+        }
 
+        function getScopeObject(){            
+           return scopeobjCollection;
+        }
+
+        function asyncData(jsondataurl) {        
           promise = $http.get(jsondataurl).then(function (response) {  
                 return response.data;
           });
@@ -140,19 +150,20 @@
                 destObj.push({});
             } 
            }
-         
-            if($localStorage[val] != null){               //Previous option chosen
-                currSection.data = $localStorage[val].data; 
-            }else{
-                if(sectionInfo.sectiontoInsert){
+
+            if(sectionInfo.sectiontoInsert){
                    for(var i= 0; i< srcObj.length; i++){                    
                          for( var prop in srcObj[i] ){
                             destObj[i][prop] = srcObj[i][prop];                        
                         }
                     }
+                }else{
+                    if($localStorage[val] != null){               //Previous option chosen
+                        currSection.data = $localStorage[val].data; 
+                    }
                 }
-            }           
          
+          
         }
 
         function _getSectionstoInsert(srcObj, destObj){

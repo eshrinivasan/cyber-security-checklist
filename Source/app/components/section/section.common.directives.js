@@ -36,16 +36,12 @@ angular.module("cyberapp.section")
             $scope.sectionNumber = $scope.currentState.match(/\d+$/)[0];//filter out non numberic characters ie "section"
         
             $scope.prevPage = function(){
-
                 var currindex = $scope.getIndex();
                 var previndex = --currindex;
-                var prevSection = $localStorage.total[previndex];
-                $scope.prevState = "section"+prevSection;
-                $scope.currState = "section"+currindex;
 
-             
-
-                if(typeof $localStorage.total !== "undefined" && previndex !== -1){                   
+                if(previndex !== -1){  
+                    var prevSection = $localStorage.total[previndex];
+                    $scope.prevState = "section."+prevSection;                     
                     $state.go($scope.prevState);
                     $scope.prevPageDisabled = false;
                 }else{
@@ -55,24 +51,14 @@ angular.module("cyberapp.section")
 
             $scope.nextPage = function(){
                 var currindex = $scope.getIndex();
-                var nextindex = ++currindex;                
+                var nextindex = ++currindex; 
 
-               var sectosavearr = dataservice.getSectionAssocArray($scope.currentState);
-                if(sectosavearr.length > 1){
-                    angular.forEach(sectosavearr, function(key, value){
-                        $localStorage[key] = $scope[key]; //storing in session
-                    });
-                }else{
-                    $localStorage[$scope.currentState] = $scope[$scope.currentState]; //storing in session   
-                    //console.log( $localStorage[$scope.currentState].data);
-                }
-
-                if(typeof $localStorage.total !== "undefined" && nextindex < $localStorage.total.length){
+                if(nextindex < $localStorage.total.length){
                     var nextSection = $localStorage.total[nextindex];
-                    var nextPage = "section"+nextSection;
+                    var nextPage = "section."+nextSection;
                     $state.go(nextPage);
                     $scope.nextPageDisabled = false;
-                }else if(typeof $localStorage.total !== "undefined" && nextindex == $localStorage.total.length){
+                }else if(nextindex == $localStorage.total.length){
                     var nextPage = "print";
                     $state.go(nextPage);
                 }else{

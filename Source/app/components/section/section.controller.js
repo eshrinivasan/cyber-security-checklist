@@ -5,48 +5,89 @@
 		SectionController.$inject = ['$scope', '$state', '$q', '$interval', '$rootScope', 'datafactory', 'dataservice', '$sessionStorage', '$localStorage', '$http', 'uiGridConstants'];
 
 		function SectionController($scope, $state, $q, $interval, $rootScope, datafactory, dataservice, $sessionStorage, $localStorage, $http, uiGridConstants){
-			var sectionCtrl = this;			
-			$scope.currentState = $state.current.name;			
-			$scope.sectionNumber = $scope.currentState.match(/\d+$/)[0];//filter out non numberic characters ie "section"			
+			var sectionCtrl = this;
+			var total = dataservice.getSections();
+			$scope.goToState = 'section.'+total[0];	
+			$state.go($scope.goToState);				
+					
 			$scope.firm = datafactory.firm;
 			$scope.allsteps = [1,2,3,4,5,6,7,8,9,10,11];
-
 			$scope.section1 = {}; $scope.section2 = {}; $scope.section3a = {}; 	$scope.section3b = {}; $scope.section4 = {}; 	$scope.section5 = {};
 			$scope.section6 = {}; $scope.section7a = {};  $scope.section7b = {};  $scope.section7c = {}; $scope.section7d = {}; $scope.section8 = {}; 
 			$scope.section9a = {}; $scope.section9b = {}; $scope.section10a = {}; $scope.section10b = {}; $scope.section10c = {}; $scope.section11 = {};
 		
-
 			$scope.yes_no = [{option: 'Yes'}, {option: 'No'}];
 			$scope.device_owner = [{option: 'Firm'}, {option: 'Individual'}];
 			$scope.levels = [{option: 'High'},{option: 'Medium'},{option: 'Low'}];
 			$scope.remediationsteps = [{option: 'Not Started'},{option: 'In Process'},{option: 'Complete'},{option: 'Not Needed'}];
-			$scope.sectionLast =  $scope.sectionNumber  == dataservice.getSectionLast();
-			$scope.sectionFirst =  $scope.sectionNumber  == dataservice.getSectionFirst();
-
-			//get current section including its sub sections
-			var getallsubs = dataservice.getSectionAssocArray($scope.currentState);	
-			if(typeof $scope[$scope.currentState] != undefined){
-				angular.forEach(getallsubs, function(value, key) {			
-				dataservice.asyncData(value).then(function(data){
-							$scope[value].data = data;
-							
-
-						//dataservice.getPreviousData($scope[value].data, value);
-						//get values from section1 that needs to be prepopulated in other sections
-						if($localStorage["section1"] != null)						
-						dataservice.getScopeObjectsWithValue($localStorage["section1"].data, $scope[value].data, $scope[value], value);
-
-				});
-				});
-			}
 			
+			
+			//get current section including its sub sections
+			var getallsubs = dataservice.getJsonStore();	
+
+			angular.forEach(getallsubs, function(value, key) {	
+				dataservice.asyncData(value).then(function(data){
+					$scope[key].data = data;
+					//dataservice.setScopeObjects(key, $scope[key].data);
+				});
+			});
+
+			//No Previous button on the first section
+			$scope.sectionFirst =  total[0]  == dataservice.getSectionFirst();
+			
+			$scope.compareObjects = function (destObj, srcObj){
+					if(destObj === srcObj)
+					return;
+				
+					while(destObj.length != srcObj.length){
+	                    		 	destObj.push({});
+                	}
+
+                	for(var i= 0; i< srcObj.length; i++){ //copying section1 values
+                         for( var prop in srcObj[i] ){		//copying only matching object properties
+                            destObj[i][prop] = srcObj[i][prop];                        
+	                     }
+                    }
+			}
+		
+			$rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams, options){ 					
+					if(toState.parent != "section") return;
+			 		var currState = toState.name.replace(".","");
+			 		//if(!angular.isUndefined(toState.name) && toState.name.match(/\d+$/) != null)
+					var sectionNumber = toState.name.match(/\d+$/)[0];//filter out non numberic characters ie "section"
+					$scope.sectionFirst =  sectionNumber  == dataservice.getSectionFirst();
+	                //Finish button on the Last section
+		           	$scope.sectionLast = sectionNumber  == dataservice.getSectionLast();
+
+
+
+					var srcObj = $scope['section1'].data;					
+					var prepopulateArr = ['section1', 'section2', 'section4a', 'section6'];
+
+					var sectosavearr = dataservice.getSectionAssocArray(currState);
+	                if(sectosavearr.length > 1){
+	                    angular.forEach(sectosavearr, function(key, value){
+	                    	var destObj = $scope[key].data;
+	                    	if(prepopulateArr.indexOf(key) > -1){//find scopes that needs to increase length
+	                    		$scope.compareObjects(destObj, srcObj);
+	                    	}
+	                    	
+		                    $localStorage[key] = $scope[key]; //storing in local storage
+	                    });
+	                }else{
+	                        var destObj = $scope[currState].data;
+	                        if(prepopulateArr.indexOf(currState) > -1){
+	                    		$scope.compareObjects(destObj, srcObj);
+		                    } 
+
+		                    $localStorage[currState] = $scope[currState]; //storing in local storage             
+	                }				   
+		     });
 
      		$scope.addNewItem = function(sections){
      			angular.forEach(arguments, function(value, key){
      				value.data.push({});	
-     			});		    	
-		    	
-		    	//dataservice.getSamePageScopeValue($scope["section7a"].data, $scope["section7b"].data);
+     			});
 		    };
 		  
 			$scope.getTableHeight = function(section) {
@@ -83,47 +124,10 @@
 				}],
 	      		onRegisterApi: function(gridApi) {
 		       		$scope.gridApi = gridApi;
-    				//gridApi.rowEdit.on.saveRow($scope, $scope.saveRow);
-               		
-                	//$scope.restoreState();
-
 			    }
 			};
 
-			  /*$scope.section1.state = {};
-
-			  $scope.saveState = function() {
-			    $scope.section1.state = $scope.section1.gridApi.saveState.save();
-			    $localStorage['section1'] = $scope.section1.state;
-			    console.log( $scope.section1.state);
-			  };
-			 
-			   $scope.restoreState = function() {
-			   	var state = $localStorage['section1'];
-			    if (state) $scope.section1.gridApi.saveState.restore($scope.section1, state);
-			  };*/
-
-
-			$scope.saveRow = function( rowEntity ) {
-			    // create a fake promise - normally you'd use the promise returned by $http or $resource
-			    var promise = $q.defer();
-			    $scope.gridApi.rowEdit.setSavePromise( rowEntity, promise.promise );
-			 
-			    $interval( function() {
-			      if (rowEntity.gender === 'male' ){
-			        promise.reject();
-			      } else {
-			      	$scope.savetoStorage(rowEntity);
-			        promise.resolve();
-			      }
-			    }, 1, 1);
-			  };
-
-
-			/*$scope.savetoStorage= function(rowEntity){
-				console.log("row added");
-				console.log(rowEntity);
-			}*/
+			
 
 			function DisplayObject(name, tooltip) {
 			    	// this refers to the new instance
@@ -143,8 +147,7 @@
 				columnDefs:[
 					{
 							field: 'piidata',
-							displayName:'PII or Firm Sensitive Data'
-							//cellTemplate : '<div>{{grid.renderContainers.body.visibleRowCache.indexOf(row)}}</div>'							
+							displayName:'PII or Firm Sensitive Data'						
 					},
 					{	
 							field: 'location',
