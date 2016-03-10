@@ -1,11 +1,11 @@
 [
 	{
 		"nameof3party" : "",
-		"piito3rdparty": "",
+		"piidatatransmit": "",
 		"risklevel": "",
-		"3partyaccess" : "",
-		"firmaccess" : "",
-		"sepofctrls": "",
+		"partyaccessneed" : "",
+		"assess3rdparty" : "",
+		"ctrlstoisolate": "",
 		"needsremediate": "",
 		"remediatesteps":"",
 		"remediatestatus":""

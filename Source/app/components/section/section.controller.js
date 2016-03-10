@@ -16,19 +16,17 @@
 			$scope.section6 = {}; $scope.section7a = {};  $scope.section7b = {};  $scope.section7c = {}; $scope.section7d = {}; $scope.section8 = {}; 
 			$scope.section9a = {}; $scope.section9b = {}; $scope.section10a = {}; $scope.section10b = {}; $scope.section10c = {}; $scope.section11 = {};
 		
-			$scope.yes_no = [{option: 'Yes'}, {option: 'No'}];
-			$scope.device_owner = [{option: 'Firm'}, {option: 'Individual'}];
-			$scope.levels = [{option: 'High'},{option: 'Medium'},{option: 'Low'}];
-			$scope.remediationsteps = [{option: 'Not Started'},{option: 'In Process'},{option: 'Complete'},{option: 'Not Needed'}];
-			
-			
+			$scope.yes_no = ['Yes', 'No'];
+			$scope.device_owner = ['Firm', 'Individual'];		
+			$scope.levels = ['High', 'Medium','Low'];
+			$scope.remediationsteps = ['Not Started', 'In Process', 'Complete', 'Not Needed'];
+	
 			//get current section including its sub sections
 			var getallsubs = dataservice.getJsonStore();	
 
 			angular.forEach(getallsubs, function(value, key) {	
 				dataservice.asyncData(value).then(function(data){
 					$scope[key].data = data;
-					//dataservice.setScopeObjects(key, $scope[key].data);
 				});
 			});
 
@@ -36,21 +34,21 @@
 			$scope.sectionFirst =  total[0]  == dataservice.getSectionFirst();
 			
 			$scope.compareObjects = function (destObj, srcObj){
-					if(destObj === srcObj)
+					if(destObj === srcObj)	//if both objects are truly equal, skip copying
 					return;
-				
+
 					while(destObj.length != srcObj.length){
-	                    		 	destObj.push({});
+	                    destObj.push({});
                 	}
 
-                	for(var i= 0; i< srcObj.length; i++){ //copying section1 values
+                	for(var i= 0; i< srcObj.length; i++){ 	//copying section1 values
                          for( var prop in srcObj[i] ){		//copying only matching object properties
                             destObj[i][prop] = srcObj[i][prop];                        
 	                     }
                     }
 			}
 		
-			$rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams, options){ 					
+			$scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams, options){ 					
 					if(toState.parent != "section") return;
 			 		var currState = toState.name.replace(".","");
 			 		//if(!angular.isUndefined(toState.name) && toState.name.match(/\d+$/) != null)
@@ -59,13 +57,11 @@
 	                //Finish button on the Last section
 		           	$scope.sectionLast = sectionNumber  == dataservice.getSectionLast();
 
+					var srcObj = $scope['section1'].data;
+					var prepopulateArr = ['section1', 'section2', 'section4a', 'section6']; //Ideally this shouldnt exist
 
-
-					var srcObj = $scope['section1'].data;					
-					var prepopulateArr = ['section1', 'section2', 'section4a', 'section6'];
-
-					var sectosavearr = dataservice.getSectionAssocArray(currState);
-	                if(sectosavearr.length > 1){
+					var sectosavearr = dataservice.getSectionAssocArray(currState); //Pull all sections with subsections
+	                if(sectosavearr.length > 1){									//If more subsections, loop over each sub
 	                    angular.forEach(sectosavearr, function(key, value){
 	                    	var destObj = $scope[key].data;
 	                    	if(prepopulateArr.indexOf(key) > -1){//find scopes that needs to increase length
@@ -74,7 +70,7 @@
 	                    	
 		                    $localStorage[key] = $scope[key]; //storing in local storage
 	                    });
-	                }else{
+	                }else{															//If section contains only one section
 	                        var destObj = $scope[currState].data;
 	                        if(prepopulateArr.indexOf(currState) > -1){
 	                    		$scope.compareObjects(destObj, srcObj);
@@ -96,10 +92,10 @@
 			       return {
 			          height: calculatedHeight
 			       };
-			};
-			
+			};		
+					
+
 			$scope.section1 = { 
-				enableCellEditOnFocus: true, 
 				enableSorting: false,
 				rowHeight:55,
 				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
@@ -115,12 +111,9 @@
 				{
 						field:'risklevel',
 						displayName: 'Risk Severity Level',
-						editType: 'dropdown',
-						enableCellEditOnFocus:true,
-						editableCellTemplate: 'ui-grid/dropdownEditor',
-				        editDropdownOptionsArray: $scope.levels,
-				        editDropdownIdLabel: 'option',
-				        editDropdownValueLabel: 'option'
+						cellTemplate: 'components/section/templates/dropdown.html',
+						editDropdownOptionsArray:$scope.levels,
+						enableCellEditOnFocus: false
 				}],
 	      		onRegisterApi: function(gridApi) {
 		       		$scope.gridApi = gridApi;
@@ -160,35 +153,26 @@
 					{	
 							field: 'busobjwodata',
 							displayName:  new DisplayObject('Data Required?', 'Can your business objective be met without storing the PII or firm sensitive information?'),
-							editType: 'dropdown',
-							enableCellEditOnFocus:true,
-							editableCellTemplate: 'ui-grid/dropdownEditor',
-					        editDropdownOptionsArray: $scope.yes_no,
-					        editDropdownIdLabel: 'option',
-					        editDropdownValueLabel: 'option',
+							cellTemplate: 'components/section/templates/dropdown.html',						
+							enableCellEditOnFocus: false, 
+					        editDropdownOptionsArray: $scope.yes_no,					      
 					        headerCellTemplate: longHdrCellTxtTpl
 					        
 					},
 					{	
 							field: 'busobjwodatashared',
 							displayName: new DisplayObject('Data Required to be output or shared?', 'Can your business objective be met without outputting or sharing the data –identify people or systems that do not require access to the data, and consider isolating the data.'),
-							editType: 'dropdown',
-							enableCellEditOnFocus:true,
-							editableCellTemplate: 'ui-grid/dropdownEditor',
+							cellTemplate: 'components/section/templates/dropdown.html',
+							enableCellEditOnFocus: false, 	
 					        editDropdownOptionsArray: $scope.yes_no,
-					        editDropdownIdLabel: 'option',
-					        editDropdownValueLabel: 'option',
 					        headerCellTemplate: longHdrCellTxtTpl
 					},
 					{	
 							field: 'needtoremediate',
 							displayName: new DisplayObject('Remediate', 'If data is not required to be stored or shared, you should consider removing or isolating the data.'),
-							editType: 'dropdown',
-							enableCellEditOnFocus:true,
-							editableCellTemplate: 'ui-grid/dropdownEditor',
+							cellTemplate: 'components/section/templates/dropdown.html',
+							enableCellEditOnFocus: false, 	
 					        editDropdownOptionsArray: $scope.yes_no,
-					        editDropdownIdLabel: 'option',
-					        editDropdownValueLabel: 'option',
 					       	headerCellTemplate: longHdrCellTxtTpl
 					},
 					{	
@@ -198,12 +182,9 @@
 					{	
 							field: 'remediatestatus',
 							displayName: 'Remediation Status',
-							editType: 'dropdown',
-							enableCellEditOnFocus:true,
-							editableCellTemplate: 'ui-grid/dropdownEditor',
-					        editDropdownOptionsArray: $scope.remediationsteps,
-					        editDropdownIdLabel: 'option',
-					        editDropdownValueLabel: 'option'
+							cellTemplate: 'components/section/templates/dropdown.html',
+							enableCellEditOnFocus: false, 								
+					        editDropdownOptionsArray: $scope.remediationsteps
 					}
 				],
 	      		onRegisterApi: function(gridApi) {
@@ -229,56 +210,42 @@
 					{
 							field:'risklevel',
 							displayName: new DisplayObject('Risk Severity', 'Assign a risk severity classification to the data transmitted (low, medium or high).'),
-							editType: 'dropdown',
-							enableCellEditOnFocus:true,
-							editableCellTemplate: 'ui-grid/dropdownEditor',
+							cellTemplate: 'components/section/templates/dropdown.html',						
+							enableCellEditOnFocus: false, 
 					        editDropdownOptionsArray: $scope.levels,
-					        editDropdownIdLabel: 'option',
-					        editDropdownValueLabel: 'option',
 					        headerCellTemplate: longHdrCellTxtTpl
 					},
 					{	
-							field: '3rdpartyaccessneed',
+							field: 'partyaccessneed',
 							displayName: new DisplayObject('Does third party require data?', 'assess whether the third party requires the information it can access for a business purpose.'),
-							enableCellEditOnFocus:true,
-							editableCellTemplate: 'ui-grid/dropdownEditor',
+							cellTemplate: 'components/section/templates/dropdown.html',						
+							enableCellEditOnFocus: false, 
 					        editDropdownOptionsArray: $scope.yes_no,
-					        editDropdownIdLabel: 'option',
-					        editDropdownValueLabel: 'option',
-					         headerCellTemplate: longHdrCellTxtTpl
+					        headerCellTemplate: longHdrCellTxtTpl
 					},
 					{	
 							field: 'assess3rdparty',
 							displayName: new DisplayObject('Third Party Security', 'assess the security of the third party’s systems'),
-							editType: 'dropdown',
-							enableCellEditOnFocus:true,
-							editableCellTemplate: 'ui-grid/dropdownEditor',
+							cellTemplate: 'components/section/templates/dropdown.html',						
+							enableCellEditOnFocus: false, 
 					        editDropdownOptionsArray: $scope.yes_no,
-					        editDropdownIdLabel: 'option',
-					        editDropdownValueLabel: 'option',
-					         headerCellTemplate: longHdrCellTxtTpl
+					        headerCellTemplate: longHdrCellTxtTpl
 					},
 					{	
 							field: 'ctrlstoisolate',
 							displayName: new DisplayObject('Isolate critical assets', 'assess if the third party access to information is limited to information it requires for business reasons'),
-							editType: 'dropdown',
-							enableCellEditOnFocus:true,
-							editableCellTemplate: 'ui-grid/dropdownEditor',
+							cellTemplate: 'components/section/templates/dropdown.html',						
+							enableCellEditOnFocus: false,
 					        editDropdownOptionsArray: $scope.yes_no,
-					        editDropdownIdLabel: 'option',
-					        editDropdownValueLabel: 'option',
-					         headerCellTemplate: longHdrCellTxtTpl
+					        headerCellTemplate: longHdrCellTxtTpl
 					},
 					{	
-							field: 'needtoremediate',
+							field: 'needsremediate',
 							displayName: new DisplayObject('Remediate', 'consider the risk severity level and your resources and make a risk assessment of whether any remediation is necessary'),
-							editType: 'dropdown',
-							enableCellEditOnFocus:true,
-							editableCellTemplate: 'ui-grid/dropdownEditor',
+							cellTemplate: 'components/section/templates/dropdown.html',						
+							enableCellEditOnFocus: false,
 					        editDropdownOptionsArray: $scope.yes_no,
-					        editDropdownIdLabel: 'option',
-					        editDropdownValueLabel: 'option',
-					         headerCellTemplate: longHdrCellTxtTpl
+					        headerCellTemplate: longHdrCellTxtTpl
 					},
 					{	
 							field: 'remediatesteps',
@@ -287,12 +254,9 @@
 					{	
 							field: 'remediatestatus',
 							displayName: 'Remediation Status',
-							editType: 'dropdown',
-							enableCellEditOnFocus:true,
-							editableCellTemplate: 'ui-grid/dropdownEditor',
-					        editDropdownOptionsArray: $scope.remediationsteps,
-					        editDropdownIdLabel: 'option',
-					        editDropdownValueLabel: 'option'
+							cellTemplate: 'components/section/templates/dropdown.html',						
+							enableCellEditOnFocus: false,
+					        editDropdownOptionsArray: $scope.remediationsteps
 					}
 				],
 		      	onRegisterApi: function(gridApi) {
@@ -316,22 +280,16 @@
 					{
 							field: 'yes_no',
 							displayName:'Yes/No',
-							editType: 'dropdown',
-							enableCellEditOnFocus:true,
-							editableCellTemplate: 'ui-grid/dropdownEditor',
-					        editDropdownOptionsArray: $scope.yes_no,
-					        editDropdownIdLabel: 'option',
-					        editDropdownValueLabel: 'option'
+							cellTemplate: 'components/section/templates/dropdown.html',						
+							enableCellEditOnFocus: false,
+					        editDropdownOptionsArray: $scope.yes_no
 					},
 					{	
 							field: 'needtoremediate',
 							displayName: 'Do you need to Remediate?',
-							editType: 'dropdown',
-							enableCellEditOnFocus:true,
-							editableCellTemplate: 'ui-grid/dropdownEditor',
-					        editDropdownOptionsArray: $scope.yes_no,
-					        editDropdownIdLabel: 'option',
-					        editDropdownValueLabel: 'option'
+							cellTemplate: 'components/section/templates/dropdown.html',						
+							enableCellEditOnFocus: false,
+					        editDropdownOptionsArray: $scope.yes_no
 					},
 					{	
 							field: 'remediatesteps',
@@ -340,12 +298,9 @@
 					{	
 							field: 'remediatestatus',
 							displayName: 'Remediation Status',
-							editType: 'dropdown',
-							enableCellEditOnFocus:true,
-							editableCellTemplate: 'ui-grid/dropdownEditor',
-					        editDropdownOptionsArray: $scope.remediationsteps,
-					        editDropdownIdLabel: 'option',
-					        editDropdownValueLabel: 'option'
+							cellTemplate: 'components/section/templates/dropdown.html',						
+							enableCellEditOnFocus: false,
+					        editDropdownOptionsArray: $scope.remediationsteps
 					}
 				],
 		      	onRegisterApi: function(gridApi) {
@@ -368,22 +323,16 @@
 					{
 							field: 'yes_no',
 							displayName:'Yes/No',
-							editType: 'dropdown',
-							enableCellEditOnFocus:true,
-							editableCellTemplate: 'ui-grid/dropdownEditor',
-					        editDropdownOptionsArray: $scope.yes_no,
-					        editDropdownIdLabel: 'option',
-					        editDropdownValueLabel: 'option'
+							cellTemplate: 'components/section/templates/dropdown.html',						
+							enableCellEditOnFocus: false,
+					        editDropdownOptionsArray: $scope.yes_no
 					},
 					{	
 							field: 'needtoremediate',
 							displayName: 'Do you need to Remediate?',
-							editType: 'dropdown',
-							enableCellEditOnFocus:true,
-							editableCellTemplate: 'ui-grid/dropdownEditor',
-					        editDropdownOptionsArray: $scope.yes_no,
-					        editDropdownIdLabel: 'option',
-					        editDropdownValueLabel: 'option'
+							cellTemplate: 'components/section/templates/dropdown.html',						
+							enableCellEditOnFocus: false,							
+					        editDropdownOptionsArray: $scope.yes_no
 					},
 					{	
 							field: 'remediatesteps',
@@ -392,12 +341,9 @@
 					{	
 							field: 'remediatestatus',
 							displayName: 'Remediation Status',
-							editType: 'dropdown',
-							enableCellEditOnFocus:true,
-							editableCellTemplate: 'ui-grid/dropdownEditor',
-					        editDropdownOptionsArray: $scope.remediationsteps,
-					        editDropdownIdLabel: 'option',
-					        editDropdownValueLabel: 'option'
+							cellTemplate: 'components/section/templates/dropdown.html',						
+							enableCellEditOnFocus: false,							
+					        editDropdownOptionsArray: $scope.remediationsteps
 					}
 				],
 		      	onRegisterApi: function(gridApi) {
@@ -428,22 +374,16 @@
 					{	
 							field: 'passwordprotection',
 							displayName: 'Password Protection',
-							editType: 'dropdown',
-							enableCellEditOnFocus:true,
-							editableCellTemplate: 'ui-grid/dropdownEditor',
-					        editDropdownOptionsArray: $scope.yes_no,
-					        editDropdownIdLabel: 'option',
-					        editDropdownValueLabel: 'option'
+							cellTemplate: 'components/section/templates/dropdown.html',						
+							enableCellEditOnFocus: false,	
+					        editDropdownOptionsArray: $scope.yes_no
 					},
 					{	
 							field: 'malwareprotection',
 							displayName: 'Malware/Anti-virus Protection',
-							editType: 'dropdown',
-							enableCellEditOnFocus:true,
-							editableCellTemplate: 'ui-grid/dropdownEditor',
-					        editDropdownOptionsArray: $scope.yes_no,
-					        editDropdownIdLabel: 'option',
-					        editDropdownValueLabel: 'option'
+							cellTemplate: 'components/section/templates/dropdown.html',						
+							enableCellEditOnFocus: false,	
+					        editDropdownOptionsArray: $scope.yes_no
 					},
 					{	
 							field: 'otherprotection',
@@ -452,12 +392,9 @@
 					{	
 							field: 'needtoremediate',
 							displayName: new DisplayObject('Remediate', 'conduct a risk assessment of the strength of the protections considered with the assigned risk severity level '),
-							editType: 'dropdown',
-							enableCellEditOnFocus:true,
-							editableCellTemplate: 'ui-grid/dropdownEditor',
+							cellTemplate: 'components/section/templates/dropdown.html',						
+							enableCellEditOnFocus: false,	
 					        editDropdownOptionsArray: $scope.yes_no,
-					        editDropdownIdLabel: 'option',
-					        editDropdownValueLabel: 'option',
 					        headerCellTemplate: longHdrCellTxtTpl
 					},
 					{	
@@ -467,12 +404,9 @@
 					{	
 							field: 'remediatestatus',
 							displayName: 'Remediation Status',
-							editType: 'dropdown',
-							enableCellEditOnFocus:true,
-							editableCellTemplate: 'ui-grid/dropdownEditor',
-					        editDropdownOptionsArray: $scope.remediationsteps,
-					        editDropdownIdLabel: 'option',
-					        editDropdownValueLabel: 'option'
+							cellTemplate: 'components/section/templates/dropdown.html',						
+							enableCellEditOnFocus: false,	
+					        editDropdownOptionsArray: $scope.remediationsteps
 					}
 				],
 		      	onRegisterApi: function(gridApi) {
@@ -494,22 +428,16 @@
 					{
 							field: 'yes_no',
 							displayName:'Yes/No',
-							editType: 'dropdown',
-							enableCellEditOnFocus:true,
-							editableCellTemplate: 'ui-grid/dropdownEditor',
-					        editDropdownOptionsArray: $scope.yes_no,
-					        editDropdownIdLabel: 'option',
-					        editDropdownValueLabel: 'option'
+							cellTemplate: 'components/section/templates/dropdown.html',						
+							enableCellEditOnFocus: false,	
+					        editDropdownOptionsArray: $scope.yes_no
 					},
 					{	
 							field: 'needtoremediate',
 							displayName: new DisplayObject('Remediate', 'conduct a risk assessment of the strength of the protections considered with the assigned risk severity level '),
-							editType: 'dropdown',
-							enableCellEditOnFocus:true,
-							editableCellTemplate: 'ui-grid/dropdownEditor',
+							cellTemplate: 'components/section/templates/dropdown.html',						
+							enableCellEditOnFocus: false,	
 					        editDropdownOptionsArray: $scope.yes_no,
-					        editDropdownIdLabel: 'option',
-					        editDropdownValueLabel: 'option',
 					        headerCellTemplate: longHdrCellTxtTpl
 					},
 					{	
@@ -519,12 +447,9 @@
 					{	
 							field: 'remediatestatus',
 							displayName: 'Remediation Status',
-							editType: 'dropdown',
-							enableCellEditOnFocus:true,
-							editableCellTemplate: 'ui-grid/dropdownEditor',
-					        editDropdownOptionsArray: $scope.remediationsteps,
-					        editDropdownIdLabel: 'option',
-					        editDropdownValueLabel: 'option'
+							cellTemplate: 'components/section/templates/dropdown.html',						
+							enableCellEditOnFocus: false,	
+					        editDropdownOptionsArray: $scope.remediationsteps
 					}
 				],
 		      	onRegisterApi: function(gridApi) {
@@ -547,51 +472,37 @@
 					{	
 							field: 'risklevel',
 							displayName: 'Risk to Firm if system is inoperable',	
-							editType: 'dropdown',
-							enableCellEditOnFocus:true,
-							editableCellTemplate: 'ui-grid/dropdownEditor',
-					        editDropdownOptionsArray: $scope.levels,
-					        editDropdownIdLabel: 'option',
-					        editDropdownValueLabel: 'option'
+							cellTemplate: 'components/section/templates/dropdown.html',						
+							enableCellEditOnFocus: false,	
+					        editDropdownOptionsArray: $scope.levels
 					},
 					{	
 							field: 'passwordprotection',
 							displayName: 'Password Protection',
-							editType: 'dropdown',
-							enableCellEditOnFocus:true,
-							editableCellTemplate: 'ui-grid/dropdownEditor',
-					        editDropdownOptionsArray: $scope.yes_no,
-					        editDropdownIdLabel: 'option',
-					        editDropdownValueLabel: 'option'
+							cellTemplate: 'components/section/templates/dropdown.html',						
+							enableCellEditOnFocus: false,	
+					        editDropdownOptionsArray: $scope.yes_no
 					},
 					{	
 							field: 'malwareprotection',
 							displayName: 'Malware/Anti-virus/Firewalls',
-							editType: 'dropdown',
-							enableCellEditOnFocus:true,
-							editableCellTemplate: 'ui-grid/dropdownEditor',
-					        editDropdownOptionsArray: $scope.yes_no,
-					        editDropdownIdLabel: 'option',
-					        editDropdownValueLabel: 'option'
+							cellTemplate: 'components/section/templates/dropdown.html',						
+							enableCellEditOnFocus: false,	
+					        editDropdownOptionsArray: $scope.yes_no
 					},
 					{	
 							field: 'scheduledbackups',
 							displayName: 'Regularly Scheduled Backups',
-							editType: 'dropdown',
-							enableCellEditOnFocus:true,
-							editableCellTemplate: 'ui-grid/dropdownEditor',
-					        editDropdownOptionsArray: $scope.yes_no,
-					        editDropdownIdLabel: 'option',
-					        editDropdownValueLabel: 'option'
+							cellTemplate: 'components/section/templates/dropdown.html',						
+							enableCellEditOnFocus: false,	
+					        editDropdownOptionsArray: $scope.yes_no
 					},
 					{	
 							field: 'needtoremediate',
 							displayName: new DisplayObject('Remediate', 'conduct a risk assessment of the strength of the protections considered with the assigned risk of the system being inaccessible'),
-							enableCellEditOnFocus:true,
-							editableCellTemplate: 'ui-grid/dropdownEditor',
+							cellTemplate: 'components/section/templates/dropdown.html',						
+							enableCellEditOnFocus: false,	
 					        editDropdownOptionsArray: $scope.yes_no,
-					        editDropdownIdLabel: 'option',
-					        editDropdownValueLabel: 'option',
 					        headerCellTemplate:longHdrCellTxtTpl
 					},
 					{	
@@ -601,12 +512,9 @@
 					{	
 							field: 'remediatestatus',
 							displayName: 'Remediation Status',
-							editType: 'dropdown',
-							enableCellEditOnFocus:true,
-							editableCellTemplate: 'ui-grid/dropdownEditor',
-					        editDropdownOptionsArray: $scope.remediationsteps,
-					        editDropdownIdLabel: 'option',
-					        editDropdownValueLabel: 'option'
+							cellTemplate: 'components/section/templates/dropdown.html',						
+							enableCellEditOnFocus: false,	
+					        editDropdownOptionsArray: $scope.remediationsteps
 					}
 				],
 		      	onRegisterApi: function(gridApi) {
@@ -637,56 +545,41 @@
 						field: 'dataencrypedtoext',
 						displayName: new DisplayObject('Encrypted in transit', 'Is it Encrypted  in Transit to External Sources (e.g., email  to non-firm addresses)'),
 						headerCellTemplate:longHdrCellTxtTpl,
-						editType: 'dropdown',
-						enableCellEditOnFocus:true,
-						editableCellTemplate: 'ui-grid/dropdownEditor',
-				        editDropdownOptionsArray: $scope.yes_no,
-				        editDropdownIdLabel: 'option',
-				        editDropdownValueLabel: 'option'
+						cellTemplate: 'components/section/templates/dropdown.html',						
+						enableCellEditOnFocus: false,	
+				        editDropdownOptionsArray: $scope.yes_no
 					},
 			      	{
 						field: 'dataencrypedtoint',
 						displayName: new DisplayObject('Encrypted internally', 'Is it Encrypted when Shared Internally and at Rest within the System?'),
 						headerCellTemplate:longHdrCellTxtTpl,
-						editType: 'dropdown',
-						enableCellEditOnFocus:true,
-						editableCellTemplate: 'ui-grid/dropdownEditor',
-				        editDropdownOptionsArray: $scope.yes_no,
-				        editDropdownIdLabel: 'option',
-				        editDropdownValueLabel: 'option'
+						cellTemplate: 'components/section/templates/dropdown.html',						
+						enableCellEditOnFocus: false,	
+				        editDropdownOptionsArray: $scope.yes_no
 					},
 			        {
 						field: 'dataencrypedtobkup',
 						displayName:new DisplayObject('Encrypted at Backup', ' Is it Encrypted when Archived to Backup Media (e.g., tapes)'),
 						headerCellTemplate:longHdrCellTxtTpl,
-						editType: 'dropdown',
-						enableCellEditOnFocus:true,
-						editableCellTemplate: 'ui-grid/dropdownEditor',
-				        editDropdownOptionsArray: $scope.yes_no,
-				        editDropdownIdLabel: 'option',
-				        editDropdownValueLabel: 'option'
+						cellTemplate: 'components/section/templates/dropdown.html',						
+						enableCellEditOnFocus: false,	
+				        editDropdownOptionsArray: $scope.yes_no
 					},
 					{
 						field: 'datamasked',
 						displayName:new DisplayObject('Data masked when displayed?', 'Data such as social security numbers can be masked whenever displayed to a person accessing that data.'),
 						headerCellTemplate:longHdrCellTxtTpl,
-						editType: 'dropdown',
-						enableCellEditOnFocus:true,
-						editableCellTemplate: 'ui-grid/dropdownEditor',
-				        editDropdownOptionsArray: $scope.yes_no,
-				        editDropdownIdLabel: 'option',
-				        editDropdownValueLabel: 'option'
+						cellTemplate: 'components/section/templates/dropdown.html',						
+						enableCellEditOnFocus: false,	
+				        editDropdownOptionsArray: $scope.yes_no
 					},			      
 					{	
 						field: 'needtoremediate',
 						displayName:new DisplayObject('Remediate', 'Consider Risk severity of data and resources and decide whether to encrypt or mask data.'),
 						headerCellTemplate:longHdrCellTxtTpl,
-						editType: 'dropdown',
-						enableCellEditOnFocus:true,
-						editableCellTemplate: 'ui-grid/dropdownEditor',
-				        editDropdownOptionsArray: $scope.yes_no,
-				        editDropdownIdLabel: 'option',
-				        editDropdownValueLabel: 'option'
+						cellTemplate: 'components/section/templates/dropdown.html',						
+						enableCellEditOnFocus: false,	
+				        editDropdownOptionsArray: $scope.yes_no
 					},
 					{	
 						field: 'remediatesteps',
@@ -695,18 +588,13 @@
 					{	
 						field: 'remediatestatus',
 						displayName: 'Remediation Status',
-						editType: 'dropdown',
-						enableCellEditOnFocus:true,
-						editableCellTemplate: 'ui-grid/dropdownEditor',
-				        editDropdownOptionsArray: $scope.remediationsteps,
-				        editDropdownIdLabel: 'option',
-				        editDropdownValueLabel: 'option'
+						cellTemplate: 'components/section/templates/dropdown.html',						
+						enableCellEditOnFocus: false,	
+				        editDropdownOptionsArray: $scope.remediationsteps
 					}
 			    ]
 			}
 			
-
-
 			$scope.nameemployee = function(rowIndex){
 				return $scope.section7a.data[rowIndex].nameemployee;
 			}
@@ -739,12 +627,9 @@
 						field:'deviceowner',
 						displayName:new DisplayObject('Device Owner', 'Does the Firm or Individual own the device?'),
 						headerCellTemplate:longHdrCellTxtTpl,
-						editType: 'dropdown',
-						enableCellEditOnFocus:true,
-						editableCellTemplate: 'ui-grid/dropdownEditor',
-				        editDropdownOptionsArray: $scope.device_owner,
-				        editDropdownIdLabel: 'option',
-				        editDropdownValueLabel: 'option'
+						cellTemplate: 'components/section/templates/dropdown.html',						
+						enableCellEditOnFocus: false,	
+				        editDropdownOptionsArray: $scope.device_owner
 					}
 				]
 			}
@@ -775,43 +660,31 @@
 					{
 						field: 'accesstopii',
 						displayName: 'Access to PII and Firm Sensitive Data?',
-						editType: 'dropdown',
-						enableCellEditOnFocus:true,
-						editableCellTemplate: 'ui-grid/dropdownEditor',
-				        editDropdownOptionsArray: $scope.yes_no,
-				        editDropdownIdLabel: 'option',
-				        editDropdownValueLabel: 'option'
+						cellTemplate: 'components/section/templates/dropdown.html',						
+						enableCellEditOnFocus: false,	
+				        editDropdownOptionsArray: $scope.yes_no
 					},
 					{
 						field: 'risklevel',
 						displayName: 'Risk Severity Level',
-						editType: 'dropdown',
-						enableCellEditOnFocus:true,
-						editableCellTemplate: 'ui-grid/dropdownEditor',
-				        editDropdownOptionsArray: $scope.levels,
-				        editDropdownIdLabel: 'option',
-				        editDropdownValueLabel: 'option'
+						cellTemplate: 'components/section/templates/dropdown.html',						
+						enableCellEditOnFocus: false,	
+				        editDropdownOptionsArray: $scope.levels
 					},
 					{
 						field: 'protected',
 						displayName: 'Protected?',
-						editType: 'dropdown',
-						enableCellEditOnFocus:true,
-						editableCellTemplate: 'ui-grid/dropdownEditor',
-				        editDropdownOptionsArray: $scope.yes_no,
-				        editDropdownIdLabel: 'option',
-				        editDropdownValueLabel: 'option' 
+						cellTemplate: 'components/section/templates/dropdown.html',						
+						enableCellEditOnFocus: false,	
+				        editDropdownOptionsArray: $scope.yes_no
 					},
 					{	
 						field: 'needtoremediate',
 						displayName:new DisplayObject('Remediate', 'Consider the risk severity level of the PPI accessible to the devices, and make a risk assessment if you take remedial steps.'),
 						headerCellTemplate:longHdrCellTxtTpl,
-						editType: 'dropdown',
-						enableCellEditOnFocus:true,
-						editableCellTemplate: 'ui-grid/dropdownEditor',
-				        editDropdownOptionsArray: $scope.yes_no,
-				        editDropdownIdLabel: 'option',
-				        editDropdownValueLabel: 'option'
+						cellTemplate: 'components/section/templates/dropdown.html',						
+						enableCellEditOnFocus: false,	
+				        editDropdownOptionsArray: $scope.yes_no
 					},
 					{	
 						field: 'remediatesteps',
@@ -820,12 +693,9 @@
 					{	
 						field: 'remediatestatus',
 						displayName: 'Remediation Status',
-						editType: 'dropdown',
-						enableCellEditOnFocus:true,
-						editableCellTemplate: 'ui-grid/dropdownEditor',
-				        editDropdownOptionsArray: $scope.remediationsteps,
-				        editDropdownIdLabel: 'option',
-				        editDropdownValueLabel: 'option'
+						cellTemplate: 'components/section/templates/dropdown.html',						
+						enableCellEditOnFocus: false,	
+				        editDropdownOptionsArray: $scope.remediationsteps
 					}
 
 				]
@@ -845,22 +715,16 @@
 					{
 							field: 'yes_no',
 							displayName:'Yes/No',
-							editType: 'dropdown',
-							enableCellEditOnFocus:true,
-							editableCellTemplate: 'ui-grid/dropdownEditor',
-					        editDropdownOptionsArray: $scope.yes_no,
-					        editDropdownIdLabel: 'option',
-					        editDropdownValueLabel: 'option'
+							cellTemplate: 'components/section/templates/dropdown.html',						
+							enableCellEditOnFocus: false,	
+					        editDropdownOptionsArray: $scope.yes_no
 					},
 					{	
 							field: 'needtoremediate',
 							displayName: 'Do you need to Remediate?',
-							editType: 'dropdown',
-							enableCellEditOnFocus:true,
-							editableCellTemplate: 'ui-grid/dropdownEditor',
-					        editDropdownOptionsArray: $scope.yes_no,
-					        editDropdownIdLabel: 'option',
-					        editDropdownValueLabel: 'option'
+							cellTemplate: 'components/section/templates/dropdown.html',						
+							enableCellEditOnFocus: false,	
+					        editDropdownOptionsArray: $scope.yes_no
 					},
 					{	
 							field: 'remediatesteps',
@@ -869,12 +733,9 @@
 					{	
 							field: 'remediatestatus',
 							displayName: 'Remediation Status',
-							editType: 'dropdown',
-							enableCellEditOnFocus:true,
-							editableCellTemplate: 'ui-grid/dropdownEditor',
-					        editDropdownOptionsArray: $scope.remediationsteps,
-					        editDropdownIdLabel: 'option',
-					        editDropdownValueLabel: 'option'
+							cellTemplate: 'components/section/templates/dropdown.html',						
+							enableCellEditOnFocus: false,	
+					        editDropdownOptionsArray: $scope.remediationsteps
 					}
 				],
 		      	onRegisterApi: function(gridApi) {
@@ -896,12 +757,9 @@
 					{
 							field: 'yes_no',
 							displayName:'Yes/No',
-							editType: 'dropdown',
-							enableCellEditOnFocus:true,
-							editableCellTemplate: 'ui-grid/dropdownEditor',
-					        editDropdownOptionsArray: $scope.yes_no,
-					        editDropdownIdLabel: 'option',
-					        editDropdownValueLabel: 'option'
+							cellTemplate: 'components/section/templates/dropdown.html',						
+							enableCellEditOnFocus: false,	
+					        editDropdownOptionsArray: $scope.yes_no
 					}
 				],
 		      	onRegisterApi: function(gridApi) {
@@ -924,22 +782,16 @@
 				    {
 						field: 'risklevel',
 						displayName:'Risk Severity Level',
-						editType: 'dropdown',
-						enableCellEditOnFocus:true,
-						editableCellTemplate: 'ui-grid/dropdownEditor',
-				        editDropdownOptionsArray: $scope.levels,
-				        editDropdownIdLabel: 'option',
-				        editDropdownValueLabel: 'option'
+						cellTemplate: 'components/section/templates/dropdown.html',						
+						enableCellEditOnFocus: false,	
+				        editDropdownOptionsArray: $scope.levels
 					},
 					{
 						field: 'assettested',
 						displayName:'Asset Tested?',
-						editType: 'dropdown',
-						enableCellEditOnFocus:true,
-						editableCellTemplate: 'ui-grid/dropdownEditor',
-				        editDropdownOptionsArray: $scope.yes_no,
-				        editDropdownIdLabel: 'option',
-				        editDropdownValueLabel: 'option'
+						cellTemplate: 'components/section/templates/dropdown.html',						
+						enableCellEditOnFocus: false,	
+				        editDropdownOptionsArray: $scope.yes_no
 					},
 			      	{
 						field: 'problemsidentified',
@@ -948,12 +800,9 @@
 					{	
 						field: 'needtoremediate',
 						displayName: 'Do you need to Remediate?',
-						editType: 'dropdown',
-						enableCellEditOnFocus:true,
-						editableCellTemplate: 'ui-grid/dropdownEditor',
-				        editDropdownOptionsArray: $scope.yes_no,
-				        editDropdownIdLabel: 'option',
-				        editDropdownValueLabel: 'option'
+						cellTemplate: 'components/section/templates/dropdown.html',						
+						enableCellEditOnFocus: false,	
+				        editDropdownOptionsArray: $scope.yes_no
 					},
 					{	
 						field: 'remediatesteps',
@@ -962,12 +811,9 @@
 					{	
 						field: 'remediatestatus',
 						displayName: 'Remediation Status',
-						editType: 'dropdown',
-						enableCellEditOnFocus:true,
-						editableCellTemplate: 'ui-grid/dropdownEditor',
-				        editDropdownOptionsArray: $scope.remediationsteps,
-				        editDropdownIdLabel: 'option',
-				        editDropdownValueLabel: 'option'
+						cellTemplate: 'components/section/templates/dropdown.html',						
+						enableCellEditOnFocus: false,	
+				        editDropdownOptionsArray: $scope.remediationsteps
 					}
 			    ]
 			}
@@ -981,37 +827,29 @@
 				columnDefs:[
 					{
 						field: 'detectsystem',
-						displayName:'Detect System'
+						displayName:'Detect System',
+						enableCellEdit: false
 					},
 				    {
 						field: 'yes_no',
 						displayName:'Yes/No',
-						editType: 'dropdown',
-						enableCellEditOnFocus:true,
-						editableCellTemplate: 'ui-grid/dropdownEditor',
-				        editDropdownOptionsArray: $scope.yes_no,
-				        editDropdownIdLabel: 'option',
-				        editDropdownValueLabel: 'option'
+						cellTemplate: 'components/section/templates/dropdown.html',						
+						enableCellEditOnFocus: false,	
+				        editDropdownOptionsArray: $scope.yes_no
 					},
 					{
 						field: 'risklevel',
 						displayName:'Risk Severity Level',
-						editType: 'dropdown',
-						enableCellEditOnFocus:true,
-						editableCellTemplate: 'ui-grid/dropdownEditor',
-				        editDropdownOptionsArray: $scope.levels,
-				        editDropdownIdLabel: 'option',
-				        editDropdownValueLabel: 'option'
+						cellTemplate: 'components/section/templates/dropdown.html',						
+						enableCellEditOnFocus: false,	
+				        editDropdownOptionsArray: $scope.levels
 					},
 					{	
 						field: 'needtoremediate',
 						displayName: 'Do you need to Remediate?',
-						editType: 'dropdown',
-						enableCellEditOnFocus:true,
-						editableCellTemplate: 'ui-grid/dropdownEditor',
-				        editDropdownOptionsArray: $scope.yes_no,
-				        editDropdownIdLabel: 'option',
-				        editDropdownValueLabel: 'option'
+						cellTemplate: 'components/section/templates/dropdown.html',						
+						enableCellEditOnFocus: false,	
+				        editDropdownOptionsArray: $scope.yes_no
 					},
 					{	
 						field: 'remediatesteps',
@@ -1020,18 +858,15 @@
 					{	
 						field: 'remediatestatus',
 						displayName: 'Remediation Status',
-						editType: 'dropdown',
-						enableCellEditOnFocus:true,
-						editableCellTemplate: 'ui-grid/dropdownEditor',
-				        editDropdownOptionsArray: $scope.remediationsteps,
-				        editDropdownIdLabel: 'option',
-				        editDropdownValueLabel: 'option'
+						cellTemplate: 'components/section/templates/dropdown.html',						
+						enableCellEditOnFocus: false,	
+				        editDropdownOptionsArray: $scope.remediationsteps
 					}
 			    ]
 			}
 
 			$scope.section9b = {
-				enableCellEditOnFocus: true, 
+				enableCellEditOnFocus: false, 
 				enableSorting: false,
 				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
         		enableVerticalScrollbar   : uiGridConstants.scrollbars.NEVER,
@@ -1039,47 +874,39 @@
 				columnDefs:[
 					{
 						field: 'idscontrols',
-						displayName:'IDS Controls'
+						displayName:'IDS Controls',
+						enableCellEdit: false
 					},
 				    {
 						field: 'yes_no',
 						displayName:'Yes/No',
-						editType: 'dropdown',
-						enableCellEditOnFocus:true,
-						editableCellTemplate: 'ui-grid/dropdownEditor',
-				        editDropdownOptionsArray: $scope.yes_no,
-				        editDropdownIdLabel: 'option',
-				        editDropdownValueLabel: 'option'
+						cellTemplate: 'components/section/templates/dropdown.html',						
+						enableCellEditOnFocus: false,	
+				        editDropdownOptionsArray: $scope.yes_no
 					},
 					{	
 						field: 'needtoremediate',
 						displayName: 'Do you need to Remediate?',
-						editType: 'dropdown',
-						enableCellEditOnFocus:true,
-						editableCellTemplate: 'ui-grid/dropdownEditor',
-				        editDropdownOptionsArray: $scope.yes_no,
-				        editDropdownIdLabel: 'option',
-				        editDropdownValueLabel: 'option'
+						cellTemplate: 'components/section/templates/dropdown.html',						
+						enableCellEditOnFocus: false,	
+				        editDropdownOptionsArray: $scope.yes_no
 					},
 					{	
 						field: 'remediatesteps',
-						displayName: 'Remediation Steps'
+						displayName: 'Remediation Steps',
+						enableCellEditOnFocus: true
 					},
 					{	
 						field: 'remediatestatus',
 						displayName: 'Remediation Status',
-						editType: 'dropdown',
-						enableCellEditOnFocus:true,
-						editableCellTemplate: 'ui-grid/dropdownEditor',
-				        editDropdownOptionsArray: $scope.remediationsteps,
-				        editDropdownIdLabel: 'option',
-				        editDropdownValueLabel: 'option'
+						cellTemplate: 'components/section/templates/dropdown.html',						
+						enableCellEditOnFocus: false,	
+				        editDropdownOptionsArray: $scope.remediationsteps
 					}
 			    ]
 			}
 
 			$scope.section10a = {
-				enableCellEditOnFocus: true, 
 				enableSorting: false,
 				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
         		enableVerticalScrollbar   : uiGridConstants.scrollbars.NEVER,
@@ -1087,37 +914,29 @@
 				columnDefs:[
 					{
 						field: 'incident',
-						displayName:'Incident'
+						displayName:'Incident',
+						enableCellEdit:false
 					},					
 					{
 						field: 'risklevel',
 						displayName:'Risk Severity Level',
-						editType: 'dropdown',
-						enableCellEditOnFocus:true,
-						editableCellTemplate: 'ui-grid/dropdownEditor',
-				        editDropdownOptionsArray: $scope.levels,
-				        editDropdownIdLabel: 'option',
-				        editDropdownValueLabel: 'option'
+						cellTemplate: 'components/section/templates/dropdown.html',						
+						enableCellEditOnFocus: false,	
+				        editDropdownOptionsArray: $scope.levels
 					},
 				    {
 						field: 'responseplan',
 						displayName:'Response Plan in Place',
-						editType: 'dropdown',
-						enableCellEditOnFocus:true,
-						editableCellTemplate: 'ui-grid/dropdownEditor',
-				        editDropdownOptionsArray: $scope.yes_no,
-				        editDropdownIdLabel: 'option',
-				        editDropdownValueLabel: 'option'
+						cellTemplate: 'components/section/templates/dropdown.html',						
+						enableCellEditOnFocus: false,	
+				        editDropdownOptionsArray: $scope.yes_no
 					},
 					{	
 						field: 'needtoremediate',
 						displayName: 'Do you need to Remediate?',
-						editType: 'dropdown',
-						enableCellEditOnFocus:true,
-						editableCellTemplate: 'ui-grid/dropdownEditor',
-				        editDropdownOptionsArray: $scope.yes_no,
-				        editDropdownIdLabel: 'option',
-				        editDropdownValueLabel: 'option'
+						cellTemplate: 'components/section/templates/dropdown.html',						
+						enableCellEditOnFocus: false,	
+				        editDropdownOptionsArray: $scope.yes_no
 					},
 					{	
 						field: 'remediatesteps',
@@ -1126,12 +945,9 @@
 					{	
 						field: 'remediatestatus',
 						displayName: 'Remediation Status',
-						editType: 'dropdown',
-						enableCellEditOnFocus:true,
-						editableCellTemplate: 'ui-grid/dropdownEditor',
-				        editDropdownOptionsArray: $scope.remediationsteps,
-				        editDropdownIdLabel: 'option',
-				        editDropdownValueLabel: 'option'
+						cellTemplate: 'components/section/templates/dropdown.html',						
+						enableCellEditOnFocus: false,	
+				        editDropdownOptionsArray: $scope.remediationsteps
 					}
 			    ]
 			}
@@ -1145,57 +961,43 @@
 				columnDefs:[
 					{
 						field: 'incident',
-						displayName:'Incident'
+						displayName:'Incident',
+						enableCellEdit:false
 					},					
 					{
 						field: 'customers',
 						displayName:'Customers',
-						editType: 'dropdown',
-						enableCellEditOnFocus:true,
-						editableCellTemplate: 'ui-grid/dropdownEditor',
-				        editDropdownOptionsArray: $scope.yes_no,
-				        editDropdownIdLabel: 'option',
-				        editDropdownValueLabel: 'option'
+						cellTemplate: 'components/section/templates/dropdown.html',						
+						enableCellEditOnFocus: false,	
+				        editDropdownOptionsArray: $scope.yes_no
 					},
 				    {
 						field: 'regulators',
 						displayName:'Regulators',
-						editType: 'dropdown',
-						enableCellEditOnFocus:true,
-						editableCellTemplate: 'ui-grid/dropdownEditor',
-				        editDropdownOptionsArray: $scope.yes_no,
-				        editDropdownIdLabel: 'option',
-				        editDropdownValueLabel: 'option'
+						cellTemplate: 'components/section/templates/dropdown.html',						
+						enableCellEditOnFocus: false,	
+				        editDropdownOptionsArray: $scope.yes_no
 					},
 					{	
 						field: 'lawenforcement',
 						displayName: 'Law Enforcement',
-						editType: 'dropdown',
-						enableCellEditOnFocus:true,
-						editableCellTemplate: 'ui-grid/dropdownEditor',
-				        editDropdownOptionsArray: $scope.yes_no,
-				        editDropdownIdLabel: 'option',
-				        editDropdownValueLabel: 'option'
+						cellTemplate: 'components/section/templates/dropdown.html',						
+						enableCellEditOnFocus: false,	
+				        editDropdownOptionsArray: $scope.yes_no
 					},
 					{	
 						field: 'industry',
 						displayName: 'Industry',
-						editType: 'dropdown',
-						enableCellEditOnFocus:true,
-						editableCellTemplate: 'ui-grid/dropdownEditor',
-				        editDropdownOptionsArray: $scope.yes_no,
-				        editDropdownIdLabel: 'option',
-				        editDropdownValueLabel: 'option'
+						cellTemplate: 'components/section/templates/dropdown.html',						
+						enableCellEditOnFocus: false,	
+				        editDropdownOptionsArray: $scope.yes_no
 					},
 					{	
 						field: 'thirdpartyinfoorg',
 						displayName: 'Third Party Information Sharing Organizations',
-						editType: 'dropdown',
-						enableCellEditOnFocus:true,
-						editableCellTemplate: 'ui-grid/dropdownEditor',
-				        editDropdownOptionsArray: $scope.yes_no,
-				        editDropdownIdLabel: 'option',
-				        editDropdownValueLabel: 'option'
+						cellTemplate: 'components/section/templates/dropdown.html',						
+						enableCellEditOnFocus: false,	
+				        editDropdownOptionsArray: $scope.yes_no
 					}
 			    ]
 			}
@@ -1214,12 +1016,9 @@
 					{
 							field: 'yes_no',
 							displayName:'Yes/No',
-							editType: 'dropdown',
-							enableCellEditOnFocus:true,
-							editableCellTemplate: 'ui-grid/dropdownEditor',
-					        editDropdownOptionsArray: $scope.yes_no,
-					        editDropdownIdLabel: 'option',
-					        editDropdownValueLabel: 'option'
+							cellTemplate: 'components/section/templates/dropdown.html',						
+							enableCellEditOnFocus: false,	
+					        editDropdownOptionsArray: $scope.yes_no
 					}
 				],
 		      	onRegisterApi: function(gridApi) {
@@ -1240,41 +1039,27 @@
 						displayName:'Controls',
 						enableCellEdit:false,
 						width:350
-					},					
-					{
-						field: 'asset',
-						displayName:'Asset',
-						enableCellEdit:false
 					},
 				    {
 						field: 'yes_no',
 						displayName:'Yes/No',
-						editType: 'dropdown',
-						enableCellEditOnFocus:true,
-						editableCellTemplate: 'ui-grid/dropdownEditor',
-				        editDropdownOptionsArray: $scope.yes_no,
-				        editDropdownIdLabel: 'option',
-				        editDropdownValueLabel: 'option'
+						cellTemplate: 'components/section/templates/dropdown.html',						
+						enableCellEditOnFocus: false,	
+				        editDropdownOptionsArray: $scope.yes_no
 					},
 					{	
 						field: 'risklevel',
 						displayName: 'Risk Severity Level',
-						editType: 'dropdown',
-						enableCellEditOnFocus:true,
-						editableCellTemplate: 'ui-grid/dropdownEditor',
-				        editDropdownOptionsArray: $scope.levels,
-				        editDropdownIdLabel: 'option',
-				        editDropdownValueLabel: 'option'
+						cellTemplate: 'components/section/templates/dropdown.html',						
+						enableCellEditOnFocus: false,	
+				        editDropdownOptionsArray: $scope.levels
 					},
 					{	
 						field: 'needtoremediate',
 						displayName: 'Do you need to Remediate?',
-						editType: 'dropdown',
-						enableCellEditOnFocus:true,
-						editableCellTemplate: 'ui-grid/dropdownEditor',
-				        editDropdownOptionsArray: $scope.yes_no,
-				        editDropdownIdLabel: 'option',
-				        editDropdownValueLabel: 'option'
+						cellTemplate: 'components/section/templates/dropdown.html',						
+						enableCellEditOnFocus: false,	
+				        editDropdownOptionsArray: $scope.yes_no
 					},
 					{	
 						field: 'remediatesteps',
@@ -1283,16 +1068,11 @@
 					{	
 						field: 'remediatestatus',
 						displayName: 'Remediation Status',
-						editType: 'dropdown',
-						enableCellEditOnFocus:true,
-						editableCellTemplate: 'ui-grid/dropdownEditor',
-				        editDropdownOptionsArray: $scope.remediationsteps,
-				        editDropdownIdLabel: 'option',
-				        editDropdownValueLabel: 'option'
+						cellTemplate: 'components/section/templates/dropdown.html',						
+						enableCellEditOnFocus: false,	
+				        editDropdownOptionsArray: $scope.remediationsteps
 					}
 			    ]
-			}
-		    
-	      	
+			}     	
 		}
 })()

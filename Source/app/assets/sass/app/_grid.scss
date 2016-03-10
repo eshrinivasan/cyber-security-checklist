@@ -16,6 +16,12 @@
 	 	white-space: normal !important;
 	 }	
 
+	.ui-grid-cell,
+	.ui-grid-cell-contents,
+	.ui-grid-viewport {
+		overflow:visible !important;
+	}
+
 	.ui-grid-column-menu-button{
 		display:none;
 	}
@@ -28,7 +34,14 @@
 
 		input, select{
 			border:1px solid;
+		}
+
+		input{
 			height:40px;
+		}
+
+		.selectize-input input{
+			height:auto;
 		}
 	}
 

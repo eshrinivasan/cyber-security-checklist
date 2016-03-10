@@ -1,7 +1,8 @@
 (function() {
 
 angular.module("cyberapp.print")
-.controller("PrintController", PrintController);
+.controller("PrintController", PrintController)
+.directive('uiSelectWrap', uiSelectWrap);
 
 	PrintController.$inject = ['$scope', '$state', '$rootScope', '$sessionStorage', '$localStorage', 'dataservice', 'datafactory'];
 
@@ -77,3 +78,16 @@ angular.module("cyberapp.print")
 	}
 })()
 
+uiSelectWrap.$inject = ['$document', 'uiGridEditConstants'];
+function uiSelectWrap($document, uiGridEditConstants) {
+  return function link($scope, $elm, $attr) {
+  //  $document.on('click', docClick);
+    
+   /* function docClick(evt) {
+      if ($(evt.target).closest('.ui-select-container').size() === 0) {
+        $scope.$emit(uiGridEditConstants.events.END_CELL_EDIT);
+        $document.off('click', docClick);
+      }
+    }*/
+  };
+}
