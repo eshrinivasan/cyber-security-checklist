@@ -2,7 +2,7 @@
     border:1px solid #000;
     
     .spacewrapper{
-        padding:10px 5px;
+        padding:10px 20px;
         margin:10px 5px;
     } 
 
@@ -13,6 +13,11 @@
     .highlighted-area{
         padding:0;
     }
+}
+
+.printview{  
+    page-break-before: always;
+    page-break-inside: avoid;
 }
 
 .optionsPage{
@@ -30,10 +35,7 @@
         margin-top:0;
     }
 
-    .printview{
-        page-break-before: always;
-        display:block;
-    }
+ 
 
     h2, h4{
         page-break-before: always;
