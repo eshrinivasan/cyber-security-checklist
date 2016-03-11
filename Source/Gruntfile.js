@@ -81,13 +81,12 @@ module.exports = function (grunt) {
                     /* This section is used to add js files from the app/bower_components folder to a single concatenated file. */
                     {
                         src: ['<%= global.app %><%= global.bower %>/angular/angular.min.js',
-                               '<%= global.app %><%= global.bower %>/angular-ui-router/release/angular-ui-router.min.js',                                                        
-                               '<%= global.app %><%= global.bower %>/angulartics/dist/angulartics.min.js',
-                               '<%= global.app %><%= global.bower %>/angulartics-google-analytics/dist/angulartics-google-analytics.min.js',
-                               '<%= global.app %><%= global.bower %>/ngstorage/ngStorage.min.js',                                                      
-                               '<%= global.app %><%= global.bower %>/angular-ui-grid/ui-grid.min.js',
-                               '<%= global.app %><%= global.libs %>/ngprint/ngPrint.min.js'
-                        ],
+                               '<%= global.app %><%= global.bower %>/angular-ui-router/release/angular-ui-router.min.js',
+                               '<%= global.app %><%= global.bower %>/angular-ui-grid/ui-grid.min.js',                    
+                               '<%= global.app %><%= global.bower %>/ngstorage/ngStorage.min.js',
+                               '<%= global.app %><%= global.libs %>/ngprint/ngPrint.min.js',
+                               'https://cdn.rawgit.com/angular-ui/ui-select/v0.11.2/dist/select.js'
+                        ],     
                         dest: '<%= global.app %><%= global.js %>/min/angular-plugins.min.js'
                     }
                 ]
