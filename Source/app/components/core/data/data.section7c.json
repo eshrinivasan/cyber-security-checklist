@@ -35,7 +35,7 @@
         "remediatestatus":""
     },
      {
-        "controls": "Limit administrative privileges (see link on page 62)",
+        "controls": "Limit administrative privileges*",
          "": "",       
         "needtoremediate": "",
         "remediatesteps":"",

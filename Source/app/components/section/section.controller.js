@@ -34,68 +34,71 @@
 			$scope.sectionFirst =  total[0]  == dataservice.getSectionFirst();
 			
 			$scope.compareObjects = function (destObj, srcObj){
-					if(destObj === srcObj)	//if both objects are truly equal, skip copying
-					return;
+				if(destObj === srcObj)	//if both objects are truly equal, skip copying
+				return;
 
-					while(destObj.length != srcObj.length){
-	                    destObj.push({});
-                	}
+				while(destObj.length != srcObj.length){
+                    destObj.push({});
+            	}
 
-                	for(var i= 0; i< srcObj.length; i++){ 	//copying section1 values
-                         for( var prop in srcObj[i] ){		//copying only matching object properties
-                            destObj[i][prop] = srcObj[i][prop];                        
-	                     }
-                    }
+            	for(var i= 0; i< srcObj.length; i++){ 	//copying section1 values
+                     for( var prop in srcObj[i] ){		//copying only matching object properties
+                        destObj[i][prop] = srcObj[i][prop];                        
+                     }
+                }
 			}
 		
 			$scope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams, options){ 					
-					if(toState.parent != "section") return;
-			 		var currState = toState.name.replace(".","");
-			 		//if(!angular.isUndefined(toState.name) && toState.name.match(/\d+$/) != null)
-					var sectionNumber = toState.name.match(/\d+$/)[0];//filter out non numberic characters ie "section"
-					$scope.sectionFirst =  sectionNumber  == dataservice.getSectionFirst();
-	                //Finish button on the Last section
-		           	$scope.sectionLast = sectionNumber  == dataservice.getSectionLast();
+				if(toState.parent != "section") return;
+		 		var currState = toState.name.replace(".","");
+		 		//if(!angular.isUndefined(toState.name) && toState.name.match(/\d+$/) != null)
+				var sectionNumber = toState.name.match(/\d+$/)[0];//filter out non numberic characters ie "section"
+				$scope.sectionFirst =  sectionNumber  == dataservice.getSectionFirst();
+                //Finish button on the Last section
+	           	$scope.sectionLast = sectionNumber  == dataservice.getSectionLast();
 
-					var srcObj = $scope['section1'].data;
-					var prepopulateArr = ['section1', 'section2', 'section4a', 'section6']; //Ideally this shouldnt exist
+				var srcObj = $scope['section1'].data;
+				var prepopulateArr = ['section1', 'section2', 'section4a', 'section6']; //Ideally this shouldnt exist
 
-					var sectosavearr = dataservice.getSectionAssocArray(currState); //Pull all sections with subsections
-	                if(sectosavearr.length > 1){									//If more subsections, loop over each sub
-	                    angular.forEach(sectosavearr, function(key, value){
-	                    	var destObj = $scope[key].data;
-	                    	if(prepopulateArr.indexOf(key) > -1){//find scopes that needs to increase length
-	                    		$scope.compareObjects(destObj, srcObj);
-	                    	}
-	                    	
-		                    $localStorage[key] = $scope[key]; //storing in local storage
-	                    });
-	                }else{															//If section contains only one section
-	                        var destObj = $scope[currState].data;
-	                        if(prepopulateArr.indexOf(currState) > -1){
-	                    		$scope.compareObjects(destObj, srcObj);
-		                    } 
+				var sectosavearr = dataservice.getSectionAssocArray(currState); //Pull all sections with subsections
+                if(sectosavearr.length > 1){									//If more subsections, loop over each sub
+                    angular.forEach(sectosavearr, function(key, value){
+                    	var destObj = $scope[key].data;
+                    	if(prepopulateArr.indexOf(key) > -1){//find scopes that needs to increase length
+                    		$scope.compareObjects(destObj, srcObj);
+                    	}
+                    	
+	                    $localStorage[key] = $scope[key]; //storing in local storage
+                    });
+                }else{															//If section contains only one section
+                        var destObj = $scope[currState].data;
+                        if(prepopulateArr.indexOf(currState) > -1){
+                    		$scope.compareObjects(destObj, srcObj);
+	                    } 
 
-		                    $localStorage[currState] = $scope[currState]; //storing in local storage             
-	                }				   
+	                    $localStorage[currState] = $scope[currState]; //storing in local storage             
+                }				   
 		     });
 
      		$scope.addNewItem = function(sections){
      			angular.forEach(arguments, function(value, key){
-     				value.data.push({});	
+     				value.data.push({});
+     				$scope.gridApi.cellNav.scrollToFocus( value.data[1]);		
      			});
+
+
 		    };
 		  
 			$scope.getTableHeight = function(section) {
-			       var headerHeight = 110; // your header height
-			       var calculatedHeight = (section.data.length * section.rowHeight + headerHeight) + "px";			       			       
-			       return {
-			          height: calculatedHeight
-			       };
-			};		
-					
+		       var headerHeight = 110; // your header height
+		       var calculatedHeight = (section.data.length * section.rowHeight + headerHeight) + "px";			       			       
+		       return {
+		          height: calculatedHeight
+		       };
+			};	
 
 			$scope.section1 = { 
+				enableCellEditOnFocus: true,
 				enableSorting: false,
 				rowHeight:55,
 				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
@@ -103,6 +106,7 @@
 				columnDefs:[{
 						field: 'piidata',
 						displayName:'PII or Firm Sensitive Data'
+						
 				},
 				{	
 						field: 'location',
@@ -120,12 +124,10 @@
 			    }
 			};
 
-			
-
 			function DisplayObject(name, tooltip) {
-			    	// this refers to the new instance
-				    this.name = name;
-				    this.tooltip = tooltip;
+		    	// this refers to the new instance
+			    this.name = name;
+			    this.tooltip = tooltip;
 			}
 
 			var longHdrCellTxtTpl = '<div class="grid-tooltip" tooltip="{{ col.displayName.tooltip}}" tooltip-placement="top" tooltip-append-to-body="true">'
@@ -193,25 +195,26 @@
 			};
 
 			$scope.section3a = { 
-				enableCellEditOnFocus: true, 
 				enableSorting: false,
 				rowHeight:55,
 				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
         		enableVerticalScrollbar   : uiGridConstants.scrollbars.NEVER,
 				columnDefs:[{
 							field: 'nameof3rdparty',
-							displayName:'Name of Third Party Organization'
+							displayName:'Name of Third Party Organization',							
+							enableCellEditOnFocus: true
 					},
 					{	
 							field: 'piidatatransmit',
 							displayName:new DisplayObject('PII or Firm Sensitive Data Transmitted', 'You can list data at a group level such as Customer Account Information, or at the granular level such as social security number, customer name, date of birth etc.'),
-							headerCellTemplate: longHdrCellTxtTpl
+							headerCellTemplate: longHdrCellTxtTpl,
+							enableCellEditOnFocus: true
 					},
 					{
 							field:'risklevel',
 							displayName: new DisplayObject('Risk Severity', 'Assign a risk severity classification to the data transmitted (low, medium or high).'),
 							cellTemplate: 'components/section/templates/dropdown.html',						
-							enableCellEditOnFocus: false, 
+							enableCellEdit:false, 
 					        editDropdownOptionsArray: $scope.levels,
 					        headerCellTemplate: longHdrCellTxtTpl
 					},
@@ -219,7 +222,7 @@
 							field: 'partyaccessneed',
 							displayName: new DisplayObject('Does third party require data?', 'assess whether the third party requires the information it can access for a business purpose.'),
 							cellTemplate: 'components/section/templates/dropdown.html',						
-							enableCellEditOnFocus: false, 
+							enableCellEdit:false,
 					        editDropdownOptionsArray: $scope.yes_no,
 					        headerCellTemplate: longHdrCellTxtTpl
 					},
@@ -227,7 +230,7 @@
 							field: 'assess3rdparty',
 							displayName: new DisplayObject('Third Party Security', 'assess the security of the third party’s systems'),
 							cellTemplate: 'components/section/templates/dropdown.html',						
-							enableCellEditOnFocus: false, 
+							enableCellEdit:false,
 					        editDropdownOptionsArray: $scope.yes_no,
 					        headerCellTemplate: longHdrCellTxtTpl
 					},
@@ -235,7 +238,7 @@
 							field: 'ctrlstoisolate',
 							displayName: new DisplayObject('Isolate critical assets', 'assess if the third party access to information is limited to information it requires for business reasons'),
 							cellTemplate: 'components/section/templates/dropdown.html',						
-							enableCellEditOnFocus: false,
+							enableCellEdit:false,
 					        editDropdownOptionsArray: $scope.yes_no,
 					        headerCellTemplate: longHdrCellTxtTpl
 					},
@@ -243,19 +246,20 @@
 							field: 'needsremediate',
 							displayName: new DisplayObject('Remediate', 'consider the risk severity level and your resources and make a risk assessment of whether any remediation is necessary'),
 							cellTemplate: 'components/section/templates/dropdown.html',						
-							enableCellEditOnFocus: false,
+							enableCellEdit:false,
 					        editDropdownOptionsArray: $scope.yes_no,
 					        headerCellTemplate: longHdrCellTxtTpl
 					},
 					{	
 							field: 'remediatesteps',
-							displayName: 'Remediation Steps'
+							displayName: 'Remediation Steps',
+							enableCellEditOnFocus: true
 					},
 					{	
 							field: 'remediatestatus',
 							displayName: 'Remediation Status',
 							cellTemplate: 'components/section/templates/dropdown.html',						
-							enableCellEditOnFocus: false,
+							enableCellEdit:false,
 					        editDropdownOptionsArray: $scope.remediationsteps
 					}
 				],
@@ -266,8 +270,7 @@
 			};
 
 
-			$scope.section3b = { 
-				enableCellEditOnFocus: true, 
+			$scope.section3b = { 				
 				enableSorting: false,
 				rowHeight:92,
 				enableHorizontalScrollbar : uiGridConstants.scrollbars.NEVER,
@@ -281,25 +284,26 @@
 							field: 'yes_no',
 							displayName:'Yes/No',
 							cellTemplate: 'components/section/templates/dropdown.html',						
-							enableCellEditOnFocus: false,
+							enableCellEdit:false,
 					        editDropdownOptionsArray: $scope.yes_no
 					},
 					{	
 							field: 'needtoremediate',
 							displayName: 'Do you need to Remediate?',
 							cellTemplate: 'components/section/templates/dropdown.html',						
-							enableCellEditOnFocus: false,
+							enableCellEdit:false,
 					        editDropdownOptionsArray: $scope.yes_no
 					},
 					{	
 							field: 'remediatesteps',
-							displayName: 'Remediation Steps'
+							displayName: 'Remediation Steps',
+							enableCellEditOnFocus: true
 					},
 					{	
 							field: 'remediatestatus',
 							displayName: 'Remediation Status',
 							cellTemplate: 'components/section/templates/dropdown.html',						
-							enableCellEditOnFocus: false,
+							enableCellEdit:false,
 					        editDropdownOptionsArray: $scope.remediationsteps
 					}
 				],
@@ -324,25 +328,26 @@
 							field: 'yes_no',
 							displayName:'Yes/No',
 							cellTemplate: 'components/section/templates/dropdown.html',						
-							enableCellEditOnFocus: false,
+							enableCellEdit:false,
 					        editDropdownOptionsArray: $scope.yes_no
 					},
 					{	
 							field: 'needtoremediate',
 							displayName: 'Do you need to Remediate?',
 							cellTemplate: 'components/section/templates/dropdown.html',						
-							enableCellEditOnFocus: false,							
+							enableCellEdit:false,							
 					        editDropdownOptionsArray: $scope.yes_no
 					},
 					{	
 							field: 'remediatesteps',
-							displayName: 'Remediation Steps'
+							displayName: 'Remediation Steps',
+							enableCellEditOnFocus: true
 					},
 					{	
 							field: 'remediatestatus',
 							displayName: 'Remediation Status',
 							cellTemplate: 'components/section/templates/dropdown.html',						
-							enableCellEditOnFocus: false,							
+							enableCellEdit:false,						
 					        editDropdownOptionsArray: $scope.remediationsteps
 					}
 				],
